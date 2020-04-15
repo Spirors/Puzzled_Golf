@@ -4,7 +4,11 @@
   <head>
     <title>Puzzled Golf Game Design Document</title>
   </head>
-
+  <style>
+    table, th, td {
+      border: 1px solid black;
+    }
+  </style>
   <body>
   <div align = "center"> 
     <img src = "images/puzzled_golf_logo.jpg" width = "300" height = "200" />
@@ -22,7 +26,7 @@
 
       <h3>INTRODUCTION</h3>
 
-      <p>This is a game design document for the game “Puzzled Golf”, which is a simple 2D top-down game. This document is constructed to organize each component of the game. The game will deploy basic animation, tiled levels, collision detection, physics engine, and more other 2D gaming techniques.
+      <p>This is a game design document for the game “Puzzled Golf”, which is a simple 2D top-down game. This document is constructed to organize each component of the game. The game will deploy basic animation, tiled levels, collision detection, physics engine, and other 2D gaming techniques.
       </p>
       <br />
 
@@ -45,16 +49,36 @@
 
       <h3>GAMEPLAY</h3>
 
-      <p>The user will try to sink a golf ball into the designated hole of the level, by various puzzles along the way. Score will be calculated based on the amount of stroke required for the user to sink the ball.</p>
-      <br />
+      <p>The user will try to sink a golf ball into the designated hole of the level, while facing various puzzles along the way. Some of the roadblocks and terrains that the player will encounter are slopes, lava, lakes, lasers, traps, mazes, doors, and more! Score will be calculated based on the amount of stroke required for the user to sink the ball.</p>
+      
+      <div> Example of Puzzles in Game Play:  </div> 
+      <table style="width:100%">
+        <tr>
+          <th>Puzzles</th>
+          <th>Outcome</th> 
+        </tr>
+        <tr>
+          <td> Laser Beams </td>
+          <td> Avoid laster beams. If touched, golf ball will disintegrate. </td>
+        </tr>
+        <tr>
+          <td> Closed Door </td>
+          <td> Find button/latch to unlock the door. </td>
+        </tr>
+        <tr>
+          <td> Lakes/Ponds </td>
+          <td> If golf ball lands in a body of water, golf ball is soaked and will be weighted. When player swings at golf ball, direction and power is less accurate than before. </td>
+        </tr>
+      </table>
 
+      <br />
       <h3>CONTROLS</h3>
 
       <p>The controls for this game will be both the mouse and keyboard when playing the game:</p>
 
       <ul>
-        <li><strong>ESC</strong> - pressing ESC for the keyboard will bring up the In-Game Menu.</li>
-        <li><strong>Holding Left Click</strong> on a golf ball will select the golf ball (highlight), allowing the user to drag back indicating how hard they want to hit the golf ball. Releasing will shoot the ball.</li>
+        <li><strong>ESC</strong> - pressing ESC on the keyboard will bring up the In-Game Menu.</li>
+        <li><strong>Holding Left Click</strong> Holding left click on a golf ball will select the golf ball (highlight), allowing the user to drag back indicating how hard they want to hit the golf ball. Releasing will shoot the ball.</li>
         <li><strong>Mouse</strong> - Moving the mouse around while the golf ball is selected will allow the user to change the direction they want to hit the ball.</li>
         <li><strong>WASD</strong> - Move the viewport around the level</li>
         <li><strong>Right Click</strong> - Right clicking while the golf ball is selected will deselect the golf ball.</li>
@@ -76,7 +100,7 @@
           <li><strong>Restart Button</strong> - The restart button will allow the user to restart the level they are currently on.</li>
           <li><strong>Menu Button</strong> - The menu button will allow the user to return back to the main menu where they can select which level they want to play.</li>
           <li><strong>Resume Button</strong> - The resume button will bring the user back to the game.</li>
-          <li><strong>Help Button</strong> - The help button will display a screen with information on how to play the game.</li>
+          <li><strong>Help Button</strong> - The help button will display the help screen with information on how to play the game.</li>
           <li><strong>Mute Button</strong> - The mute button will be used to mute both SFX and game music.</li>
           <li><strong>High Score</strong> - The high score of the current level will be displayed in the center of the game menu represented by three stars and a number depending on the high score of the current level.</li>
         </ul>
