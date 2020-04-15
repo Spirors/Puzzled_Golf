@@ -2,7 +2,7 @@
 
 <html>
   <head>
-    <title>Puzzle Golf Game Design Document</title>
+    <title>Puzzled Golf Game Design Document</title>
   </head>
 
   <body>
@@ -10,7 +10,7 @@
     <img src = "images/puzzled_golf_logo.jpg" width = "300" height = "200" />
   </div>
   <h2 align="center">
-    Puzzle Golf<br />
+    Puzzled Golf<br />
     Game Design Document
   </h2>
 
@@ -22,17 +22,20 @@
 
       <h3>INTRODUCTION</h3>
 
-      <p>This is a game design document for the game “Puzzled Golf”, which is a simple 2D top-down game. This document is constructed to organize each component of the game. The game will deploy basic animation, tiled levels, collision detection, physics engine, and more other 2D gaming techniques.</p>
+      <p>This is a game design document for the game “Puzzled Golf”, which is a simple 2D top-down game. This document is constructed to organize each component of the game. The game will deploy basic animation, tiled levels, collision detection, physics engine, and more other 2D gaming techniques.
+      </p>
       <br />
 
       <h3>TECHNOLOGY</h3>
 
-      <p>The game is going to be developed through Phaser paired with typescript. It is going to be deployed on Firebase and version controlled with git on GitHub.</p>
+      <p>The game is going to be developed through Phaser paired with typescript. It is going to be deployed on Firebase and version controlled with git on GitHub. All levels will be made with Tiled.
+      </p>
       <br />
 
       <h3>BACK STORY</h3>
 
-      <p></p>
+      <p>After failing to graduate college, you try to persuade your parents to let you pursue pro golf. Because your parents don’t really understand all the logistics behind pro golf, you decide to take up mini golf instead. On your way home from your last failed final, you see a poster advertising a puzzle solving mini golf game with gold stars and a tv show shooting to go along with it. You decide to take up this challenge and impress your parents with your wits and golf skills. See if you can solve these puzzles and win the gold stars!
+      </p>
       <br />
 
       <h3>OBJECTIVE</h3>
@@ -65,6 +68,7 @@
       <ul>
         <li><strong>Splash Screen</strong> - The splash screen will be a simple screen displaying our game logo with text at the bottom of the screen telling the user to press to continue, pressing anywhere on the screen will bring the user to the In-Game Menu.</li>
         <li><strong>Main Menu</strong> - The main menu will be a screen with various levels displayed on it. All levels except the first level will be locked. The main menu will also have a question mark on the top right which the user will be able to click the question mark which will display information about how to play the game.</li>
+        <li><strong>Control Screen</strong> - The control screen is a screen that will teach the user how to play that game and what mouse and keyboard inputs are used for the game.</li>
       <br />
 
       <li><strong>In-Game Menu</strong> - While the game is in progress, the user will have the option to press a menu button displaying the following:
@@ -86,6 +90,11 @@
           <li>Current Level</li>
         </ul>
       </ul>
+      <img src="images/Splash_Screen.png" width="200" height="140">
+      <img src="images/Main_Menu.png" width="200" height="140">
+      <img src="images/Help_Menu.png" width="200" height="140">
+      <img src="images/In_Game_Menu.png" width="200" height="200">
+      <img src="images/In_Game_GUI.png" width="200" height="140">
       <br />
 
       <h3>ARTWORK</h3>
