@@ -1,8 +1,8 @@
 import * as Phaser from 'phaser';
 
 var config = {
-    width: 800,
-    height: 600,
+    width: 100,
+    height: 100,
     type: Phaser.AUTO,
     backgroundColor: 0x000000,
     scene: [],
