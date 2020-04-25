@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Puzzled Golf Game Design Document</title>
+  </head>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+    }
+  </style>
+  <body>
+  <div align = "center"> 
+    <img src = "images/puzzled_golf_logo.jpg" width = "300" height = "200" />
+  </div>
+  <h2 align="center">
+    Puzzled Golf<br />
+    Game Design Document
+  </h2>
+
+  <h4 align="center">
+    by Siyuan Zou, Kristy Tan, and Billy Luy
+  </h4>
+
+    <div id="content">
+
+      <h3>INTRODUCTION</h3>
+
+      <p>This is a game design document for the game “Puzzled Golf”, which is a simple 2D top-down game. This document is constructed to organize each component of the game. The game will deploy basic animation, tiled levels, collision detection, physics engine, and other 2D gaming techniques.
+      </p>
+      <br />
+
+      <h3>TECHNOLOGY</h3>
+
+      <p>The game is going to be developed through Phaser paired with typescript. It is going to be deployed on Firebase and version controlled with git on GitHub. All levels will be made with Tiled.
+      </p>
+      <br />
+
+      <h3>BACK STORY</h3>
+
+      <p>After failing to graduate college, you try to persuade your parents to let you pursue pro golf. Because your parents don’t really understand all the logistics behind pro golf, you decide to take up mini golf instead. On your way home from your last failed final, you see a poster advertising a puzzle solving mini golf game with gold stars and a tv show shooting to go along with it. You decide to take up this challenge and impress your parents with your wits and golf skills. See if you can solve these puzzles and win the gold stars!
+      </p>
+      <br />
+
+      <h3>OBJECTIVE</h3>
+
+      <p>Clear all the levels with three stars, solving puzzles and trying to sink the golf ball in as little strokes as possible.</p>
+      <br />
+
+      <h3>GAMEPLAY</h3>
+
+      <p>The user will try to sink a golf ball into the designated hole of the level, while facing various puzzles along the way. Some of the roadblocks and terrains that the player will encounter are slopes, lava, lakes, lasers, traps, mazes, doors, and more! Score will be calculated based on the amount of stroke required for the user to sink the ball.</p>
+      
+      <div> Example of Puzzles in Game Play:  </div> 
+      <table style="width:100%">
+        <tr>
+          <th>Puzzles</th>
+          <th>Outcome</th> 
+        </tr>
+        <tr>
+          <td> Laser Beams </td>
+          <td> Avoid laster beams. If touched, golf ball will disintegrate. </td>
+        </tr>
+        <tr>
+          <td> Closed Door </td>
+          <td> Find button/latch to unlock the door. </td>
+        </tr>
+        <tr>
+          <td> Lakes/Ponds </td>
+          <td> If golf ball lands in a body of water, golf ball is soaked and will be weighted. When player swings at golf ball, direction and power is less accurate than before. </td>
+        </tr>
+      </table>
+
+      <br />
+      <h3>CONTROLS</h3>
+
+      <p>The controls for this game will be both the mouse and keyboard when playing the game:</p>
+
+      <ul>
+        <li><strong>ESC</strong> - pressing ESC on the keyboard will bring up the In-Game Menu.</li>
+        <li><strong>Holding Left Click</strong> Holding left click on a golf ball will select the golf ball (highlight), allowing the user to drag back indicating how hard they want to hit the golf ball. Releasing will shoot the ball.</li>
+        <li><strong>Mouse</strong> - Moving the mouse around while the golf ball is selected will allow the user to change the direction they want to hit the ball.</li>
+        <li><strong>WASD</strong> - Move the viewport around the level</li>
+        <li><strong>Right Click</strong> - Right clicking while the golf ball is selected will deselect the golf ball.</li>
+      </ul>
+      <br />
+
+      <h3>GRAPHICAL USER INTERFACE</h3>
+
+      <p>As far as the GUI is concerned, if we consider</p>
+
+      <ul>
+        <li><strong>Splash Screen</strong> - The splash screen will be a simple screen displaying our game logo with text at the bottom of the screen telling the user to press to continue, pressing anywhere on the screen will bring the user to the In-Game Menu.</li>
+        <li><strong>Main Menu</strong> - The main menu will be a screen with various levels displayed on it. All levels except the first level will be locked. The main menu will also have a question mark on the top right which the user will be able to click the question mark which will display information about how to play the game.</li>
+        <li><strong>Control Screen</strong> - The control screen is a screen that will teach the user how to play that game and what mouse and keyboard inputs are used for the game.</li>
+      <br />
+
+      <li><strong>In-Game Menu</strong> - While the game is in progress, the user will have the option to press a menu button displaying the following:
+        <ul>
+          <li><strong>Restart Button</strong> - The restart button will allow the user to restart the level they are currently on.</li>
+          <li><strong>Menu Button</strong> - The menu button will allow the user to return back to the main menu where they can select which level they want to play.</li>
+          <li><strong>Resume Button</strong> - The resume button will bring the user back to the game.</li>
+          <li><strong>Help Button</strong> - The help button will display the help screen with information on how to play the game.</li>
+          <li><strong>Mute Button</strong> - The mute button will be used to mute both SFX and game music.</li>
+          <li><strong>High Score</strong> - The high score of the current level will be displayed in the center of the game menu represented by three stars and a number depending on the high score of the current level.</li>
+        </ul>
+      </li>
+      <br />
+
+      <li><strong>In-Game GUI</strong> - While playing the game, the following will be displayed:
+        <ul>
+          <li>Menu Button</li>
+          <li>Current Score</li>
+          <li>Current Level</li>
+        </ul>
+      </ul>
+      <img src="images/Splash_Screen.png" width="400" height="300">
+      <img src="images/Main_Menu.png" width="400" height="300">
+      <img src="images/Help_Menu.png" width="400" height="300">
+      <img src="images/In_Game_Menu.png" width="380" height="400">
+      <img src="images/In_Game_GUI.png" width="400" height="300">
+      <br />
+
+      <h3>ARTWORK</h3>
+
+      <p>All artwork in the game will be original. The following needs to be created:</p>
+
+      <ul>
+        <li><strong>Golf Ball</strong> - The golf ball will be a simple sprite, we will need to make artwork for the golf ball itself as well as animation for when the ball is hit, leaving a trail that disappears.</li>
+        <li><strong>Floor and Wall Tiles</strong> - Floor and wall tiles will be used to contain the level the user is currently on and all the interactive tiles in the level.</li>
+        <li><strong>Interactive Tiles</strong> - Interactive tiles will be tiles that have an effect on either the golf ball or the level and should each have it’s own animation:
+        <ul>
+          <li>Doors</li>
+          <li>Water and Lava</li>
+          <li>Switches</li>
+          <li>Pressure plates</li>
+          <li>Lasers</li>
+        </ul>
+      </li>
+      <li><strong>Background Tiles</strong> - Tiles in the background will be used to display the current theme of the level, behind the ceiling and walls containing the interactable level.</li>
+      </ul>
+      <br />
+
+
+
+      <h3>SOUND EFFECTS</h3>
+
+      <p>Sounds must be made to coincide with each of the following events:</p>
+      <ul>
+        <li><strong>Hitting the golf ball</strong></li>
+        <li><strong>Hitting the wall</strong></li>
+        <li><strong>Landing in a hole</strong></li>
+        <li><strong>Landing in terrain</strong></li>
+        <li><strong>Collision between balls</strong></li>
+        <li><strong>Golf ball disintegrating</strong></li>
+        <li><strong>Lasers</strong></li>
+        <li><strong>Pressure plate</strong></li>
+        <li><strong>Doors</strong></li>
+        <li><strong>Completing the level</strong></li>
+      </ul>
+      <br />
+
+      <h3>MUSIC</h3>
+      <ul>
+        <li><strong>Main menu music</strong></li>
+        <li><strong>Theme track based off of each level.</strong></li>
+      </ul>
+      <br />
+      <hr />
+
+      <p><br /></p>
+    </div>
+  </body>
+</html>
