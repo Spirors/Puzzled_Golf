@@ -1,11 +1,14 @@
 import * as Phaser from 'phaser';
+import {SplashScreen} from './scenes/SplashScreen';
+import {MainMenu} from './scenes/MainMenu';
+import { Level1 } from './scenes/Level1';
 
 var config = {
-    width: 100,
-    height: 100,
+    width: 1400,
+    height: 900,
     type: Phaser.AUTO,
     backgroundColor: 0x000000,
-    scene: [],
+    scene: [SplashScreen, MainMenu, Level1],
     preload: preload,
     create: create,
     update: update
