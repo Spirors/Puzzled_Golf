@@ -2,13 +2,14 @@ import * as Phaser from 'phaser';
 import {SplashScreen} from './scenes/SplashScreen';
 import {MainMenu} from './scenes/MainMenu';
 import { Level1 } from './scenes/Level1';
+import { Hud } from './scenes/Hud';
 
 var config = {
     width: 1400,
     height: 900,
     type: Phaser.AUTO,
     backgroundColor: 0x000000,
-    scene: [SplashScreen, MainMenu, Level1],
+    scene: [SplashScreen, MainMenu, Level1, Hud],
     preload: preload,
     create: create,
     update: update
