@@ -18,7 +18,7 @@ export class InGameMenu extends Phaser.Scene{
     }
     preload(){
         this.load.image("menu_bg", "../dist/assets/menu_background.png");
-        this.load.spritesheet("sound", "../dist/assets/sound_img.png", {frameWidth: 160, frameHeight: 78});
+        this.load.spritesheet("sound", "../dist/assets/sound_img.png", {frameWidth: 120, frameHeight: 80});
     }
     create ()
     {
