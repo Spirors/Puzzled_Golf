@@ -1,7 +1,10 @@
 import { Hud } from './Hud';
 import { InGameMenu } from './InGameMenu';
+import { Ball } from '../objects/ball';
 
 export class Level1 extends Phaser.Scene{
+    private ball;
+
     constructor(){
         super("level1");
     }
@@ -9,9 +12,10 @@ export class Level1 extends Phaser.Scene{
 
     }
     preload(){
-        this.load.image('hole', "../dist/assets/golf_hole.png")
+        this.load.image('hole', "../dist/assets/golf_hole.png");
         this.load.image('tiles', '../dist/assets/tileset.png');
         this.load.tilemapTiledJSON('map', '../dist/assets/level1.json');
+        this.load.image('ball', '../dist/assets/ball.png');
     }
     create(){
         //----------------------------------------------------------------------------
@@ -41,6 +45,12 @@ export class Level1 extends Phaser.Scene{
         platforms.setScale(platforms.scale/2);
         platforms.setPosition(this.game.renderer.width/2 - ((platforms.width * platforms.scale)/2), this.game.renderer.height/2 - ((platforms.height * platforms.scale)/2));
         //width 1920 heihgt 1280
+
+        this.ball = new Ball({
+            scene : this,
+            x : this.scale.width - 900, //x coordnate of ball
+            y : this.scale.height - 600 //y coordnate of ball
+        });
     }
 
     clickHandler (pointer){
