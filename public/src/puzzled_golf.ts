@@ -3,6 +3,7 @@ import {SplashScreen} from './scenes/SplashScreen';
 import {MainMenu} from './scenes/MainMenu';
 import { Level1 } from './scenes/Level1';
 import { Hud } from './scenes/Hud';
+import { InGameMenu } from './scenes/InGameMenu';
 
 var config = {
     width: 1400,
@@ -13,7 +14,7 @@ var config = {
         arcade: { debug: true }
     },
     backgroundColor: 0x000000,
-    scene: [SplashScreen, MainMenu, Level1, Hud],
+    scene: [SplashScreen, MainMenu],
     preload: preload,
     create: create,
     update: update

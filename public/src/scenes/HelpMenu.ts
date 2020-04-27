@@ -16,6 +16,7 @@ export class HelpMenu extends Phaser.Scene{
         exit.setDepth(1);
         exit.setInteractive();
         exit.on('pointerdown', () => {
+            this.scene.resume("inGameMenu");
             this.scene.remove(this);
         });
     }

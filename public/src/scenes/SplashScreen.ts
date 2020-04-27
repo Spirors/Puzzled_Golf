@@ -6,7 +6,7 @@ export class SplashScreen extends Phaser.Scene{
 
     }
     preload(){
-        this.load.image("logo", "../dist/images/puzzled_golf_logo.png");
+        this.load.image("logo", "../dist/assets/puzzled_golf_logo.png");
     }
     create(){
         this.add.image(this.game.renderer.width/2,this.game.renderer.height * 0.35,"logo");

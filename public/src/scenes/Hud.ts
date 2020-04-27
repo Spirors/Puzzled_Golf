@@ -24,6 +24,12 @@ export class Hud extends Phaser.Scene{
             this.score += 1;
             scoreText.setText('Score: ' + this.score);
         }, this);
+        // console.log(ourGame.events.eventNames);
+        this.scene.get('inGameMenu').events.on('goHome', function (){
+            console.log('mm');
+            ourGame.events.off('addScore');
+            ourGame.events.off('setLevel');
+        })
     }
 
     refresh ()
