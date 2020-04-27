@@ -9,9 +9,13 @@ export class Level1 extends Phaser.Scene{
 
     }
     preload(){
-
+        this.load.image('hole', "../dist/assets/golf_hole.png")
+        this.load.image('tiles', '../dist/assets/tileset.png');
+        this.load.tilemapTiledJSON('map', '../dist/assets/level1.json');
     }
     create(){
+        //----------------------------------------------------------------------------
+        //core level creation, hud and in game menu
         console.log("LEVEL1");
         if(this.scene.manager.getScene("inGameMenu") != null){
             this.scene.remove("inGameMenu");
@@ -29,6 +33,14 @@ export class Level1 extends Phaser.Scene{
             this.scene.pause();
             this.scene.setVisible(true, "inGameMenu") ;
         }, this)
+        //-----------------------------------------------------------------------------
+        //map
+        var map = this.make.tilemap({ key: 'map' });
+        var tileset = map.addTilesetImage('golf_course', 'tiles');
+        var platforms = map.createStaticLayer('Tile Layer 1', tileset, 0, 0);
+        platforms.setScale(platforms.scale/2);
+        platforms.setPosition(this.game.renderer.width/2 - ((platforms.width * platforms.scale)/2), this.game.renderer.height/2 - ((platforms.height * platforms.scale)/2));
+        //width 1920 heihgt 1280
     }
 
     clickHandler (pointer){

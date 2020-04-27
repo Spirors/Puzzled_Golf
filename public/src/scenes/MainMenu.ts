@@ -34,6 +34,11 @@ export class MainMenu extends Phaser.Scene{
             var newScene = this.scene.add('level1', Level1, true);
             this.scene.stop();
         });
+
+        exit.setInteractive();
+        exit.on('pointerdown', () => {
+            this.log();
+        });
     }
 
     createWindow(func){
@@ -41,6 +46,11 @@ export class MainMenu extends Phaser.Scene{
         let winY = this.game.renderer.height/4+40
         var win = this.add.zone(winX, winY, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
         var help_menu = new func("helpMenu", win);
-        this.scene.add("helpMenu", help_menu, true);
+        this.scene
+        .add("helpMenu", help_menu, true);
+    }
+
+    log(){
+        console.log('exit');
     }
 }
