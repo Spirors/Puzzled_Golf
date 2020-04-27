@@ -6,8 +6,12 @@ import { Hud } from './scenes/Hud';
 
 var config = {
     width: 1400,
-    height: 900,
+    height: 800,
     type: Phaser.AUTO,
+    physics: {
+        default: 'arcade',
+        arcade: { debug: true }
+    },
     backgroundColor: 0x000000,
     scene: [SplashScreen, MainMenu, Level1, Hud],
     preload: preload,
