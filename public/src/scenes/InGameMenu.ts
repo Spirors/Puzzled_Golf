@@ -5,6 +5,7 @@ export class InGameMenu extends Phaser.Scene{
     private parent;
     private menuHeight;
     private menuWidth;
+    private muted;
     constructor (handle, parent)
     {
         super(handle);
@@ -13,10 +14,11 @@ export class InGameMenu extends Phaser.Scene{
     init(){
         this.menuHeight = 510;
         this.menuWidth = 336;
+        this.muted = false;
     }
     preload(){
         this.load.image("menu_bg", "../dist/assets/menu_background.png");
-        this.load.spritesheet("sound", "../dist/assets/sound_img.png", {frameWidth: 120, frameHeight: 79});
+        this.load.spritesheet("sound", "../dist/assets/sound_img.png", {frameWidth: 160, frameHeight: 78});
     }
     create ()
     {
@@ -28,9 +30,7 @@ export class InGameMenu extends Phaser.Scene{
         var mute = this.add.image(this.menuWidth/2 , this.menuHeight/2 + 120, "button", 4);
         var exit = this.add.image(this.menuWidth - 47, 27, "exit").setOrigin(0);
         var sound_img = this.add.sprite(this.menuWidth/2 , this.menuHeight/2 + 180, "sound", 0);
-        sound_img.setFrame(1);
-        // var sound_img = this.add.sprite(this.menuWidth/2 , this.menuHeight/2 - 120, "sound", 1);
-        // sound_img.setScale(.5);
+        sound_img.setScale(.5);
         
         restart.setInteractive();
         mainMenu.setInteractive();
@@ -71,7 +71,13 @@ export class InGameMenu extends Phaser.Scene{
         });
         
         mute.on('pointerdown', () => {
-            sound_img.setFrame(1);
+            if(this.muted){
+                this.muted = false;
+                sound_img.setFrame(0);
+            }else{
+                this.muted = true;
+                sound_img.setFrame(1);
+            }
         })   
     }
 
