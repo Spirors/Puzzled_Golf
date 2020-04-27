@@ -1,4 +1,5 @@
 import { HelpMenu } from "./HelpMenu";
+import { Level1 } from "./Level1";
 
 export class MainMenu extends Phaser.Scene{
     constructor(){
@@ -8,20 +9,19 @@ export class MainMenu extends Phaser.Scene{
 
     }
     preload(){
-        this.load.spritesheet("button", "../dist/images/menu_button.png", {frameWidth: 147,
-        frameHeight: 41});
-        this.load.spritesheet("levels", "../dist/images/levels.png", {frameWidth: 404,
+        this.load.spritesheet("button", "../dist/assets/menu_button.png", {frameWidth: 189,
+        frameHeight: 37});
+        this.load.spritesheet("levels", "../dist/assets/levels.png", {frameWidth: 404,
             frameHeight: 60});
-        this.load.image("help_menu", "../dist/images/help_pop.png");
-        this.load.image("exit", "../dist/images/exit.png");
+        this.load.image("help_menu", "../dist/assets/help_pop.png");
+        this.load.image("exit", "../dist/assets/exit.png");
     }
     create(){
-        console.log("main menu");
-        var help = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 - 120, 'button', 3);
+        var help = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 - 120, 'button', 1);
         var level1 = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2, 'levels', 0);
         var level2 = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 +60, 'levels', 1);
         var level3 = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 +120, 'levels', 2);
-        var exit = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 +180, 'button', 4);
+        var exit = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 +180, 'button', 0);
 
         help.setInteractive();
         help.on('pointerup', function () {
@@ -30,7 +30,9 @@ export class MainMenu extends Phaser.Scene{
 
         level1.setInteractive();
         level1.on('pointerdown', () => {
-            this.scene.start('level1');
+            // this.scene.start('level1');
+            var newScene = this.scene.add('level1', Level1, true);
+            this.scene.stop();
         });
     }
 
