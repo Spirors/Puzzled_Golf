@@ -53,6 +53,10 @@ export class Level1 extends Phaser.Scene{
         });
     }
 
+    update() {
+        this.ball.update();
+    }
+
     clickHandler (pointer){
         this.events.emit('addScore');
     }
