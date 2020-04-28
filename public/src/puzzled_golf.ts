@@ -1,9 +1,6 @@
 import * as Phaser from 'phaser';
 import {SplashScreen} from './scenes/SplashScreen';
 import {MainMenu} from './scenes/MainMenu';
-import { Level1 } from './scenes/Level1';
-import { Hud } from './scenes/Hud';
-import { InGameMenu } from './scenes/InGameMenu';
 
 var config = {
     width: 1400,
@@ -11,7 +8,7 @@ var config = {
     type: Phaser.AUTO,
     physics: {
         default: 'arcade',
-        arcade: { debug: true }
+        matter: { debug: true }
     },
     backgroundColor: 0x000000,
     scene: [SplashScreen, MainMenu],

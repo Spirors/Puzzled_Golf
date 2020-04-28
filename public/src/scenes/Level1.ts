@@ -20,6 +20,7 @@ export class Level1 extends Phaser.Scene{
     create(){
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
+
         if(this.scene.manager.getScene("inGameMenu") != null){
             this.scene.remove("inGameMenu");
         }
