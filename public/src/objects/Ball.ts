@@ -3,12 +3,12 @@ import { Level1 } from "../scenes/Level1";
 export class Ball extends Phaser.Physics.Arcade.Sprite {
     private max_power = 600;
     private delta = 98/100;
+    private level_scene;
 
     constructor(config) {
         super(config.scene, config.x, config.y, 'ball');
         config.scene.physics.world.enable(this);
         config.scene.add.existing(this);
-
         this.setOrigin(0.5, 0.5);
         this.setInteractive();
         this.setCollideWorldBounds(true);
@@ -32,6 +32,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
             }
             console.log(power);
             this.shootBall(power, angleToPointer)
+            this.level_scene.events.emit("addScore");
         }, this);
     }
 

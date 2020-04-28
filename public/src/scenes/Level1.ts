@@ -20,7 +20,6 @@ export class Level1 extends Phaser.Scene{
     create(){
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
-        console.log("LEVEL1");
         if(this.scene.manager.getScene("inGameMenu") != null){
             this.scene.remove("inGameMenu");
         }
@@ -28,7 +27,7 @@ export class Level1 extends Phaser.Scene{
         this.createWindow(Hud, "hud", 0, 0);
         this.scene.setVisible(false, "inGameMenu") ;
         this.events.emit('setLevel');
-        this.input.on('pointerdown', this.clickHandler, this);
+        // this.input.on('pointerdown', this.clickHandler, this);
         var menu = this.add.sprite(this.game.renderer.width - 100, 30, 'button', 3);
         menu.setInteractive();
         this.setHighLight(menu);
@@ -41,16 +40,22 @@ export class Level1 extends Phaser.Scene{
         //map
         var map = this.make.tilemap({ key: 'map' });
         var tileset = map.addTilesetImage('golf_course', 'tiles');
-        var platforms = map.createStaticLayer('Tile Layer 1', tileset, 0, 0);
-        platforms.setScale(platforms.scale/2);
-        platforms.setPosition(this.game.renderer.width/2 - ((platforms.width * platforms.scale)/2), this.game.renderer.height/2 - ((platforms.height * platforms.scale)/2));
+        var bgLayer = map.createStaticLayer('Background', tileset, 0, 0);
+        bgLayer.setScale(bgLayer.scale/2);
+        bgLayer.setPosition(this.game.renderer.width/2 - ((bgLayer.width * bgLayer.scale)/2), this.game.renderer.height/2 - ((bgLayer.height * bgLayer.scale)/2));
+        var borderLayer = map.createStaticLayer('Border', tileset, 0, 0);
+        borderLayer.setPosition(this.game.renderer.width/2 - ((bgLayer.width * bgLayer.scale)/2), this.game.renderer.height/2 - ((bgLayer.height * bgLayer.scale)/2));
+        borderLayer.setScale(borderLayer.scale/2);
+        borderLayer.setCollisionByExclusion([-1],true);
         //width 1920 heihgt 1280
-
+        //create ball
         this.ball = new Ball({
             scene : this,
             x : this.scale.width - 900, //x coordnate of ball
             y : this.scale.height - 600 //y coordnate of ball
         });
+        // this.children.bringToTop(this.ball);
+        this.physics.add.collider(this.ball, borderLayer);
     }
 
     update() {
