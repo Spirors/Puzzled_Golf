@@ -5,6 +5,8 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     private min_power;
     private delta;
     private draggable;
+    private max_indicatorLength;
+    private min_indicatorLength;
 
     constructor(config) {
         super(config.scene, config.x, config.y, 'ball');
@@ -21,6 +23,9 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
         this.delta = .985;
         this.draggable = true;
 
+        this.max_indicatorLength = 150;
+        this.min_indicatorLength = 20;
+
         this.on('drag', function (pointer, gameObject) {
             var angleToPointer = pointer.getAngle();
             var distXToPointer = pointer.getDistanceX();
@@ -33,13 +38,14 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
                 var distXToPointer = pointer.getDistanceX();
                 var distYToPointer = pointer.getDistanceY();
                 var power = Math.sqrt(distXToPointer * distXToPointer + distYToPointer * distYToPointer);
-                if (power > this.max_power){
-                    power = this.max_power;
-                }
                 if (power <= this.min_power) {
                     power = 0;
                 }
-                // console.log(power);
+                power = power * 5;
+                if (power > this.max_power){
+                    power = this.max_power;
+                }
+                console.log(power)
                 if (power != 0) {
                     this.scene.events.emit("addScore");
                     this.draggable = false;
