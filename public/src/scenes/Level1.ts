@@ -20,6 +20,7 @@ export class Level1 extends Phaser.Scene{
     create(){
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
+        this.physics.world.setFPS(120);
 
         if(this.scene.manager.getScene("inGameMenu") != null){
             this.scene.remove("inGameMenu");
