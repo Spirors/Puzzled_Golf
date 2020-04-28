@@ -30,7 +30,6 @@ export class MainMenu extends Phaser.Scene{
 
         level1.setInteractive();
         level1.on('pointerdown', () => {
-            // this.scene.start('level1');
             var newScene = this.scene.add('level1', Level1, true);
             this.scene.stop();
         });

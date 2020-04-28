@@ -28,7 +28,6 @@ export class Level1 extends Phaser.Scene{
         this.createWindow(Hud, "hud", 0, 0);
         this.scene.setVisible(false, "inGameMenu") ;
         this.events.emit('setLevel');
-        // this.input.on('pointerdown', this.clickHandler, this);
         var menu = this.add.sprite(this.game.renderer.width - 100, 30, 'button', 3);
         menu.setInteractive();
         this.setHighLight(menu);
@@ -41,30 +40,38 @@ export class Level1 extends Phaser.Scene{
         //map
         var map = this.make.tilemap({ key: 'map' });
         var tileset = map.addTilesetImage('golf_course', 'tiles');
-        var bgLayer = map.createStaticLayer('Background', tileset, 0, 0);
-        bgLayer.setScale(bgLayer.scale/2);
-        bgLayer.setPosition(this.game.renderer.width/2 - ((bgLayer.width * bgLayer.scale)/2), this.game.renderer.height/2 - ((bgLayer.height * bgLayer.scale)/2));
-        var borderLayer = map.createStaticLayer('Border', tileset, 0, 0);
-        borderLayer.setPosition(this.game.renderer.width/2 - ((bgLayer.width * bgLayer.scale)/2), this.game.renderer.height/2 - ((bgLayer.height * bgLayer.scale)/2));
-        borderLayer.setScale(borderLayer.scale/2);
+        var bgLayer = map.createStaticLayer('background', tileset, 0, 0);
+        var mapX = this.game.renderer.width/2 - bgLayer.width/2;
+        var mapY = this.game.renderer.height/2 - bgLayer.height/2;
+        bgLayer.setPosition(mapX, mapY);
+        var borderLayer = map.createStaticLayer('border', tileset, 0, 0);
+        borderLayer.setPosition(mapX, mapY);
         borderLayer.setCollisionByExclusion([-1],true);
-        //width 1920 heihgt 1280
+        //-------------------------------------------------------------------------------
         //create ball
         this.ball = new Ball({
             scene : this,
             x : this.scale.width - 900, //x coordnate of ball
             y : this.scale.height - 600 //y coordnate of ball
         });
-        // this.children.bringToTop(this.ball);
         this.physics.add.collider(this.ball, borderLayer);
+        //--------------------------------------------------------------------------------
+        //create hole
+        var holeLayer = map.getObjectLayer('hole')['objects'];
+        var hole = this.physics.add.staticGroup()
+        holeLayer.forEach(object => {
+            console.log(object.x,object.y);
+            let obj = hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole"); 
+            // obj.setOrigin(0); 
+            // obj.body.width = object.width; 
+            // obj.body.height = object.height; 
+        });
+        this.children.bringToTop(this.ball);
+        this.physics.add.overlap(this.ball, hole, null, this.gameWin, this);
     }
 
     update() {
         this.ball.update();
-    }
-
-    clickHandler (pointer){
-        this.events.emit('addScore');
     }
 
     createWindow(func, name, x, y){
@@ -80,5 +87,9 @@ export class Level1 extends Phaser.Scene{
         .on('pointerout', () => {
             obj.setTint( 1 * 0xffffff);
         })
+    }
+
+    gameWin(){
+        console.log("win");
     }
 }

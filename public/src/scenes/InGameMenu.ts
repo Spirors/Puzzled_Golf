@@ -18,7 +18,7 @@ export class InGameMenu extends Phaser.Scene{
     }
     preload(){
         this.load.image("menu_bg", "../dist/assets/menu_background.png");
-        this.load.spritesheet("sound", "../dist/assets/sound_img.png", {frameWidth: 120, frameHeight: 80});
+        this.load.spritesheet("sound", "../dist/assets/sound_image.png", {frameWidth: 117, frameHeight: 77});
     }
     create ()
     {
@@ -50,7 +50,6 @@ export class InGameMenu extends Phaser.Scene{
         });
         
         restart.on('pointerdown', () => {
-            console.log('restart');
             this.events.emit('goHome');
             this.scene.remove("hud");
             var level1 = this.scene.get('level1');

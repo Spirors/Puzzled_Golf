@@ -39,7 +39,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
                 if (power <= this.min_power) {
                     power = 0;
                 }
-                console.log(power);
+                // console.log(power);
                 if (power != 0) {
                     this.scene.events.emit("addScore");
                     this.draggable = false;
