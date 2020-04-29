@@ -121,7 +121,7 @@ export class Level1 extends Phaser.Scene{
         let velocityX = this.ball.getVelocityX();
         let velocityY = this.ball.getVelocityY();
         let velocity = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
-        if (velocity <= 100) {
+        if (velocity <= 250) {
             let ballX = this.ball.getX();
             let ballY = this.ball.getY();
             // console.log(this.holeX - this.holeR, ballX, this.holeX + this.holeR)

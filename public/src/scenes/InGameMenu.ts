@@ -26,13 +26,14 @@ export class InGameMenu extends Phaser.Scene{
         }else{
             this.levelHighScore = localStorage.getItem(this.localStorageName);
         }
+        console.log("hs: ", this.levelHighScore)
         if(this.levelHighScore == 'None'){
             this.starFrame = 0;
-        }else if (Number(this.levelHighScore) < 3) {
+        }else if (Number(this.levelHighScore) <= 3) {
             this.starFrame = 3;
-        }else if(Number(this.levelHighScore) > 3 && Number(this.levelHighScore) < 6){
+        }else if(Number(this.levelHighScore) > 3 && Number(this.levelHighScore) <= 6){
             this.starFrame = 2;
-        }else if(Number(this.levelHighScore) > 6 && Number(this.levelHighScore) < 10){
+        }else if(Number(this.levelHighScore) > 6 && Number(this.levelHighScore) <= 10){
             this.starFrame = 1;
         }else{
             this.starFrame = 0;
@@ -47,6 +48,7 @@ export class InGameMenu extends Phaser.Scene{
     {
         var background = this.add.image(0,0,"menu_bg").setOrigin(0);
         this.cameras.main.setViewport(this.game.renderer.width/2 - 168, this.game.renderer.height/2 - 255, this.menuWidth, this.menuHeight);
+        console.log("starframe: ", this.starFrame);
         let star = this.add.sprite(this.menuWidth/2 , this.menuHeight/2 -180, "stars", this.starFrame);
         let highScore = this.add.text(0, 0, 'Highscore - ' + this.levelHighScore, { font: '20px Arial', fill: '#000000' });
         highScore.setPosition(this.menuWidth/2 - highScore.width/2, this.menuHeight/2 - 120 )

@@ -17,6 +17,8 @@ export class SplashScreen extends Phaser.Scene{
         this.load.image("ground", "../dist/assets/ground.png");
     }
     create(){
+        localStorage.setItem("golfLevel1HighScore", "1000");
+        localStorage.setItem("golfLevel2HighScore", "1000");
         this.cameras.main.setBackgroundColor(0x9ce1e1);
 
         var game_width = this.game.renderer.width;
