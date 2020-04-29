@@ -11,7 +11,7 @@ export class Hud extends Phaser.Scene{
         this.parent = parent;
     }
     init(data){
-        this.level = 1;
+        this.level = data.level;
     }
     preload(){
         
@@ -33,9 +33,16 @@ export class Hud extends Phaser.Scene{
         ourGame.events.on('levelWin', function () {
             let newHighscore = Math.min(this.score, this.levelHighScore);
             localStorage.setItem(this.localStorageName, newHighscore.toString());
+            //go back to mainmenu
+            console.log("highscore:", localStorage.getItem(this.localStorageName))
+            ourGame.events.off('addScore');
+            ourGame.events.off('setLevel');
+            this.scene.remove("level1");
+            this.scene.start("mainMenu");
+            this.scene.remove("inGameMenu");
+            this.scene.remove("hud");
         }, this);
         this.scene.get('inGameMenu').events.on('goHome', function (){
-            console.log('mm');
             ourGame.events.off('addScore');
             ourGame.events.off('setLevel');
         })
