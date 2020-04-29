@@ -81,7 +81,7 @@ export class Level1 extends Phaser.Scene{
             // obj.body.height = object.height; 
         });
         this.children.bringToTop(this.ball);
-        this.physics.add.overlap(this.ball, this.hole, null, this.gameWin, this);
+        // this.physics.add.overlap(this.ball, this.hole, null, this.gameWin, this);
 
         this.moving_block = new MovingBlock({
             scene : this,
@@ -94,6 +94,8 @@ export class Level1 extends Phaser.Scene{
     update() {
         this.ball.update();
         this.moving_block.update();
+
+        this.gameWin();
     }
 
     createWindow(func, name, x, y, data){
@@ -119,7 +121,7 @@ export class Level1 extends Phaser.Scene{
         let velocityX = this.ball.getVelocityX();
         let velocityY = this.ball.getVelocityY();
         let velocity = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
-        if (velocity <= 25) {
+        if (velocity <= 250) {
             let ballX = this.ball.getX();
             let ballY = this.ball.getY();
             // console.log(this.holeX - this.holeR, ballX, this.holeX + this.holeR)
