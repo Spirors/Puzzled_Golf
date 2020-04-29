@@ -17,6 +17,7 @@ export class MainMenu extends Phaser.Scene{
         this.load.image("exit", "../dist/assets/exit.png");
     }
     create(){
+        localStorage.setItem("golfLevel" + 1 + "HighScore", "1000");
         var help = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 - 120, 'button', 1);
         var level1 = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2, 'levels', 0);
         var level2 = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 +60, 'levels', 1);
@@ -30,7 +31,7 @@ export class MainMenu extends Phaser.Scene{
 
         level1.setInteractive();
         level1.on('pointerdown', () => {
-            var newScene = this.scene.add('level1', Level1, true);
+            var newScene = this.scene.add('level1', Level1, true, {id: 1});
             this.scene.stop();
         });
 

@@ -1,10 +1,10 @@
 import { Hud } from './Hud';
 import { InGameMenu } from './InGameMenu';
 import { Ball } from '../objects/ball';
+import { NONE } from 'phaser';
 
 export class Level1 extends Phaser.Scene{
     private ball;
-
     constructor(){
         super("level1");
     }
@@ -25,8 +25,8 @@ export class Level1 extends Phaser.Scene{
         if(this.scene.manager.getScene("inGameMenu") != null){
             this.scene.remove("inGameMenu");
         }
-        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2);
-        this.createWindow(Hud, "hud", 0, 0);
+        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, NONE);
+        this.createWindow(Hud, "hud", 0, 0, {level : 1});
         this.scene.setVisible(false, "inGameMenu") ;
         this.events.emit('setLevel');
         var menu = this.add.sprite(this.game.renderer.width - 100, 30, 'button', 3);
@@ -75,10 +75,14 @@ export class Level1 extends Phaser.Scene{
         this.ball.update();
     }
 
-    createWindow(func, name, x, y){
+    createWindow(func, name, x, y, data){
         var win = this.add.zone(x,y, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
         var window = new func(name, win);
-        this.scene.add(name, window, true);
+        if(data == NONE){
+            this.scene.add(name, window, true);
+        }else{
+            this.scene.add(name, window, true, data);
+        }
     }
 
     setHighLight(obj){
@@ -92,5 +96,6 @@ export class Level1 extends Phaser.Scene{
 
     gameWin(){
         console.log("win");
+        this.events.emit('levelWin');
     }
 }
