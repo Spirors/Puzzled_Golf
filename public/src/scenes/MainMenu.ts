@@ -33,10 +33,13 @@ export class MainMenu extends Phaser.Scene{
             var newScene = this.scene.add('level1', Level1, true, {id: 1});
             this.scene.stop();
         });
+        
+        level2.setTint( 1 * 0x737373);
+        level3.setTint( 1 * 0x737373);
 
         exit.setInteractive();
         exit.on('pointerdown', () => {
-            this.log();
+            this.scene.start("splashScreen")
         });
     }
 
@@ -47,9 +50,5 @@ export class MainMenu extends Phaser.Scene{
         var help_menu = new func("helpMenu", win);
         this.scene
         .add("helpMenu", help_menu, true);
-    }
-
-    log(){
-        console.log('exit');
     }
 }
