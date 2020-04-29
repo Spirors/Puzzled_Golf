@@ -4,6 +4,10 @@ import { Ball } from '../objects/ball';
 
 export class Level1 extends Phaser.Scene{
     private ball;
+    private hole;
+    private holeX;
+    private holeY;
+    private holeR;
 
     constructor(){
         super("level1");
@@ -52,23 +56,26 @@ export class Level1 extends Phaser.Scene{
         //create ball
         this.ball = new Ball({
             scene : this,
-            x : this.scale.width - 900, //x coordnate of ball
+            x : this.scale.width - 1000, //x coordnate of ball
             y : this.scale.height - 600 //y coordnate of ball
         });
         this.physics.add.collider(this.ball, borderLayer);
         //--------------------------------------------------------------------------------
         //create hole
         var holeLayer = map.getObjectLayer('hole')['objects'];
-        var hole = this.physics.add.staticGroup()
+        this.hole = this.physics.add.staticGroup();
         holeLayer.forEach(object => {
             console.log(object.x,object.y);
-            let obj = hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole"); 
+            this.holeX = mapX + object.x;
+            this.holeY = mapY + object.y
+            this.holeR = object.width/2;
+            let obj = this.hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole"); 
             // obj.setOrigin(0); 
             // obj.body.width = object.width; 
             // obj.body.height = object.height; 
         });
         this.children.bringToTop(this.ball);
-        this.physics.add.overlap(this.ball, hole, null, this.gameWin, this);
+        this.physics.add.overlap(this.ball, this.hole, null, this.gameWin, this);
     }
 
     update() {
@@ -91,6 +98,17 @@ export class Level1 extends Phaser.Scene{
     }
 
     gameWin(){
-        console.log("win");
+        let velocityX = this.ball.getVelocityX();
+        let velocityY = this.ball.getVelocityY();
+        if (velocityX <= 10 || velocityY <= 10) {
+            let ballX = this.ball.getX();
+            let ballY = this.ball.getY();
+            // console.log(this.holeX - this.holeR, ballX, this.holeX + this.holeR)
+            // console.log(this.holeY - this.holeR, ballY, this.holeY + this.holeR)
+            if (ballX >= this.holeX - this.holeR && ballX <= this.holeX + this.holeR &&
+                ballY >= this.holeY - this.holeR && ballY <= this.holeY + this.holeR) {
+                console.log("win");
+            }
+        }
     }
 }

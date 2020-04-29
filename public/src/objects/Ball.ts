@@ -25,9 +25,9 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
         this.setBounce(1, 1);
         this.scene.input.setDraggable(this);
 
-        this.max_velocity = 1500;
-        this.min_velocity = 200;
-        this.ball_power = 10;
+        this.max_velocity = 1200;
+        this.min_velocity = 128;
+        this.ball_power = 8;
         this.ball_delta = .97;
         this.draggable = true;
 
@@ -38,8 +38,10 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
             this.y
         );
         this.max_length = 150;
-        this.min_length = 20;
-        this.graphics = this.scene.add.graphics()
+        this.min_length = 16;
+        this.graphics = this.scene.add.graphics();
+
+        this.scene.children.bringToTop(this.graphics);
 
         this.on('drag', function (pointer) {
             if (this.draggable == true) {
@@ -47,7 +49,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
                 var distXToPointer = pointer.getDistanceX();
                 var distYToPointer = pointer.getDistanceY();
                 var line_length = Math.sqrt(distXToPointer * distXToPointer + distYToPointer * distYToPointer);
-                if (line_length <= this.min_length) {
+                if (line_length < this.min_length) {
                     line_length = 0;
                 }
                 if (line_length > this.max_length) {
@@ -64,7 +66,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
                 var distYToPointer = pointer.getDistanceY();
                 var velocity = Math.sqrt(distXToPointer * distXToPointer + distYToPointer * distYToPointer);
                 velocity = velocity * this.ball_power;
-                if (velocity <= this.min_velocity) {
+                if (velocity < this.min_velocity) {
                     velocity = 0;
                 }
                 if (velocity > this.max_velocity){
@@ -100,11 +102,27 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
         this.graphics.strokeLineShape(this.indicator_line);
     }
 
-    changeLine(delta, angle) {
-        Phaser.Geom.Line.SetToAngle(this.indicator_line, this.x, this.y, angle + Math.PI, delta);
+    changeLine(length, angle) {
+        Phaser.Geom.Line.SetToAngle(this.indicator_line, this.x, this.y, angle + Math.PI, length);
     }
 
     shootBall(velocity, angle) {
         this.setVelocity(velocity * -Math.cos(angle), velocity * -Math.sin(angle));
+    }
+
+    getVelocityX() {
+        return this.body.velocity.x;
+    }
+
+    getVelocityY() {
+        return this.body.velocity.y;
+    }
+
+    getX() {
+        return this.x;
+    }
+
+    getY() {
+        return this.y;
     }
 }
