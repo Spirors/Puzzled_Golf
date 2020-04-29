@@ -40,6 +40,7 @@ export class Level1 extends Phaser.Scene{
         menu.on('pointerup', function () {
             menu.setTint( 1 * 0xffffff);
             this.scene.pause();
+            this.scene.resume("inGameMenu");
             this.scene.setVisible(true, "inGameMenu") ;
         }, this)
         //-----------------------------------------------------------------------------
