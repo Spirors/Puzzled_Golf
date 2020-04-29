@@ -7,6 +7,7 @@ import { NONE } from 'phaser';
 export class Level2 extends Phaser.Scene{
     private ball;
     private hole;
+    private plate;
     private holeX;
     private holeY;
     private holeR;
@@ -20,10 +21,8 @@ export class Level2 extends Phaser.Scene{
 
     }
     preload(){
-        this.load.image('hole', "../dist/assets/golf_hole.png");
-        this.load.image('tiles', '../dist/assets/tileset.png');
         this.load.tilemapTiledJSON('map2', '../dist/assets/level2.json');
-        this.load.image('ball', '../dist/assets/ball.png');
+        this.load.image('plate', "../dist/assets/plate.png");
         // this.load.image('moving_block', "../dist/assets/moving_block.png");
     }
     create(){
@@ -81,17 +80,17 @@ export class Level2 extends Phaser.Scene{
         });
         this.children.bringToTop(this.ball);
         //--------------------------------------------------------------------------------
-        //create plate
-        // var holeLayer = map.getObjectLayer('hole')['objects'];
-        // this.hole = this.physics.add.staticGroup();
-        // holeLayer.forEach(object => {
-        //     console.log(object.x,object.y);
-        //     this.holeX = mapX + object.x;
-        //     this.holeY = mapY + object.y
-        //     this.holeR = object.width/2;
-        //     let obj = this.hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole"); 
-        // });
-        // this.children.bringToTop(this.ball);
+        // create plate
+        var plateLayer = map.getObjectLayer('plate')['objects'];
+        this.plate = this.physics.add.staticGroup();
+        plateLayer.forEach(object => {
+            // console.log(object.x,object.y);
+            // this.holeX = mapX + object.x;
+            // this.holeY = mapY + object.y
+            // this.holeR = object.width/2;
+            let obj = this.plate.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "plate"); 
+        });
+        this.children.bringToTop(this.ball);
     }
 
     update() {
