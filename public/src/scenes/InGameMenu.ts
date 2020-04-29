@@ -26,7 +26,6 @@ export class InGameMenu extends Phaser.Scene{
         }else{
             this.levelHighScore = localStorage.getItem(this.localStorageName);
         }
-        console.log("hs: ", this.levelHighScore)
         if(this.levelHighScore == 'None'){
             this.starFrame = 0;
         }else if (Number(this.levelHighScore) <= 3) {
@@ -48,7 +47,6 @@ export class InGameMenu extends Phaser.Scene{
     {
         var background = this.add.image(0,0,"menu_bg").setOrigin(0);
         this.cameras.main.setViewport(this.game.renderer.width/2 - 168, this.game.renderer.height/2 - 255, this.menuWidth, this.menuHeight);
-        console.log("starframe: ", this.starFrame);
         let star = this.add.sprite(this.menuWidth/2 , this.menuHeight/2 -180, "stars", this.starFrame);
         let highScore = this.add.text(0, 0, 'Highscore - ' + this.levelHighScore, { font: '20px Arial', fill: '#000000' });
         highScore.setPosition(this.menuWidth/2 - highScore.width/2, this.menuHeight/2 - 120 )
@@ -73,7 +71,7 @@ export class InGameMenu extends Phaser.Scene{
         this.setHighLight(exit);
 
         exit.on('pointerdown', () => {
-            this.scene.resume("level1");
+            this.scene.resume("level" + this.level);
             this.scene.pause();
             this.scene.setVisible(false);
         });
@@ -81,7 +79,7 @@ export class InGameMenu extends Phaser.Scene{
         restart.on('pointerdown', () => {
             this.events.emit('goHome');
             this.scene.remove("hud");
-            var level1 = this.scene.get('level1');
+            var level1 = this.scene.get("level" + this.level);
             level1.scene.restart();
         });
         
@@ -129,7 +127,7 @@ export class InGameMenu extends Phaser.Scene{
     goMainMenu(){
         this.events.emit('goHome');
         this.scene.remove("hud");
-        this.scene.remove("level1");
+        this.scene.remove("level" + this.level);
         this.scene.start("mainMenu");
         this.scene.remove("inGameMenu");
     }

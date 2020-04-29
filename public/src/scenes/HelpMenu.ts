@@ -18,6 +18,12 @@ export class HelpMenu extends Phaser.Scene{
         exit.on('pointerdown', () => {
             this.scene.resume("inGameMenu");
             this.scene.remove(this);
+        })
+        exit.on('pointerover', () => {
+            exit.setTint( 1 * 0xffff66);
+        })
+        exit.on('pointerout', () => {
+            exit.setTint( 1 * 0xffffff);
         });
     }
 

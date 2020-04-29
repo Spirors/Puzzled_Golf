@@ -1,5 +1,6 @@
 import { HelpMenu } from "./HelpMenu";
 import { Level1 } from "./Level1";
+import { Level2 } from "./Level2";
 
 export class MainMenu extends Phaser.Scene{
     private level1StorageName;
@@ -47,7 +48,8 @@ export class MainMenu extends Phaser.Scene{
             this.scene.stop();
         });
         level2.on('pointerdown', () => {
-            console.log("level2");
+            var newScene = this.scene.add('level2', Level2, true, {id: 2});
+            this.scene.stop();
         });
         
         
