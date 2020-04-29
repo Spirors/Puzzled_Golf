@@ -4,7 +4,7 @@ import { Ball } from '../objects/ball';
 import { MovingBlock } from '../objects/MovingBlock';
 import { NONE } from 'phaser';
 
-export class Level1 extends Phaser.Scene{
+export class Level2 extends Phaser.Scene{
     private ball;
     private hole;
     private holeX;
@@ -14,7 +14,7 @@ export class Level1 extends Phaser.Scene{
     private moving_block;
 
     constructor(){
-        super("level1");
+        super("level2");
     }
     init(){
 
@@ -22,9 +22,9 @@ export class Level1 extends Phaser.Scene{
     preload(){
         this.load.image('hole', "../dist/assets/golf_hole.png");
         this.load.image('tiles', '../dist/assets/tileset.png');
-        this.load.tilemapTiledJSON('map1', '../dist/assets/level1.json');
+        this.load.tilemapTiledJSON('map2', '../dist/assets/level2.json');
         this.load.image('ball', '../dist/assets/ball.png');
-        this.load.image('moving_block', "../dist/assets/moving_block.png");
+        // this.load.image('moving_block', "../dist/assets/moving_block.png");
     }
     create(){
         //----------------------------------------------------------------------------
@@ -34,8 +34,8 @@ export class Level1 extends Phaser.Scene{
         if(this.scene.manager.getScene("inGameMenu") != null){
             this.scene.remove("inGameMenu");
         }
-        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 1});
-        this.createWindow(Hud, "hud", 0, 0, {level : 1});
+        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 2});
+        this.createWindow(Hud, "hud", 0, 0, {level : 2});
         this.scene.setVisible(false, "inGameMenu") ;
         this.events.emit('setLevel');
         var menu = this.add.sprite(this.game.renderer.width - 100, 30, 'button', 3);
@@ -49,7 +49,7 @@ export class Level1 extends Phaser.Scene{
         }, this)
         //-----------------------------------------------------------------------------
         //map
-        var map = this.make.tilemap({ key: 'map1' });
+        var map = this.make.tilemap({ key: 'map2' });
         var tileset = map.addTilesetImage('golf_course', 'tiles');
         var bgLayer = map.createStaticLayer('background', tileset, 0, 0);
         var mapX = this.game.renderer.width/2 - bgLayer.width/2;
@@ -58,6 +58,8 @@ export class Level1 extends Phaser.Scene{
         var borderLayer = map.createStaticLayer('border', tileset, 0, 0);
         borderLayer.setPosition(mapX, mapY);
         borderLayer.setCollisionByExclusion([-1],true);
+        var waterLayer = map.createStaticLayer('water', tileset, 0, 0);
+        waterLayer.setPosition(mapX, mapY);
         //-------------------------------------------------------------------------------
         //create ball
         this.ball = new Ball({
@@ -76,24 +78,25 @@ export class Level1 extends Phaser.Scene{
             this.holeY = mapY + object.y
             this.holeR = object.width/2;
             let obj = this.hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole"); 
-            // obj.setOrigin(0); 
-            // obj.body.width = object.width; 
-            // obj.body.height = object.height; 
         });
         this.children.bringToTop(this.ball);
-        // this.physics.add.overlap(this.ball, this.hole, null, this.gameWin, this);
-
-        this.moving_block = new MovingBlock({
-            scene : this,
-            x : this.scale.width - 550, //x coordnate of moving_block
-            y : this.scale.height - 255 //y coordnate of moving_block
-        });
-        this.physics.add.collider(this.ball, this.moving_block);
+        //--------------------------------------------------------------------------------
+        //create plate
+        // var holeLayer = map.getObjectLayer('hole')['objects'];
+        // this.hole = this.physics.add.staticGroup();
+        // holeLayer.forEach(object => {
+        //     console.log(object.x,object.y);
+        //     this.holeX = mapX + object.x;
+        //     this.holeY = mapY + object.y
+        //     this.holeR = object.width/2;
+        //     let obj = this.hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole"); 
+        // });
+        // this.children.bringToTop(this.ball);
     }
 
     update() {
         this.ball.update();
-        this.moving_block.update();
+        // this.moving_block.update();
 
         this.gameWin();
     }

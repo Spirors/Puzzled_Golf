@@ -21,7 +21,7 @@ export class Hud extends Phaser.Scene{
         let scoreText = this.add.text(10, 10, 'Score: 0', { font: '48px Arial', fill: '#c4a727' });
         this.levelText = this.add.text(10, 50, '', { font: '48px Arial', fill: '#c4a727' });
         this.cameras.main.setViewport(0, 0, 0, 0);
-        let ourGame = this.scene.get('level1');
+        let ourGame = this.scene.get("level" + this.level);
         this.levelText.setText('Level: ' + this.level);
         this.localStorageName = "golfLevel" + this.level + "HighScore";
         ourGame.events.on('addScore', function () {
@@ -37,7 +37,7 @@ export class Hud extends Phaser.Scene{
             console.log("highscore:", localStorage.getItem(this.localStorageName))
             ourGame.events.off('addScore');
             ourGame.events.off('setLevel');
-            this.scene.remove("level1");
+            this.scene.remove("level" + this.level);
             this.scene.start("mainMenu");
             this.scene.remove("inGameMenu");
             this.scene.remove("hud");

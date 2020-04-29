@@ -23,7 +23,13 @@ export class SplashScreen extends Phaser.Scene{
             frameHeight: 128});
     }
     create(){
+<<<<<<< HEAD
         this.cameras.main.setBackgroundColor(0x9ce1e1); //sky background color 
+=======
+        localStorage.setItem("golfLevel1HighScore", "1000");
+        localStorage.setItem("golfLevel2HighScore", "1000");
+        this.cameras.main.setBackgroundColor(0x9ce1e1);//sky background color 
+>>>>>>> ea8edf5ea710e9323bce18c8c4f4b56d8cc3d40d
 
         var game_width = this.game.renderer.width;
         var game_height = this.game.renderer.height;
