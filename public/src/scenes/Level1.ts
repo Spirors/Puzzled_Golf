@@ -34,7 +34,7 @@ export class Level1 extends Phaser.Scene{
         if(this.scene.manager.getScene("inGameMenu") != null){
             this.scene.remove("inGameMenu");
         }
-        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, NONE);
+        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 1});
         this.createWindow(Hud, "hud", 0, 0, {level : 1});
         this.scene.setVisible(false, "inGameMenu") ;
         this.events.emit('setLevel');
@@ -44,6 +44,7 @@ export class Level1 extends Phaser.Scene{
         menu.on('pointerup', function () {
             menu.setTint( 1 * 0xffffff);
             this.scene.pause();
+            this.scene.resume("inGameMenu");
             this.scene.setVisible(true, "inGameMenu") ;
         }, this)
         //-----------------------------------------------------------------------------

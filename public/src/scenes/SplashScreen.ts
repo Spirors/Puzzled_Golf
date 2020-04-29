@@ -3,7 +3,7 @@ export class SplashScreen extends Phaser.Scene{
         super("splashScreen");
     }
     init(){
-
+        localStorage.setItem("golfLevel" + 1 + "HighScore", "1000");
     }
     preload(){
         this.load.image("logo", "../dist/assets/puzzled_golf_logo.png");
