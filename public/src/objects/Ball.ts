@@ -1,5 +1,3 @@
-import { Level1 } from "../scenes/Level1";
-
 export class Ball extends Phaser.Physics.Arcade.Sprite {
     // Fields for the ball
     private max_velocity;
@@ -89,7 +87,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
 
     updateBall() {
         // console.log(this.body.velocity.x, this.body.velocity.y);
-        if (Math.abs(this.body.velocity.x) < 1 && Math.abs(this.body.velocity.x) < 1) {
+        if (Math.abs(this.body.velocity.x) < 1 && Math.abs(this.body.velocity.y) < 1) {
             this.setVelocity(0, 0);
             this.draggable = true;
         } else {

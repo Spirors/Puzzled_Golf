@@ -1,6 +1,7 @@
 import { Hud } from './Hud';
 import { InGameMenu } from './InGameMenu';
 import { Ball } from '../objects/ball';
+import { MovingBlock } from '../objects/MovingBlock';
 import { NONE } from 'phaser';
 
 export class Level1 extends Phaser.Scene{
@@ -9,6 +10,8 @@ export class Level1 extends Phaser.Scene{
     private holeX;
     private holeY;
     private holeR;
+
+    private moving_block;
 
     constructor(){
         super("level1");
@@ -21,6 +24,7 @@ export class Level1 extends Phaser.Scene{
         this.load.image('tiles', '../dist/assets/tileset.png');
         this.load.tilemapTiledJSON('map', '../dist/assets/level1.json');
         this.load.image('ball', '../dist/assets/ball.png');
+        this.load.image('moving_block', "../dist/assets/moving_block.png");
     }
     create(){
         //----------------------------------------------------------------------------
@@ -77,10 +81,18 @@ export class Level1 extends Phaser.Scene{
         });
         this.children.bringToTop(this.ball);
         this.physics.add.overlap(this.ball, this.hole, null, this.gameWin, this);
+
+        this.moving_block = new MovingBlock({
+            scene : this,
+            x : this.scale.width - 550, //x coordnate of moving_block
+            y : this.scale.height - 255 //y coordnate of moving_block
+        });
+        this.physics.add.collider(this.ball, this.moving_block);
     }
 
     update() {
         this.ball.update();
+        this.moving_block.update();
     }
 
     createWindow(func, name, x, y, data){
@@ -105,7 +117,8 @@ export class Level1 extends Phaser.Scene{
     gameWin(){
         let velocityX = this.ball.getVelocityX();
         let velocityY = this.ball.getVelocityY();
-        if (velocityX <= 10 || velocityY <= 10) {
+        let velocity = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
+        if (velocity <= 25) {
             let ballX = this.ball.getX();
             let ballY = this.ball.getY();
             // console.log(this.holeX - this.holeR, ballX, this.holeX + this.holeR)
