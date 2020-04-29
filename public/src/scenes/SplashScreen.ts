@@ -57,6 +57,5 @@ export class SplashScreen extends Phaser.Scene{
     update(){
         this.cloud.tilePositionX -= 0.6;
         this.hill.tilePositionX -= 0.85;
-        
     }
 }
