@@ -3,6 +3,7 @@ export class SplashScreen extends Phaser.Scene{
     private hill;
     private grass;
     private music;
+    private person;
 
     constructor(){
         super("splashScreen");
@@ -18,17 +19,11 @@ export class SplashScreen extends Phaser.Scene{
         this.load.image("ground", "../dist/assets/ground.png");
 
         this.load.audio("summer", "../dist/assets/audio/bensound-summer.mp3");
-        // this.load.spritesheet("golfer", "../dist/assets/male_folfer.png", {frameWidth: 128,
-        //     frameHeight: 128});
+        this.load.spritesheet("golfer", "../dist/assets/male_folfer.png", {frameWidth: 128,
+            frameHeight: 128});
     }
     create(){
-<<<<<<< HEAD
         this.cameras.main.setBackgroundColor(0x9ce1e1); //sky background color 
-=======
-        localStorage.setItem("golfLevel1HighScore", "1000");
-        localStorage.setItem("golfLevel2HighScore", "1000");
-        this.cameras.main.setBackgroundColor(0x9ce1e1);
->>>>>>> 6fd5079a0fe1a18568fbbd22bf3145066a5de4b4
 
         var game_width = this.game.renderer.width;
         var game_height = this.game.renderer.height;
@@ -42,6 +37,11 @@ export class SplashScreen extends Phaser.Scene{
         this.hill.setOrigin(0,0);
         this.grass.setOrigin(0,0);
 
+        // this.person = this.add.sprite(0, game_height-150, "golfer");
+        // this.anims.create({
+        //     key: "golfer_anim"
+
+        // });
 
         var game_logo = this.add.image(this.game.renderer.width/2,this.game.renderer.height * 0.35,"logo");
         game_logo.setScale(0.9);
@@ -78,5 +78,6 @@ export class SplashScreen extends Phaser.Scene{
         //background layers scroll (clouds scroll slower than hill)
         this.cloud.tilePositionX -= 0.6;
         this.hill.tilePositionX -= 0.85;
+        
     }
 }
