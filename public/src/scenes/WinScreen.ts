@@ -1,3 +1,5 @@
+import { Level1 } from "./Level1";
+
 export class winScreen extends Phaser.Scene{
     private parent;
     private menuWidth;
@@ -56,6 +58,14 @@ export class winScreen extends Phaser.Scene{
             // this.scene.remove("hud");
             // var level = this.scene.get("level" + this.level);
             // level.scene.restart();
+            ourGame.events.off('addScore');
+            ourGame.events.off('setLevel');
+            this.scene.remove("hud");
+            this.scene.remove("level" + this.level);
+            if(this.level == 1){
+                this.scene.add('level1', Level1, true, {id: 1})
+                this.scene.stop();
+            }
         });
 
         mainMenu.on('pointerdown', () => {

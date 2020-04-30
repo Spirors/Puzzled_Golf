@@ -99,12 +99,12 @@ export class InGameMenu extends Phaser.Scene{
             this.scene.remove("hud");
             this.music.stop();
             this.scene.remove("level" + this.level);
-            // if(this.level == 1){
-            //     this.scene.add('level1', Level1, true, {id: 1})
-            //     this.scene.stop();
-            // }
-            var level = this.scene.get("level" + this.level);
-            level.scene.restart();
+            if(this.level == 1){
+                this.scene.add('level1', Level1, true, {id: 1})
+                this.scene.stop();
+            }
+            // var level = this.scene.get("level" + this.level);
+            // level.scene.restart();
         });
         
         mainMenu.on('pointerdown', () => {
