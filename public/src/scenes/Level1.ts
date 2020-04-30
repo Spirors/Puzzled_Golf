@@ -85,7 +85,9 @@ export class Level1 extends Phaser.Scene{
             // obj.body.height = object.height; 
         });
         this.children.bringToTop(this.ball);
-        // this.physics.add.overlap(this.ball, this.hole, this.gameWin, this);
+
+        // Overlap of ball and hole
+        this.physics.add.overlap(this.ball, this.hole, this.checkWin, null, this);
 
         this.moving_block = new MovingBlock({
             scene : this,
@@ -98,7 +100,7 @@ export class Level1 extends Phaser.Scene{
     update() {
         this.ball.update();
         this.moving_block.update();
-        this.checkWin();
+        // this.checkWin();
     }
 
     createWindow(func, name, x, y, data){
@@ -125,18 +127,22 @@ export class Level1 extends Phaser.Scene{
         let velocityY = this.ball.getVelocityY();
         let velocity = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
         if (velocity <= 150) {
-            let ballX = this.ball.getX();
-            let ballY = this.ball.getY();
-            // console.log(this.holeX - this.holeR, ballX, this.holeX + this.holeR);
-            // console.log(this.holeY - this.holeR, ballY, this.holeY + this.holeR);
-            if (ballX >= this.holeX - this.holeR && ballX <= this.holeX + this.holeR &&
-                ballY >= this.holeY - this.holeR && ballY <= this.holeY + this.holeR) {
-                // console.log(velocity);
-                if(this.boolWin == false){
-                    this.boolWin = true;
-                    this.win();
-                }
+            if(this.boolWin == false){
+                this.boolWin = true;
+                this.win();
             }
+            // let ballX = this.ball.getX();
+            // let ballY = this.ball.getY();
+            // // console.log(this.holeX - this.holeR, ballX, this.holeX + this.holeR);
+            // // console.log(this.holeY - this.holeR, ballY, this.holeY + this.holeR);
+            // if (ballX >= this.holeX - this.holeR && ballX <= this.holeX + this.holeR &&
+            //     ballY >= this.holeY - this.holeR && ballY <= this.holeY + this.holeR) {
+            //     // console.log(velocity);
+            //     if(this.boolWin == false){
+            //         this.boolWin = true;
+            //         this.win();
+            //     }
+            // }
         }
     }
     win() {
