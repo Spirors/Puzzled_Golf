@@ -38,11 +38,11 @@ export class Hud extends Phaser.Scene{
             let newHighscore = Math.min(this.score, this.levelHighScore);
             localStorage.setItem(this.localStorageName, newHighscore.toString());
             this.events.emit('createWinScreen', {score: this.score});
-            // if(this.scene.manager.getScene("winScreen") == null){
-            //     this.createWindow(winScreen,"winScreen",this.game.renderer.width/2, this.game.renderer.height/2, {level : this.level, score : this.score});
-            // }
+            if(this.scene.manager.getScene("winScreen") == null){
+                this.createWindow(winScreen,"winScreen",this.game.renderer.width/2, this.game.renderer.height/2, {level : this.level, score : this.score});
+            }
             console.log(this);
-            this.createWindow(winScreen,"winScreen",this.game.renderer.width/2, this.game.renderer.height/2, {level : this.level, score : this.score});
+            // this.createWindow(winScreen,"winScreen",this.game.renderer.width/2, this.game.renderer.height/2, {level : this.level, score : this.score});
             // this.scene.setVisible(true, "winScreen");
         }, this);
         this.scene.get('inGameMenu').events.on('goHome', function (){
