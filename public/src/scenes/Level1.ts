@@ -13,6 +13,8 @@ export class Level1 extends Phaser.Scene{
 
     private moving_block;
 
+    private music; 
+    
     constructor(){
         super("level1");
     }
@@ -25,8 +27,23 @@ export class Level1 extends Phaser.Scene{
         this.load.tilemapTiledJSON('map1', '../dist/assets/level1.json');
         this.load.image('ball', '../dist/assets/ball.png');
         this.load.image('moving_block', "../dist/assets/moving_block.png");
+
+        this.load.audio("level_audio", "../dist/assets/audio/level1_audio.mp3");
     }
     create(){
+        var music_config = {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        }
+
+        this.music = this.sound.add("level_audio");
+        this.music.play(music_config);
+
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
         this.physics.world.setFPS(120);
