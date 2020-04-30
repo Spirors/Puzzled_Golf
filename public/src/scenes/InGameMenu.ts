@@ -40,23 +40,21 @@ export class InGameMenu extends Phaser.Scene{
     }
     preload(){
         this.load.image("menu_bg", "../dist/assets/menu_background.png");
-        this.load.spritesheet("sound", "../dist/assets/sound_image.png", {frameWidth: 117, frameHeight: 77});
         this.load.spritesheet("stars", "../dist/assets/star_sprites.png", {frameWidth: 258, frameHeight: 68})
     }
     create (data)
     {
         var background = this.add.image(0,0,"menu_bg").setOrigin(0);
         this.cameras.main.setViewport(this.game.renderer.width/2 - 168, this.game.renderer.height/2 - 255, this.menuWidth, this.menuHeight);
-        let star = this.add.sprite(this.menuWidth/2 , this.menuHeight/2 -180, "stars", this.starFrame);
+        let star = this.add.sprite(this.menuWidth/2 , this.menuHeight/2 -140, "stars", this.starFrame);
         let highScore = this.add.text(0, 0, 'Highscore - ' + this.levelHighScore, { font: '20px Arial', fill: '#000000' });
-        highScore.setPosition(this.menuWidth/2 - highScore.width/2, this.menuHeight/2 - 120 )
-        var restart = this.add.image(this.menuWidth/2 , this.menuHeight/2 - 60, "button", 5);
-        var mainMenu = this.add.image(this.menuWidth/2 , this.menuHeight/2 , "button", 2);
-        var help = this.add.image(this.menuWidth/2 , this.menuHeight/2 + 60, "button", 1);
-        var mute = this.add.image(this.menuWidth/2 , this.menuHeight/2 + 120, "button", 4);
+        highScore.setPosition(this.menuWidth/2 - highScore.width/2, this.menuHeight/2 - 80 )
+        var restart = this.add.image(this.menuWidth/2 , this.menuHeight/2 - 20, "button", 5);
+        var mainMenu = this.add.image(this.menuWidth/2 , this.menuHeight/2 + 40, "button", 2);
+        var help = this.add.image(this.menuWidth/2 , this.menuHeight/2 + 100, "button", 1);
+        var mute = this.add.image(this.menuWidth/2 , this.menuHeight/2 + 160, "sound", 0);
         var exit = this.add.image(this.menuWidth - 47, 27, "exit").setOrigin(0);
-        var sound_img = this.add.sprite(this.menuWidth/2 , this.menuHeight/2 + 180, "sound", 0);
-        sound_img.setScale(.5);
+        mute.setScale(.5);
         
         restart.setInteractive();
         mainMenu.setInteractive();
@@ -95,10 +93,10 @@ export class InGameMenu extends Phaser.Scene{
         mute.on('pointerdown', () => {
             if(this.muted){
                 this.muted = false;
-                sound_img.setFrame(0);
+                mute.setFrame(0);
             }else{
                 this.muted = true;
-                sound_img.setFrame(1);
+                mute.setFrame(1);
             }
         })   
     }
@@ -117,7 +115,7 @@ export class InGameMenu extends Phaser.Scene{
 
     setHighLight(obj){
         obj.on('pointerover', () => {
-            obj.setTint( 1 * 0xffff66);
+            obj.setTint( 1 * 0xffff99);
         })
         .on('pointerout', () => {
             obj.setTint( 1 * 0xffffff);

@@ -14,7 +14,7 @@ export class Level1 extends Phaser.Scene{
     private moving_block;
 
     private music; 
-    
+
     constructor(){
         super("level1");
     }
@@ -22,12 +22,7 @@ export class Level1 extends Phaser.Scene{
 
     }
     preload(){
-        this.load.image('hole', "../dist/assets/golf_hole.png");
-        this.load.image('tiles', '../dist/assets/tileset.png');
-        this.load.tilemapTiledJSON('map1', '../dist/assets/level1.json');
-        this.load.image('ball', '../dist/assets/ball.png');
-        this.load.image('moving_block', "../dist/assets/moving_block.png");
-
+        // Todo: Fix preloading
         this.load.audio("level_audio", "../dist/assets/audio/level1_audio.mp3");
     }
     create(){
@@ -127,7 +122,7 @@ export class Level1 extends Phaser.Scene{
 
     setHighLight(obj){
         obj.on('pointerover', () => {
-            obj.setTint( 1 * 0xffff66);
+            obj.setTint( 1 * 0xffff99);
         })
         .on('pointerout', () => {
             obj.setTint( 1 * 0xffffff);

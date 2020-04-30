@@ -1,7 +1,7 @@
 import { Hud } from './Hud';
 import { InGameMenu } from './InGameMenu';
 import { Ball } from '../objects/ball';
-import { MovingBlock } from '../objects/MovingBlock';
+import { Door } from '../objects/Door';
 import { NONE } from 'phaser';
 
 export class Level2 extends Phaser.Scene{
@@ -12,7 +12,7 @@ export class Level2 extends Phaser.Scene{
     private holeY;
     private holeR;
 
-    private moving_block;
+    private door;
 
     constructor(){
         super("level2");
@@ -23,7 +23,7 @@ export class Level2 extends Phaser.Scene{
     preload(){
         this.load.tilemapTiledJSON('map2', '../dist/assets/level2.json');
         this.load.image('plate', "../dist/assets/plate.png");
-        // this.load.image('moving_block', "../dist/assets/moving_block.png");
+        this.load.image('door', "../dist/assets/moving_block.png");
     }
     create(){
         //----------------------------------------------------------------------------
@@ -63,8 +63,8 @@ export class Level2 extends Phaser.Scene{
         //create ball
         this.ball = new Ball({
             scene : this,
-            x : this.scale.width - 1000, //x coordnate of ball
-            y : this.scale.height - 600 //y coordnate of ball
+            x : this.scale.width - 600, //x coordnate of ball
+            y : this.scale.height - 400 //y coordnate of ball
         });
         this.physics.add.collider(this.ball, borderLayer);
         //--------------------------------------------------------------------------------
@@ -91,12 +91,17 @@ export class Level2 extends Phaser.Scene{
             let obj = this.plate.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "plate"); 
         });
         this.children.bringToTop(this.ball);
+
+        this.door = new Door({
+            scene : this,
+            x : this.scale.width - 492, //x coordnate of moving_block
+            y : this.scale.height - 400 //y coordnate of moving_block
+        });
+        this.physics.add.collider(this.ball, this.door);
     }
 
     update() {
         this.ball.update();
-        // this.moving_block.update();
-
         this.gameWin();
     }
 
