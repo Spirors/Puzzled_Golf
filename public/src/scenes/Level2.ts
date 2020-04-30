@@ -7,12 +7,18 @@ import { NONE } from 'phaser';
 export class Level2 extends Phaser.Scene{
     private ball;
     private hole;
-    private plate;
     private holeX;
     private holeY;
     private holeR;
 
     private door;
+
+    private plate;
+    private plateX;
+    private plateY;
+    private plateR;
+
+    private waterLayer;
 
     constructor(){
         super("level2");
@@ -24,6 +30,7 @@ export class Level2 extends Phaser.Scene{
         this.load.tilemapTiledJSON('map2', '../dist/assets/level2.json');
         this.load.image('plate', "../dist/assets/plate.png");
         this.load.image('door', "../dist/assets/moving_block.png");
+        this.load.image('water', "../dist/assets/water.png");
     }
     create(){
         //----------------------------------------------------------------------------
@@ -57,8 +64,6 @@ export class Level2 extends Phaser.Scene{
         var borderLayer = map.createStaticLayer('border', tileset, 0, 0);
         borderLayer.setPosition(mapX, mapY);
         borderLayer.setCollisionByExclusion([-1],true);
-        var waterLayer = map.createStaticLayer('water', tileset, 0, 0);
-        waterLayer.setPosition(mapX, mapY);
         //-------------------------------------------------------------------------------
         //create ball
         this.ball = new Ball({
@@ -78,23 +83,33 @@ export class Level2 extends Phaser.Scene{
             this.holeR = object.width/2;
             let obj = this.hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole"); 
         });
-        this.children.bringToTop(this.ball);
         //--------------------------------------------------------------------------------
         // create plate
         var plateLayer = map.getObjectLayer('plate')['objects'];
         this.plate = this.physics.add.staticGroup();
         plateLayer.forEach(object => {
             // console.log(object.x,object.y);
+            this.plateX = mapX + object.x;
+            this.plateY = mapY + object.y;
+            this.plateR = object.width/2;
+            let obj = this.plate.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "plate"); 
+        });
+        var waterLayer = map.getObjectLayer('water')['objects'];
+        this.waterLayer = this.physics.add.staticGroup();
+        waterLayer.forEach(object => {
+            // console.log(object.x,object.y);
             // this.holeX = mapX + object.x;
             // this.holeY = mapY + object.y
             // this.holeR = object.width/2;
-            let obj = this.plate.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "plate"); 
+            let obj = this.waterLayer.create(mapX + object.x + 32 - object.width/2, mapY + object.y - object.height/2, "water");
         });
+        this.physics.add.overlap(this.ball, this.waterLayer, this.inwater, null, this);
+
         this.children.bringToTop(this.ball);
 
         this.door = new Door({
             scene : this,
-            x : this.scale.width - 492, //x coordnate of moving_block
+            x : this.scale.width - 556, //x coordnate of moving_block
             y : this.scale.height - 400 //y coordnate of moving_block
         });
         this.physics.add.collider(this.ball, this.door);
@@ -102,7 +117,10 @@ export class Level2 extends Phaser.Scene{
 
     update() {
         this.ball.update();
-        this.gameWin();
+        this.door.update();
+        this.checkPressed();
+        // this.checkWater();
+        this.checkWin();
     }
 
     createWindow(func, name, x, y, data){
@@ -124,20 +142,49 @@ export class Level2 extends Phaser.Scene{
         })
     }
 
-    gameWin(){
+    checkWin(){
         let velocityX = this.ball.getVelocityX();
         let velocityY = this.ball.getVelocityY();
         let velocity = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
-        if (velocity <= 250) {
+        if (velocity <= 150) {
             let ballX = this.ball.getX();
             let ballY = this.ball.getY();
-            // console.log(this.holeX - this.holeR, ballX, this.holeX + this.holeR)
-            // console.log(this.holeY - this.holeR, ballY, this.holeY + this.holeR)
+            // console.log(this.holeX - this.holeR, ballX, this.holeX + this.holeR);
+            // console.log(this.holeY - this.holeR, ballY, this.holeY + this.holeR);
             if (ballX >= this.holeX - this.holeR && ballX <= this.holeX + this.holeR &&
                 ballY >= this.holeY - this.holeR && ballY <= this.holeY + this.holeR) {
-                console.log("win");
-                this.events.emit('levelWin');
+                // console.log(velocity);
+                this.win();
             }
         }
+    }
+    win() {
+        console.log("win");
+        this.events.emit('levelWin');
+    }
+
+    checkPressed() {
+        let ballX = this.ball.getX();
+        let ballY = this.ball.getY();
+        // let ballR = this.ball.getR();
+        // console.log(ballX - ballR, ballY - ballR, ballR);
+        // console.log(this.plateX - this.plateR, ballX, this.plateX + this.plateR);
+        // console.log(this.plateY - this.plateR, ballY, this.plateY + this.plateR);
+
+        if (ballX >= this.plateX - this.plateR && ballX <= this.plateX + this.plateR &&
+            ballY >= this.plateY - this.plateR && ballY <= this.plateY + this.plateR) {
+            this.pressed();
+        }
+    }
+    pressed() {
+        this.door.setOpen();
+    }
+
+    // checkWater() {
+    //     // let ballX = this.ball.getX();
+    //     // let ballY = this.ball.getY();
+    // }
+    inwater() {
+        this.ball.moveBack();
     }
 }
