@@ -78,6 +78,7 @@ export class SplashScreen extends Phaser.Scene{
             text.setStyle({ fill: '#000000'});
         })
         .on('pointerdown', () => {
+            this.music.stop();
             this.scene.start('mainMenu');
         });
 

@@ -1,5 +1,6 @@
 import { HelpMenu } from "./HelpMenu";
 import { Level1 } from "./Level1";
+import { Level2 } from "./Level2";
 
 export class MainMenu extends Phaser.Scene{
     private level1StorageName;
@@ -35,6 +36,20 @@ export class MainMenu extends Phaser.Scene{
         this.load.image('moving_block', "../dist/assets/moving_block.png");
     }
     create(){
+        //music
+        var music_config = {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        }
+
+        var music = this.sound.add("summer");
+        music.play(music_config);
+        //
         var main_menu_boarder = this.add.image(0,0, 'menu_boarder').setOrigin(0);
         main_menu_boarder.setPosition(this.game.renderer.width/2 - main_menu_boarder.width/2, this.game.renderer.height/2 - main_menu_boarder.height/2);
         var help = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 - 110, 'button', 1);
@@ -50,9 +65,11 @@ export class MainMenu extends Phaser.Scene{
         mute.on('pointerdown', () => {
             if(this.muted){
                 this.muted = false;
+                music.resume();
                 mute.setFrame(0);
             }else{
                 this.muted = true;
+                music.pause();
                 mute.setFrame(1);
             }
         })   
@@ -101,14 +118,18 @@ export class MainMenu extends Phaser.Scene{
         level1.setInteractive();
         level1.on('pointerdown', () => {
             var newScene = this.scene.add('level1', Level1, true, {id: 1});
+            music.stop();
             this.scene.stop();
         });
         level2.on('pointerdown', () => {
-            console.log("level2");
+            var newScene = this.scene.add('level2', Level2, true, {id: 2});
+            music.stop();
+            this.scene.stop();
         });
         
         exit.setInteractive();
         exit.on('pointerdown', () => {
+            music.stop();
             this.scene.start("splashScreen")
         });
     }

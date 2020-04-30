@@ -1,3 +1,6 @@
+import { winScreen } from './WinScreen';
+import { NONE } from 'phaser';
+
 export class Hud extends Phaser.Scene{
     private parent;
     private score = 0;
@@ -31,16 +34,16 @@ export class Hud extends Phaser.Scene{
         this.levelHighScore = localStorage.getItem(this.localStorageName) == null ? 0 :
                               localStorage.getItem(this.localStorageName);
         ourGame.events.on('levelWin', function () {
+            console.log("level win");
             let newHighscore = Math.min(this.score, this.levelHighScore);
             localStorage.setItem(this.localStorageName, newHighscore.toString());
-            //go back to mainmenu
-            console.log("highscore:", localStorage.getItem(this.localStorageName))
-            ourGame.events.off('addScore');
-            ourGame.events.off('setLevel');
-            this.scene.remove("level" + this.level);
-            this.scene.start("mainMenu");
-            this.scene.remove("inGameMenu");
-            this.scene.remove("hud");
+            this.events.emit('createWinScreen', {score: this.score});
+            if(this.scene.manager.getScene("winScreen") == null){
+                this.createWindow(winScreen,"winScreen",this.game.renderer.width/2, this.game.renderer.height/2, {level : this.level, score : this.score});
+            }
+            console.log(this);
+            // this.createWindow(winScreen,"winScreen",this.game.renderer.width/2, this.game.renderer.height/2, {level : this.level, score : this.score});
+            // this.scene.setVisible(true, "winScreen");
         }, this);
         this.scene.get('inGameMenu').events.on('goHome', function (){
             ourGame.events.off('addScore');
@@ -52,5 +55,16 @@ export class Hud extends Phaser.Scene{
     {
         this.cameras.main.setPosition(this.parent.x, this.parent.y);
         this.scene.bringToTop();
+    }
+
+    createWindow(func, name, x, y, data){
+        console.log("create wind");
+        var win = this.add.zone(x,y, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
+        var window = new func(name, win);
+        if(data == NONE){
+            this.scene.add(name, window, true);
+        }else{
+            this.scene.add(name, window, true, data);
+        }
     }
 }
