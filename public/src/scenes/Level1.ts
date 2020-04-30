@@ -13,8 +13,6 @@ export class Level1 extends Phaser.Scene{
 
     private moving_block;
 
-    private music; 
-
     constructor(){
         super("level1");
     }
@@ -23,32 +21,24 @@ export class Level1 extends Phaser.Scene{
     }
     preload(){
         // Todo: Fix preloading
-        this.load.audio("level_audio", "../dist/assets/audio/level1_audio.mp3");
     }
     create(){
-        var music_config = {
-            mute: false,
-            volume: 1,
-            rate: 1,
-            detune: 0,
-            seek: 0,
-            loop: true,
-            delay: 0
-        }
-
-        this.music = this.sound.add("level_audio");
-        this.music.play(music_config);
-
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
         this.physics.world.setFPS(120);
 
+        console.log(this.scene.manager.keys);
         if(this.scene.manager.getScene("inGameMenu") != null){
             this.scene.remove("inGameMenu");
         }
+        if(this.scene.manager.getScene("winScreen") != null){
+            this.scene.remove("winScreen");
+        }
+        console.log(this.scene.manager.keys);
         this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 1});
         this.createWindow(Hud, "hud", 0, 0, {level : 1});
-        this.scene.setVisible(false, "inGameMenu") ;
+        console.log(this.scene.manager.keys);
+        this.scene.setVisible(false, "inGameMenu");
         this.events.emit('setLevel');
         var menu = this.add.sprite(this.game.renderer.width - 100, 30, 'button', 3);
         menu.setInteractive();
@@ -141,6 +131,7 @@ export class Level1 extends Phaser.Scene{
             if (ballX >= this.holeX - this.holeR && ballX <= this.holeX + this.holeR &&
                 ballY >= this.holeY - this.holeR && ballY <= this.holeY + this.holeR) {
                 console.log("win");
+                this.scene.pause();
                 this.events.emit('levelWin');
             }
         }
