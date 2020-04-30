@@ -51,11 +51,11 @@ export class winScreen extends Phaser.Scene{
         this.setHighLight(nextLevel);
 
         restart.on('pointerdown', () => {
-            ourGame.events.off('addScore');
-            ourGame.events.off('setLevel');
-            this.scene.remove("hud");
-            var level = this.scene.get("level" + this.level);
-            level.scene.restart();
+            // ourGame.events.off('addScore');
+            // ourGame.events.off('setLevel');
+            // this.scene.remove("hud");
+            // var level = this.scene.get("level" + this.level);
+            // level.scene.restart();
         });
 
         mainMenu.on('pointerdown', () => {

@@ -1,4 +1,5 @@
 import { winScreen } from './WinScreen';
+import { NONE } from 'phaser';
 
 export class Hud extends Phaser.Scene{
     private parent;
@@ -36,10 +37,12 @@ export class Hud extends Phaser.Scene{
             console.log("level win");
             let newHighscore = Math.min(this.score, this.levelHighScore);
             localStorage.setItem(this.localStorageName, newHighscore.toString());
-            // console.log("win", this.scene.manager.getScene("winScreen"));
-            if(this.scene.manager.getScene("winScreen") == null){
-                this.createWindow(winScreen,"winScreen",this.game.renderer.width/2, this.game.renderer.height/2, {level : this.level, score : this.score});
-            }
+            this.events.emit('createWinScreen', {score: this.score});
+            // if(this.scene.manager.getScene("winScreen") == null){
+            //     this.createWindow(winScreen,"winScreen",this.game.renderer.width/2, this.game.renderer.height/2, {level : this.level, score : this.score});
+            // }
+            console.log(this);
+            this.createWindow(winScreen,"winScreen",this.game.renderer.width/2, this.game.renderer.height/2, {level : this.level, score : this.score});
             // this.scene.setVisible(true, "winScreen");
         }, this);
         this.scene.get('inGameMenu').events.on('goHome', function (){
@@ -55,8 +58,13 @@ export class Hud extends Phaser.Scene{
     }
 
     createWindow(func, name, x, y, data){
+        console.log("create wind");
         var win = this.add.zone(x,y, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
         var window = new func(name, win);
-        this.scene.add(name, window, true, data);
+        if(data == NONE){
+            this.scene.add(name, window, true);
+        }else{
+            this.scene.add(name, window, true, data);
+        }
     }
 }

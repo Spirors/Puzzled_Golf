@@ -3,6 +3,7 @@ import { InGameMenu } from './InGameMenu';
 import { Ball } from '../objects/ball';
 import { MovingBlock } from '../objects/MovingBlock';
 import { NONE } from 'phaser';
+import { winScreen } from './WinScreen';
 
 export class Level1 extends Phaser.Scene{
     private ball;
@@ -12,12 +13,13 @@ export class Level1 extends Phaser.Scene{
     private holeR;
 
     private moving_block;
+    private boolWin;
 
     constructor(){
         super("level1");
     }
     init(){
-
+        this.boolWin = false;
     }
     preload(){
         // Todo: Fix preloading
@@ -130,13 +132,16 @@ export class Level1 extends Phaser.Scene{
             if (ballX >= this.holeX - this.holeR && ballX <= this.holeX + this.holeR &&
                 ballY >= this.holeY - this.holeR && ballY <= this.holeY + this.holeR) {
                 // console.log(velocity);
-                this.win();
+                if(this.boolWin == false){
+                    this.boolWin = true;
+                    this.win();
+                }
             }
         }
     }
     win() {
         console.log("win");
-        this.scene.pause();
+        // this.scene.pause();
         this.events.emit('levelWin');
     }
 }

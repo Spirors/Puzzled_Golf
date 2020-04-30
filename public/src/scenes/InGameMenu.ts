@@ -98,6 +98,11 @@ export class InGameMenu extends Phaser.Scene{
             this.events.emit('goHome');
             this.scene.remove("hud");
             this.music.stop();
+            this.scene.remove("level" + this.level);
+            // if(this.level == 1){
+            //     this.scene.add('level1', Level1, true, {id: 1})
+            //     this.scene.stop();
+            // }
             var level = this.scene.get("level" + this.level);
             level.scene.restart();
         });
