@@ -77,8 +77,10 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
                     velocity = this.max_velocity;
                 }
                 if (velocity != 0) {
-                    this.scene.events.emit("addScore");
                     this.draggable = false;
+                    this.scene.events.emit("addScore");
+                    this.prevX = this.x;
+                    this.prevY = this.y;
                     this.changeLine(0, 0);
                     this.shootBall(velocity, angleToPointer);
                 }
@@ -111,8 +113,6 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     }
 
     shootBall(velocity, angle) {
-        this.prevX = this.x;
-        this.prevY = this.y;
         this.setVelocity(velocity * -Math.cos(angle), velocity * -Math.sin(angle));
     }
 
@@ -137,8 +137,8 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     }
 
     moveBack() {
-        this.body.velocity.x = 0;
-        this.body.velocity.y = 0;
+        this.setVelocity(0, 0);
+
         this.x = this.prevX;
         this.y = this.prevY;
     }

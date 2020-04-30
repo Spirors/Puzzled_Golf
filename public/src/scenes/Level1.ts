@@ -14,6 +14,7 @@ export class Level1 extends Phaser.Scene{
 
     private moving_block;
     private boolWin;
+    private menu;
 
     constructor(){
         super("level1");
@@ -23,8 +24,10 @@ export class Level1 extends Phaser.Scene{
     }
     preload(){
         // Todo: Fix preloading
+        this.load.image("bkgrnd1", "../dist/assets/level1_background.png");
     }
     create(){
+        this.add.tileSprite(0,0, this.game.renderer.width, this.game.renderer.width, "bkgrnd1").setOrigin(0,0).setScale(1.37);
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
         this.physics.world.setFPS(120);
@@ -42,11 +45,11 @@ export class Level1 extends Phaser.Scene{
         console.log(this.scene.manager.keys);
         this.scene.setVisible(false, "inGameMenu");
         this.events.emit('setLevel');
-        var menu = this.add.sprite(this.game.renderer.width - 100, 30, 'button', 3);
-        menu.setInteractive();
-        this.setHighLight(menu);
-        menu.on('pointerup', function () {
-            menu.setTint( 1 * 0xffffff);
+        this.menu = this.add.sprite(this.game.renderer.width - 100, 30, 'button', 3);
+        this.menu.setInteractive();
+        this.setHighLight(this.menu);
+        this.menu.on('pointerup', function () {
+            this.menu.setTint( 1 * 0xffffff);
             this.scene.pause();
             this.scene.resume("inGameMenu");
             this.scene.setVisible(true, "inGameMenu") ;
@@ -85,7 +88,9 @@ export class Level1 extends Phaser.Scene{
             // obj.body.height = object.height; 
         });
         this.children.bringToTop(this.ball);
-        // this.physics.add.overlap(this.ball, this.hole, this.gameWin, this);
+
+        // Overlap of ball and hole
+        this.physics.add.overlap(this.ball, this.hole, this.checkWin, null, this);
 
         this.moving_block = new MovingBlock({
             scene : this,
@@ -98,7 +103,7 @@ export class Level1 extends Phaser.Scene{
     update() {
         this.ball.update();
         this.moving_block.update();
-        this.checkWin();
+        // this.checkWin();
     }
 
     createWindow(func, name, x, y, data){
@@ -125,23 +130,28 @@ export class Level1 extends Phaser.Scene{
         let velocityY = this.ball.getVelocityY();
         let velocity = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
         if (velocity <= 150) {
-            let ballX = this.ball.getX();
-            let ballY = this.ball.getY();
-            // console.log(this.holeX - this.holeR, ballX, this.holeX + this.holeR);
-            // console.log(this.holeY - this.holeR, ballY, this.holeY + this.holeR);
-            if (ballX >= this.holeX - this.holeR && ballX <= this.holeX + this.holeR &&
-                ballY >= this.holeY - this.holeR && ballY <= this.holeY + this.holeR) {
-                // console.log(velocity);
-                if(this.boolWin == false){
-                    this.boolWin = true;
-                    this.win();
-                }
+            if(this.boolWin == false){
+                this.boolWin = true;
+                this.win();
             }
+            // let ballX = this.ball.getX();
+            // let ballY = this.ball.getY();
+            // // console.log(this.holeX - this.holeR, ballX, this.holeX + this.holeR);
+            // // console.log(this.holeY - this.holeR, ballY, this.holeY + this.holeR);
+            // if (ballX >= this.holeX - this.holeR && ballX <= this.holeX + this.holeR &&
+            //     ballY >= this.holeY - this.holeR && ballY <= this.holeY + this.holeR) {
+            //     // console.log(velocity);
+            //     if(this.boolWin == false){
+            //         this.boolWin = true;
+            //         this.win();
+            //     }
+            // }
         }
     }
     win() {
         console.log("win");
-        // this.scene.pause();
+        this.menu.removeInteractive();
+        this.scene.pause();
         this.events.emit('levelWin');
     }
 }
