@@ -18,7 +18,7 @@ export class HelpMenu extends Phaser.Scene{
     {
         var background = this.add.image(0, 0,"help_menu").setOrigin(0);
         this.cameras.main.setViewport(this.game.renderer.width/2 - this.menuWidth/2, this.game.renderer.height/2 - this.menuHeight/2, this.menuWidth, this.menuHeight);
-        var exit = this.add.image(605, 10, "exit").setOrigin(0);
+        var exit = this.add.image(this.menuWidth - 60, 30, "exit").setOrigin(0);
         exit.setDepth(1);
         exit.setInteractive();
         exit.on('pointerdown', () => {
