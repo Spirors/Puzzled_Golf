@@ -83,7 +83,7 @@ export class Level1 extends Phaser.Scene{
             // obj.body.height = object.height; 
         });
         this.children.bringToTop(this.ball);
-        // this.physics.add.overlap(this.ball, this.hole, null, this.gameWin, this);
+        // this.physics.add.overlap(this.ball, this.hole, this.gameWin, this);
 
         this.moving_block = new MovingBlock({
             scene : this,
@@ -96,8 +96,7 @@ export class Level1 extends Phaser.Scene{
     update() {
         this.ball.update();
         this.moving_block.update();
-
-        this.gameWin();
+        this.checkWin();
     }
 
     createWindow(func, name, x, y, data){
@@ -119,21 +118,25 @@ export class Level1 extends Phaser.Scene{
         })
     }
 
-    gameWin(){
+    checkWin(){
         let velocityX = this.ball.getVelocityX();
         let velocityY = this.ball.getVelocityY();
         let velocity = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
-        if (velocity <= 250) {
+        if (velocity <= 150) {
             let ballX = this.ball.getX();
             let ballY = this.ball.getY();
-            // console.log(this.holeX - this.holeR, ballX, this.holeX + this.holeR)
-            // console.log(this.holeY - this.holeR, ballY, this.holeY + this.holeR)
+            // console.log(this.holeX - this.holeR, ballX, this.holeX + this.holeR);
+            // console.log(this.holeY - this.holeR, ballY, this.holeY + this.holeR);
             if (ballX >= this.holeX - this.holeR && ballX <= this.holeX + this.holeR &&
                 ballY >= this.holeY - this.holeR && ballY <= this.holeY + this.holeR) {
-                console.log("win");
-                this.scene.pause();
-                this.events.emit('levelWin');
+                // console.log(velocity);
+                this.win();
             }
         }
+    }
+    win() {
+        console.log("win");
+        this.scene.pause();
+        this.events.emit('levelWin');
     }
 }
