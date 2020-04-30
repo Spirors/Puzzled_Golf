@@ -20,11 +20,7 @@ export class Level1 extends Phaser.Scene{
 
     }
     preload(){
-        this.load.image('hole', "../dist/assets/golf_hole.png");
-        this.load.image('tiles', '../dist/assets/tileset.png');
-        this.load.tilemapTiledJSON('map1', '../dist/assets/level1.json');
-        this.load.image('ball', '../dist/assets/ball.png');
-        this.load.image('moving_block', "../dist/assets/moving_block.png");
+        // Todo: Fix preloading
     }
     create(){
         //----------------------------------------------------------------------------

@@ -20,6 +20,14 @@ export class MainMenu extends Phaser.Scene{
         this.load.image("help_menu", "../dist/assets/help_pop.png");
         this.load.image("exit", "../dist/assets/exit.png");
         this.level1StorageName = "golfLevel1HighScore";
+        
+
+        // Todo: Fix preloading
+        this.load.image('hole', "../dist/assets/golf_hole.png");
+        this.load.image('tiles', '../dist/assets/tileset.png');
+        this.load.tilemapTiledJSON('map1', '../dist/assets/level1.json');
+        this.load.image('ball', '../dist/assets/ball.png');
+        this.load.image('moving_block', "../dist/assets/moving_block.png");
     }
     create(){
 
@@ -32,10 +40,12 @@ export class MainMenu extends Phaser.Scene{
         level2.setTint( 1 * 0x737373);
         level3.setTint( 1 * 0x737373);
 
-        if(Number(localStorage.getItem(this.level1StorageName)) < 11){
-            level2.setTint( 1 * 0xFFFFFF);
-            level2.setInteractive();
-        }
+        // if(Number(localStorage.getItem(this.level1StorageName)) < 11){
+        //     level2.setTint( 1 * 0xFFFFFF);
+        //     level2.setInteractive();
+        // }
+        level2.setTint( 1 * 0xFFFFFF);
+        level2.setInteractive();
 
         help.setInteractive();
         help.on('pointerup', function () {

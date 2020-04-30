@@ -1,5 +1,3 @@
-import { Sleeping } from "matter";
-
 export class MovingBlock extends Phaser.Physics.Arcade.Sprite {
     private velocity;
     private startY;
