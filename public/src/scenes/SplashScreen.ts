@@ -18,9 +18,9 @@ export class SplashScreen extends Phaser.Scene{
         this.load.image("ground", "../dist/assets/ground.png");
 
         this.load.audio("summer", "../dist/assets/audio/bensound-summer.mp3");
-        // this.load.spritesheet("golfer", "../dist/assets/male_golfer.png",{frameWidth: 128,
-        //     frameHeight: 128
-        // });
+        this.load.spritesheet("golfer", "../dist/assets/male_golfer.png",{frameWidth: 256,
+            frameHeight: 256
+        });
     }
     create(){
         localStorage.setItem("golfLevel1HighScore", "1000");
@@ -32,13 +32,24 @@ export class SplashScreen extends Phaser.Scene{
 
         //add background layers 
         this.cloud = this.add.tileSprite(0,0, game_width, game_height, "clouds").setScale(1.37);
-        this.hill = this.add.tileSprite(0,0, game_width, game_height, 'hills').setScale(1.37);
-        this.grass = this.add.tileSprite(0,0, game_width, game_height, 'ground').setScale(1.37);
+        this.hill = this.add.tileSprite(0,0, game_width, game_height, "hills").setScale(1.37);
+        this.grass = this.add.tileSprite(0,0, game_width, game_height, "ground").setScale(1.37);
         
         this.cloud.setOrigin(0,0);
         this.hill.setOrigin(0,0);
         this.grass.setOrigin(0,0);
 
+        //person walking animation 
+        const person = this.add.sprite(this.game.renderer.width/2 - 500, this.game.renderer.height * 0.55, "golfer", 0).setScale(2);
+        this.anims.create({
+            key: "walk",
+            frames: this.anims.generateFrameNumbers("golfer", {start: 0, end: 4}),
+            repeat: -1,
+            frameRate: 5
+        });
+        person.play("walk");
+
+        //audio 
         var music_config = {
             mute: false,
             volume: 1,
@@ -52,6 +63,7 @@ export class SplashScreen extends Phaser.Scene{
         this.music = this.sound.add("summer");
         this.music.play(music_config);
 
+        //statics (logo and click here)
         var game_logo = this.add.image(this.game.renderer.width/2,this.game.renderer.height * 0.35,"logo");
         game_logo.setScale(0.9);
 
@@ -74,8 +86,8 @@ export class SplashScreen extends Phaser.Scene{
 
     update(){
         //background layers scroll (clouds scroll slower than hill)
-        this.cloud.tilePositionX -= 0.6;
-        this.hill.tilePositionX -= 0.85;
+        this.cloud.tilePositionX += 0.6;
+        this.hill.tilePositionX += 0.85;
         
     }
 }
