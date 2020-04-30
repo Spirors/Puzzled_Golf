@@ -106,7 +106,7 @@ export class Level1 extends Phaser.Scene{
 
     setHighLight(obj){
         obj.on('pointerover', () => {
-            obj.setTint( 1 * 0xffff66);
+            obj.setTint( 1 * 0xffff99);
         })
         .on('pointerout', () => {
             obj.setTint( 1 * 0xffffff);

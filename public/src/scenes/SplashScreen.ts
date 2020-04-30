@@ -49,14 +49,14 @@ export class SplashScreen extends Phaser.Scene{
         game_logo.setScale(0.9);
 
         let text = this.add.text(this.game.renderer.width/2 - 200,this.game.renderer.height * 0.85, "[Press Here To Continue]",
-        { fontSize: '30px', color : '#957f1d'}) //c4a727
+        { fontSize: '30px', color : '#000000', fontStyle: 'bold'}) //c4a727
         text
         .setInteractive({ useHandCursor: true })
         .on('pointerover', () => {
-            text.setStyle({ fill: '#d9bd3f'}); //ffff66
+            text.setStyle({ fill: '#FFFFFF'}); //ffff66
         })
         .on('pointerout', () => {
-            text.setStyle({ fill: '#957f1d'});
+            text.setStyle({ fill: '#000000'});
         })
         .on('pointerdown', () => {
             this.scene.start('mainMenu');

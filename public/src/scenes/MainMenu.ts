@@ -6,11 +6,12 @@ export class MainMenu extends Phaser.Scene{
     private level1StorageName;
     private level2StorageName;
     private levelHighScore;
+    private muted;
     constructor(){
         super("mainMenu");
     }
     init(){
-
+        this.muted = false;
     }
     preload(){
         this.load.spritesheet("button", "../dist/assets/menu_button.png", {frameWidth: 189,
@@ -19,6 +20,8 @@ export class MainMenu extends Phaser.Scene{
             frameHeight: 60});
         this.load.image("help_menu", "../dist/assets/help_pop.png");
         this.load.image("exit", "../dist/assets/exit.png");
+        this.load.image("menu_boarder", "../dist/assets/main_menu_board.png");
+        this.load.spritesheet("sound", "../dist/assets/sound_image.png", {frameWidth: 117, frameHeight: 77});
         this.level1StorageName = "golfLevel1HighScore";
         
 
@@ -30,12 +33,28 @@ export class MainMenu extends Phaser.Scene{
         this.load.image('moving_block', "../dist/assets/moving_block.png");
     }
     create(){
+        var main_menu_boarder = this.add.image(0,0, 'menu_boarder').setOrigin(0);
+        main_menu_boarder.setPosition(this.game.renderer.width/2 - main_menu_boarder.width/2, this.game.renderer.height/2 - main_menu_boarder.height/2);
+        var help = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 - 110, 'button', 1);
+        var level1 = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 - 50, 'levels', 0);
+        var level2 = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 + 20, 'levels', 1);
+        var level3 = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 + 90, 'levels', 2);
+        var exit = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 + 150, 'button', 0);
+        var mute = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 + 210, 'sound', 0);
+        mute.setScale(.5);
+        mute.setInteractive();
+        mute.on('pointerdown', () => {
+            if(this.muted){
+                this.muted = false;
+                mute.setFrame(0);
+            }else{
+                this.muted = true;
+                mute.setFrame(1);
+            }
+        })   
 
-        var help = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 - 120, 'button', 1);
-        var level1 = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2, 'levels', 0);
-        var level2 = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 +60, 'levels', 1);
-        var level3 = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 +120, 'levels', 2);
-        var exit = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 +180, 'button', 0);
+        this.setHighLight(help);
+        this.setHighLight(exit);
 
         level2.setTint( 1 * 0x737373);
         level3.setTint( 1 * 0x737373);
@@ -62,8 +81,6 @@ export class MainMenu extends Phaser.Scene{
             this.scene.stop();
         });
         
-        
-
         exit.setInteractive();
         exit.on('pointerdown', () => {
             this.scene.start("splashScreen")
@@ -77,5 +94,14 @@ export class MainMenu extends Phaser.Scene{
         var help_menu = new func("helpMenu", win);
         this.scene
         .add("helpMenu", help_menu, true);
+    }
+
+    setHighLight(obj){
+        obj.on('pointerover', () => {
+            obj.setTint( 1 * 0xffff99);
+        })
+        .on('pointerout', () => {
+            obj.setTint( 1 * 0xffffff);
+        })
     }
 }
