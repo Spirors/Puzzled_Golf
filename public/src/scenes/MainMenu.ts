@@ -45,6 +45,8 @@ export class MainMenu extends Phaser.Scene{
         this.load.spritesheet("golfer", "../dist/assets/male_golfer.png",{frameWidth: 256,
             frameHeight: 256
         });
+        
+        this.load.audio('hit', '../dist/assets/audio/ball_hit.mp3');
     }
     create(){
         this.cameras.main.setBackgroundColor(0x9ce1e1);//sky background color 
