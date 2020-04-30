@@ -41,9 +41,9 @@ export class InGameMenu extends Phaser.Scene{
         }
     }
     preload(){
-        this.load.image("menu_bg", "../dist/assets/menu_background.png");
-        this.load.spritesheet("stars", "../dist/assets/star_sprites.png", {frameWidth: 258, frameHeight: 68})
-        this.load.audio("level_audio", "../dist/assets/audio/level1_audio.mp3");
+        this.load.image("menu_bg", "./assets/menu_background.png");
+        this.load.spritesheet("stars", "./assets/star_sprites.png", {frameWidth: 258, frameHeight: 68})
+        this.load.audio("level_audio", "./assets/audio/level1_audio.mp3");
     }
     create (data)
     {

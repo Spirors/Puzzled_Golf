@@ -10,14 +10,14 @@ export class SplashScreen extends Phaser.Scene{
 
     }
     preload(){
-        this.load.image("logo", "../dist/assets/puzzled_golf_logo.png");
+        this.load.image("logo", "./assets/puzzled_golf_logo.png");
  
-        this.load.image("clouds", "../dist/assets/clouds.png");
-        this.load.image("hills", "../dist/assets/hills.png");
-        this.load.image("ground", "../dist/assets/ground.png");
+        this.load.image("clouds", "./assets/clouds.png");
+        this.load.image("hills", "./assets/hills.png");
+        this.load.image("ground", "./assets/ground.png");
 
-        this.load.audio("summer", "../dist/assets/audio/bensound-summer.mp3");
-        this.load.spritesheet("windmill", "../dist/assets/WINDMILL.png",{frameWidth: 256,
+        this.load.audio("summer", "./assets/audio/bensound-summer.mp3");
+        this.load.spritesheet("windmill", "./assets/windmill.png",{frameWidth: 256,
             frameHeight: 256
         });
     }

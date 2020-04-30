@@ -24,7 +24,7 @@ export class Level1 extends Phaser.Scene{
     }
     preload(){
         // Todo: Fix preloading
-        this.load.image("bkgrnd1", "../dist/assets/level1_background.png");
+        this.load.image("bkgrnd1", "./assets/level1_background.png");
     }
     create(){
         this.add.tileSprite(0,0, this.game.renderer.width, this.game.renderer.width, "bkgrnd1").setOrigin(0,0).setScale(1.37);

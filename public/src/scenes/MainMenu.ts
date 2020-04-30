@@ -22,31 +22,31 @@ export class MainMenu extends Phaser.Scene{
         this.cheats = false;
     }
     preload(){
-        this.load.spritesheet("button", "../dist/assets/menu_button.png", {frameWidth: 189,
+        this.load.spritesheet("button", "./assets/menu_button.png", {frameWidth: 189,
         frameHeight: 37});
-        this.load.spritesheet("levels", "../dist/assets/levels.png", {frameWidth: 404,
+        this.load.spritesheet("levels", "./assets/levels.png", {frameWidth: 404,
             frameHeight: 60});
-        this.load.image("help_menu", "../dist/assets/help_pop.png");
-        this.load.image("exit", "../dist/assets/exit.png");
-        this.load.image("menu_boarder", "../dist/assets/main_menu_board.png");
-        this.load.spritesheet("sound", "../dist/assets/sound_image.png", {frameWidth: 117, frameHeight: 77});
+        this.load.image("help_menu", "./assets/help_pop.png");
+        this.load.image("exit", "./assets/exit.png");
+        this.load.image("menu_boarder", "./assets/main_menu_board.png");
+        this.load.spritesheet("sound", "./assets/sound_image.png", {frameWidth: 117, frameHeight: 77});
         this.level1StorageName = "golfLevel1HighScore";
         this.level2StorageName = "golfLevel2HighScore";
-        this.load.image("golf_ball", "../dist/assets/golf_ball.png");
+        this.load.image("golf_ball", "./assets/golf_ball.png");
 
         // Todo: Fix preloading
-        this.load.image('hole', "../dist/assets/golf_hole.png");
-        this.load.image('tiles', '../dist/assets/tileset.png');
-        this.load.tilemapTiledJSON('map1', '../dist/assets/level1.json');
-        this.load.image('ball', '../dist/assets/ball.png');
-        this.load.image('moving_block', "../dist/assets/moving_block.png");
+        this.load.image('hole', "./assets/golf_hole.png");
+        this.load.image('tiles', './assets/tileset.png');
+        this.load.tilemapTiledJSON('map1', './assets/level1.json');
+        this.load.image('ball', './assets/ball.png');
+        this.load.image('moving_block', "./assets/moving_block.png");
 
-        this.load.image("hills", "../dist/assets/hills.png");
-        this.load.spritesheet("golfer", "../dist/assets/male_golfer.png",{frameWidth: 256,
+        this.load.image("hills", "./assets/hills.png");
+        this.load.spritesheet("golfer", "./assets/male_golfer.png",{frameWidth: 256,
             frameHeight: 256
         });
         
-        this.load.audio('hit', '../dist/assets/audio/ball_hit.mp3');
+        this.load.audio('hit', './assets/audio/ball_hit.mp3');
     }
     create(){
         this.cameras.main.setBackgroundColor(0x9ce1e1);//sky background color 

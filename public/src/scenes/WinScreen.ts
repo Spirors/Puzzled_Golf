@@ -34,7 +34,7 @@ export class winScreen extends Phaser.Scene{
         }
     }
     preload(){
-        this.load.image("win_bg", "../dist/assets/win_screen.png");
+        this.load.image("win_bg", "./assets/win_screen.png");
     }
     create ()
     {

@@ -32,12 +32,12 @@ export class Level2 extends Phaser.Scene{
         this.boolPressed = false;
     }
     preload(){
-        this.load.tilemapTiledJSON('map2', '../dist/assets/level2.json');
-        this.load.image('plate', "../dist/assets/plate.png");
-        this.load.image('door', "../dist/assets/moving_block.png");
-        this.load.image('water', "../dist/assets/water.png");
+        this.load.tilemapTiledJSON('map2', './assets/level2.json');
+        this.load.image('plate', "./assets/plate.png");
+        this.load.image('door', "./assets/moving_block.png");
+        this.load.image('water', "./assets/water.png");
 
-        this.load.image("bkgrnd2", "../dist/assets/level2_background.png");
+        this.load.image("bkgrnd2", "./assets/level2_background.png");
     }
     create(){
         this.add.tileSprite(0,0, this.game.renderer.width, this.game.renderer.width, "bkgrnd2").setOrigin(0,0).setScale(1.37);
