@@ -113,6 +113,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     }
 
     shootBall(velocity, angle) {
+        this.scene.sound.play("hit");
         this.setVelocity(velocity * -Math.cos(angle), velocity * -Math.sin(angle));
     }
 

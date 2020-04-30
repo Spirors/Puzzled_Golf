@@ -35,6 +35,8 @@ export class MainMenu extends Phaser.Scene{
         this.load.tilemapTiledJSON('map1', '../dist/assets/level1.json');
         this.load.image('ball', '../dist/assets/ball.png');
         this.load.image('moving_block', "../dist/assets/moving_block.png");
+        
+        this.load.audio('hit', '../dist/assets/audio/ball_hit.mp3');
     }
     create(){
         //music
