@@ -14,6 +14,7 @@ export class Level1 extends Phaser.Scene{
 
     private moving_block;
     private boolWin;
+    private menu;
 
     constructor(){
         super("level1");
@@ -42,11 +43,11 @@ export class Level1 extends Phaser.Scene{
         console.log(this.scene.manager.keys);
         this.scene.setVisible(false, "inGameMenu");
         this.events.emit('setLevel');
-        var menu = this.add.sprite(this.game.renderer.width - 100, 30, 'button', 3);
-        menu.setInteractive();
-        this.setHighLight(menu);
-        menu.on('pointerup', function () {
-            menu.setTint( 1 * 0xffffff);
+        this.menu = this.add.sprite(this.game.renderer.width - 100, 30, 'button', 3);
+        this.menu.setInteractive();
+        this.setHighLight(this.menu);
+        this.menu.on('pointerup', function () {
+            this.menu.setTint( 1 * 0xffffff);
             this.scene.pause();
             this.scene.resume("inGameMenu");
             this.scene.setVisible(true, "inGameMenu") ;
@@ -141,7 +142,8 @@ export class Level1 extends Phaser.Scene{
     }
     win() {
         console.log("win");
-        // this.scene.pause();
+        this.menu.removeInteractive();
+        this.scene.pause();
         this.events.emit('levelWin');
     }
 }

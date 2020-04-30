@@ -20,6 +20,7 @@ export class Level2 extends Phaser.Scene{
 
     private waterLayer;
     private boolWin;
+    private menu;
 
     constructor(){
         super("level2");
@@ -44,15 +45,17 @@ export class Level2 extends Phaser.Scene{
         if(this.scene.manager.getScene("winScreen") != null){
             this.scene.remove("winScreen");
         }
+        // console.log(this.scene.manager.keys);
         this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 2});
         this.createWindow(Hud, "hud", 0, 0, {level : 2});
+        console.log(this.scene.manager.keys);
         this.scene.setVisible(false, "inGameMenu") ;
         this.events.emit('setLevel');
-        var menu = this.add.sprite(this.game.renderer.width - 100, 30, 'button', 3);
-        menu.setInteractive();
-        this.setHighLight(menu);
-        menu.on('pointerup', function () {
-            menu.setTint( 1 * 0xffffff);
+        this.menu = this.add.sprite(this.game.renderer.width - 100, 30, 'button', 3);
+        this.menu.setInteractive();
+        this.setHighLight(this.menu);
+        this.menu.on('pointerup', function () {
+            this.menu.setTint( 1 * 0xffffff);
             this.scene.pause();
             this.scene.resume("inGameMenu");
             this.scene.setVisible(true, "inGameMenu") ;
@@ -167,6 +170,8 @@ export class Level2 extends Phaser.Scene{
     }
     win() {
         console.log("win");
+        this.menu.removeInteractive();
+        this.scene.pause();
         this.events.emit('levelWin');
     }
 

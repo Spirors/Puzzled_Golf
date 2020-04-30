@@ -1,6 +1,7 @@
 import { HelpMenu } from "./HelpMenu";
 import { Level1 } from "./Level1";
 import { Level2 } from "./Level2";
+import { Level3 } from "./Level3";
 
 export class MainMenu extends Phaser.Scene{
     private level1StorageName;
@@ -37,6 +38,9 @@ export class MainMenu extends Phaser.Scene{
     }
     create(){
         //music
+        if(this.scene.manager.getScene("level3") != null){
+            this.scene.remove("level3");
+        }
         var music_config = {
             mute: false,
             volume: 1,
@@ -46,7 +50,7 @@ export class MainMenu extends Phaser.Scene{
             loop: true,
             delay: 0
         }
-
+        console.log(this.scene.manager.keys);
         var music = this.sound.add("summer");
         music.play(music_config);
         //
@@ -123,6 +127,11 @@ export class MainMenu extends Phaser.Scene{
         });
         level2.on('pointerdown', () => {
             var newScene = this.scene.add('level2', Level2, true, {id: 2});
+            music.stop();
+            this.scene.stop();
+        });
+        level3.on('pointerdown', () => {
+            var newScene = this.scene.add('level3', Level3, true, {id: 3});
             music.stop();
             this.scene.stop();
         });
