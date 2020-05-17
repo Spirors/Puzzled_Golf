@@ -109,6 +109,7 @@ export class Level2 extends Phaser.Scene{
             this.plateY = mapY + object.y;
             this.plateR = object.width/2;
             let obj = this.plate.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "plate"); 
+            
         });
 
         // Overlap of ball and plate
