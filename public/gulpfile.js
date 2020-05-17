@@ -27,7 +27,7 @@ gulp.task('default', gulp.series(gulp.parallel('copy-html'), function () {
         extensions: ['.ts']
     })
     .bundle()
-    .pipe(source('puzzled_golf.js'))
+    .pipe(source('js/puzzled_golf.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({loadMaps: true}))
     .pipe(sourcemaps.write('./'))
