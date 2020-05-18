@@ -24,6 +24,22 @@ export class SplashScreen extends Phaser.Scene{
     create(){
         localStorage.setItem("golfLevel1HighScore", "1000");
         localStorage.setItem("golfLevel2HighScore", "1000");
+        localStorage.setItem("golfLevel3HighScore", "1000");
+        localStorage.setItem("golfLevel4HighScore", "1000");
+        localStorage.setItem("golfLevel5HighScore", "1000");
+        localStorage.setItem("golfLevel6HighScore", "1000");
+        localStorage.setItem("golfLevel7HighScore", "1000");
+        localStorage.setItem("golfLevel8HighScore", "1000");
+        localStorage.setItem("golfLevel9HighScore", "1000");
+        localStorage.setItem("golfLevel10HighScore", "1000");
+        localStorage.setItem("golfLevel11HighScore", "1000");
+        localStorage.setItem("golfLevel12HighScore", "1000");
+        localStorage.setItem("golfLevel13HighScore", "1000");
+        localStorage.setItem("golfLevel14HighScore", "1000");
+        localStorage.setItem("golfLevel15HighScore", "1000");
+        localStorage.setItem("golfLevel16HighScore", "1000");
+        localStorage.setItem("golfLevel17HighScore", "1000");
+        localStorage.setItem("golfLevel18HighScore", "1000");
         
         var game_width = this.game.renderer.width;
         var game_height = this.game.renderer.height;

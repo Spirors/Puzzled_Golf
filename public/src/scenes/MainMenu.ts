@@ -4,15 +4,14 @@ import { Level2 } from "./Level2";
 import { Level3 } from "./Level3";
 
 export class MainMenu extends Phaser.Scene{
-    private level1StorageName;
-    private level2StorageName;
-    private levelHighScore;
     private muted;
     private cheats;
 
     private cloud;
     private hill;
     private grass;
+
+    private levelArray = new Array();
 
     constructor(){
         super("mainMenu");
@@ -22,16 +21,12 @@ export class MainMenu extends Phaser.Scene{
         this.cheats = false;
     }
     preload(){
-        this.load.spritesheet("button", "./assets/menu_button.png", {frameWidth: 189,
-        frameHeight: 37});
-        this.load.spritesheet("levels", "./assets/levels.png", {frameWidth: 404,
-            frameHeight: 60});
+        this.load.spritesheet("button", "./assets/menu_button.png", {frameWidth: 189, frameHeight: 37});
+        this.load.spritesheet("levels", "./assets/level_buttons.png", {frameWidth: 58, frameHeight: 54});
         this.load.image("help_menu", "./assets/help_pop.png");
         this.load.image("exit", "./assets/exit.png");
         this.load.image("menu_boarder", "./assets/main_menu_board.png");
         this.load.spritesheet("sound", "./assets/sound_image.png", {frameWidth: 117, frameHeight: 77});
-        this.level1StorageName = "golfLevel1HighScore";
-        this.level2StorageName = "golfLevel2HighScore";
         this.load.image("golf_ball", "./assets/golf_ball.png");
 
         // Todo: Fix preloading
@@ -42,9 +37,7 @@ export class MainMenu extends Phaser.Scene{
         this.load.image('moving_block', "./assets/moving_block.png");
 
         this.load.image("hills", "./assets/hills.png");
-        this.load.spritesheet("golfer", "./assets/male_golfer.png",{frameWidth: 256,
-            frameHeight: 256
-        });
+        this.load.spritesheet("golfer", "./assets/male_golfer.png",{frameWidth: 256, frameHeight: 256});
         
         this.load.audio('hit', './assets/audio/ball_hit.mp3');
     }
@@ -93,12 +86,33 @@ export class MainMenu extends Phaser.Scene{
         var main_menu_boarder = this.add.image(0,0, 'menu_boarder').setOrigin(0);
         main_menu_boarder.setPosition(this.game.renderer.width/2 - main_menu_boarder.width/2, this.game.renderer.height/2 - main_menu_boarder.height/2);
         var help = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 - 110, 'button', 1);
-        var level1 = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 - 50, 'levels', 0);
-        var level2 = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 + 20, 'levels', 1);
-        var level3 = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 + 90, 'levels', 2);
         var exit = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 + 150, 'button', 0);
         var mute = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 + 210, 'sound', 0);
         var cheat_code = this.add.image(this.game.renderer.width/2 - 400,this.game.renderer.height/2 + 210,"golf_ball");
+
+        //levels
+        var level1 = this.add.sprite(this.game.renderer.width/2 - 200, this.game.renderer.height/2 - 50, 'levels', 0);
+        var level2 = this.add.sprite(this.game.renderer.width/2 - 120, this.game.renderer.height/2 - 50, 'levels', 1);
+        var level3 = this.add.sprite(this.game.renderer.width/2 - 40, this.game.renderer.height/2 - 50, 'levels', 2);
+        var level4 = this.add.sprite(this.game.renderer.width/2 + 40, this.game.renderer.height/2 - 50, 'levels', 3);
+        var level5 = this.add.sprite(this.game.renderer.width/2 + 120, this.game.renderer.height/2 - 50, 'levels', 4);
+        var level6 = this.add.sprite(this.game.renderer.width/2 + 200, this.game.renderer.height/2 - 50, 'levels', 5);
+        var level7 = this.add.sprite(this.game.renderer.width/2 - 200, this.game.renderer.height/2 + 20, 'levels', 6);
+        var level8 = this.add.sprite(this.game.renderer.width/2 - 120, this.game.renderer.height/2 + 20, 'levels', 7);
+        var level9 = this.add.sprite(this.game.renderer.width/2 - 40, this.game.renderer.height/2 + 20, 'levels', 8);
+        var level10 = this.add.sprite(this.game.renderer.width/2 + 40, this.game.renderer.height/2 + 20, 'levels', 9);
+        var level11 = this.add.sprite(this.game.renderer.width/2 + 120, this.game.renderer.height/2 + 20, 'levels', 10);
+        var level12 = this.add.sprite(this.game.renderer.width/2 + 200, this.game.renderer.height/2 + 20, 'levels', 11);
+        var level13 = this.add.sprite(this.game.renderer.width/2 - 200, this.game.renderer.height/2 + 90, 'levels', 12);
+        var level14 = this.add.sprite(this.game.renderer.width/2 - 120, this.game.renderer.height/2 + 90, 'levels', 13);
+        var level15 = this.add.sprite(this.game.renderer.width/2 - 40, this.game.renderer.height/2 + 90, 'levels', 14);
+        var level16 = this.add.sprite(this.game.renderer.width/2 + 40, this.game.renderer.height/2 + 90, 'levels', 15);
+        var level17 = this.add.sprite(this.game.renderer.width/2 + 120, this.game.renderer.height/2 + 90, 'levels', 16);
+        var level18 = this.add.sprite(this.game.renderer.width/2 + 200, this.game.renderer.height/2 + 90, 'levels', 17);
+
+        this.levelArray = [level1, level2, level3, level4, level5, level6, level7, level8, level9, level10, level11,
+            level12, level13, level14, level15, level16, level17, level18];
+
         cheat_code.setScale(.3);
         mute.setScale(.5);
         mute.setInteractive();
@@ -116,36 +130,30 @@ export class MainMenu extends Phaser.Scene{
 
         this.setHighLight(help);
         this.setHighLight(exit);
-
-        level2.setTint( 1 * 0x737373);
-        level3.setTint( 1 * 0x737373);
-
-        if(Number(localStorage.getItem(this.level1StorageName)) < 11){
-            level2.setTint( 1 * 0xFFFFFF);
-            level2.setInteractive();
-        }
-        if(Number(localStorage.getItem(this.level2StorageName)) < 11){
-            level3.setTint( 1 * 0xFFFFFF);
-            level3.setInteractive();
+        for(var i = 1; i < this.levelArray.length; i++){
+            if(Number(localStorage.getItem("golfLevel" + i + "HighScore")) < 11){
+                this.levelArray[i].setTint( 1 * 0xFFFFFF);
+                this.levelArray[i].setInteractive();
+            }else{
+                this.levelArray[i].setTint( 1 * 0x737373);
+            }
         }
 
         cheat_code.setInteractive();
         cheat_code.on('pointerdown', function () {
             if(this.cheats){
-                if(Number(localStorage.getItem(this.level1StorageName)) > 10){
-                    level2.removeInteractive()
-                    level2.setTint( 1 * 0x737373);
-                }
-                if(Number(localStorage.getItem(this.level2StorageName)) > 10){
-                    level3.removeInteractive()
-                    level3.setTint( 1 * 0x737373);
+                for(var i = 1; i < this.levelArray.length; i++){
+                    if(Number(localStorage.getItem("golfLevel" + i + "HighScore")) > 10){
+                        this.levelArray[i].removeInteractive()
+                        this.levelArray[i].setTint( 1 * 0x737373);
+                    }
                 }
                 this.cheats = false;
             }else{
-                level2.setTint( 1 * 0xFFFFFF);
-                level2.setInteractive();
-                level3.setTint( 1 * 0xFFFFFF);
-                level3.setInteractive();
+                for(var i = 1; i < this.levelArray.length; i++){
+                    this.levelArray[i].setTint( 1 * 0xFFFFFF);
+                    this.levelArray[i].setInteractive();
+                }
                 this.cheats = true;
             }
         }, this);

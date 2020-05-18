@@ -1,6 +1,7 @@
 import { HelpMenu } from './HelpMenu';
 import { Level1 } from "./Level1";
 import { Level2 } from "./Level2";
+import { Level3 } from './Level3';
 
 export class InGameMenu extends Phaser.Scene{
     private parent;
@@ -70,7 +71,7 @@ export class InGameMenu extends Phaser.Scene{
         var mainMenu = this.add.image(this.menuWidth/2 , this.menuHeight/2 + 40, "button", 2);
         var help = this.add.image(this.menuWidth/2 , this.menuHeight/2 + 100, "button", 1);
         var mute = this.add.image(this.menuWidth/2 , this.menuHeight/2 + 160, "sound", 0);
-        var exit = this.add.image(this.menuWidth - 47, 27, "exit").setOrigin(0);
+        var exit = this.add.image(this.menuWidth - 57, 35, "exit").setOrigin(0);
         let ourGame = this.scene.get("level" + this.level);
         ourGame.events.on('levelWin', function () {
             this.music.stop();
@@ -106,6 +107,10 @@ export class InGameMenu extends Phaser.Scene{
             }
             if(this.level == 2){
                 this.scene.add('level2', Level2, true, {id: 2})
+                this.scene.stop();
+            }
+            if(this.level == 3){
+                this.scene.add('level3', Level3, true, {id: 3})
                 this.scene.stop();
             }
             // var level = this.scene.get("level" + this.level);
