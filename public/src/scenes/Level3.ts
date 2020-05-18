@@ -25,6 +25,7 @@ export class Level3 extends Phaser.Scene{
 
     private boolPressed;
     private controls
+    private cursors;
 
     constructor(){
         super("level3");
@@ -143,31 +144,41 @@ export class Level3 extends Phaser.Scene{
         this.children.bringToTop(this.ball);
 
         //camera movment
-        var cursors = this.input.keyboard.createCursorKeys();
+        this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.cursors = this.input.keyboard.addKeys(
+            {up:Phaser.Input.Keyboard.KeyCodes.W,
+            down:Phaser.Input.Keyboard.KeyCodes.S,
+            left:Phaser.Input.Keyboard.KeyCodes.A,
+            right:Phaser.Input.Keyboard.KeyCodes.D});
 
         var controlConfig = {
             camera: this.cameras.main,
-            left: cursors.left,
-            right: cursors.right,
-            up: cursors.up,
-            down: cursors.down,
-            acceleration: 0.001,
-            drag: 0.0005,
-            maxSpeed: 0.01
+            left: this.cursors.left,
+            right: this.cursors.right,
+            up: this.cursors.up,
+            down: this.cursors.down,
+            speed: 0.5
         };
-
-        this.controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
+        
+        this.controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
 
         this.cameras.main.setBounds(0, 0, 2800, 1600);
     }
 
-    update(delta) {
+    // update(delta) {
+    //     this.controls.update(delta);
+    //     this.ball.update();
+    //     // this.door.update();
+    //     // this.checkPressed();
+    //     // this.checkWater();
+    //     // this.checkWin();
+    // }
+
+    update (time, delta)
+    {
         this.controls.update(delta);
         this.ball.update();
-        // this.door.update();
-        // this.checkPressed();
-        // this.checkWater();
-        // this.checkWin();
     }
 
     createWindow(func, name, x, y, data){

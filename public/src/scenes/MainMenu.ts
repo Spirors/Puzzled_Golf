@@ -4,9 +4,6 @@ import { Level2 } from "./Level2";
 import { Level3 } from "./Level3";
 
 export class MainMenu extends Phaser.Scene{
-    private level1StorageName;
-    private level2StorageName;
-    private levelHighScore;
     private muted;
     private cheats;
 
@@ -31,8 +28,6 @@ export class MainMenu extends Phaser.Scene{
         this.load.image("menu_boarder", "./assets/main_menu_board.png");
         this.load.spritesheet("sound", "./assets/sound_image.png", {frameWidth: 117, frameHeight: 77});
         this.load.image("golf_ball", "./assets/golf_ball.png");
-        this.level1StorageName = "golfLevel1HighScore";
-        this.level2StorageName = "golfLevel2HighScore";
 
         // Todo: Fix preloading
         this.load.image('hole', "./assets/golf_hole.png");
