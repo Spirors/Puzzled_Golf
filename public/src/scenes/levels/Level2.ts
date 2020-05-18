@@ -1,7 +1,7 @@
-import { Hud } from './Hud';
-import { InGameMenu } from './InGameMenu';
-import { Ball } from '../objects/ball';
-import { Door } from '../objects/Door';
+import { Hud } from '../Hud';
+import { InGameMenu } from '../InGameMenu';
+import { Ball } from '../../objects/ball';
+import { Door } from '../../objects/Door';
 
 export class Level2 extends Phaser.Scene{
     private ball;
@@ -25,11 +25,11 @@ export class Level2 extends Phaser.Scene{
         this.boolOpened = false;
     }
     preload(){
-        this.load.tilemapTiledJSON('map2', './assets/level2.json');
-        this.load.image('plate', "./assets/plate.png");
-        this.load.image('door', "./assets/moving_block.png");
-        this.load.image('water', "./assets/water.png");
-        this.load.image("bkgrnd2", "./assets/level2_background.png");
+        this.load.tilemapTiledJSON('map2', './assets/map/level2.json');
+        this.load.image('plate', "./assets/obj/plate.png");
+        this.load.image('door', "./assets/obj/moving_block.png");
+        this.load.image('water', "./assets/obj/water.png");
+        this.load.image("bkgrnd2", "./assets/background/level2_background.png");
     }
     create(){
         //----------------------------------------------------------------------------

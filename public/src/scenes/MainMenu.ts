@@ -1,7 +1,7 @@
 import { HelpMenu } from "./HelpMenu";
-import { Level1 } from "./Level1";
-import { Level2 } from "./Level2";
-import { Level3 } from "./Level3";
+import { Level1 } from "./levels/Level1";
+import { Level2 } from "./levels/Level2";
+import { Level3 } from "./levels/Level3";
 
 export class MainMenu extends Phaser.Scene{
     private muted;
@@ -21,22 +21,21 @@ export class MainMenu extends Phaser.Scene{
         this.cheats = false;
     }
     preload(){
-        this.load.spritesheet("button", "./assets/menu_button.png", {frameWidth: 189, frameHeight: 37});
-        this.load.spritesheet("levels", "./assets/level_buttons.png", {frameWidth: 58, frameHeight: 54});
-        this.load.image("help_menu", "./assets/help_pop.png");
-        this.load.image("exit", "./assets/exit.png");
-        this.load.image("menu_boarder", "./assets/main_menu_board.png");
-        this.load.spritesheet("sound", "./assets/sound_image.png", {frameWidth: 117, frameHeight: 77});
+        this.load.spritesheet("button", "./assets/menu/menu_button.png", {frameWidth: 189, frameHeight: 37});
+        this.load.spritesheet("levels", "./assets/menu/level_buttons.png", {frameWidth: 58, frameHeight: 54});
+        this.load.image("help_menu", "./assets/menu/help_pop.png");
+        this.load.image("exit", "./assets/menu/exit.png");
+        this.load.image("menu_boarder", "./assets/menu/main_menu_board.png");
+        this.load.spritesheet("sound", "./assets/menu/sound_image.png", {frameWidth: 117, frameHeight: 77});
         this.load.image("golf_ball", "./assets/golf_ball.png");
 
         // Todo: Fix preloading
-        this.load.image('hole', "./assets/golf_hole.png");
-        this.load.image('tiles', './assets/tileset.png');
-        this.load.tilemapTiledJSON('map1', './assets/level1.json');
-        this.load.image('ball', './assets/ball.png');
-        this.load.image('moving_block', "./assets/moving_block.png");
+        this.load.image('hole', "./assets/obj/golf_hole.png");
+        this.load.image('tiles', './assets/map/tileset.png');
+        this.load.image('ball', './assets/obj/ball.png');
+        this.load.image('moving_block', "./assets/obj/moving_block.png");
 
-        this.load.image("hills", "./assets/hills.png");
+        this.load.image("hills", "./assets/background/hills.png");
         this.load.spritesheet("golfer", "./assets/male_golfer.png",{frameWidth: 256, frameHeight: 256});
         
         this.load.audio('hit', './assets/audio/ball_hit.mp3');

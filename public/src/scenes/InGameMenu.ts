@@ -1,7 +1,7 @@
 import { HelpMenu } from './HelpMenu';
-import { Level1 } from "./Level1";
-import { Level2 } from "./Level2";
-import { Level3 } from './Level3';
+import { Level1 } from "./levels/Level1";
+import { Level2 } from "./levels/Level2";
+import { Level3 } from './levels/Level3';
 
 export class InGameMenu extends Phaser.Scene{
     private parent;
@@ -42,8 +42,8 @@ export class InGameMenu extends Phaser.Scene{
         }
     }
     preload(){
-        this.load.image("menu_bg", "./assets/menu_background.png");
-        this.load.spritesheet("stars", "./assets/star_sprites.png", {frameWidth: 258, frameHeight: 68})
+        this.load.image("menu_bg", "./assets/menu/menu_background.png");
+        this.load.spritesheet("stars", "./assets/menu/star_sprites.png", {frameWidth: 258, frameHeight: 68})
         this.load.audio("level_audio", "./assets/audio/level1_audio.mp3");
     }
     create (data)

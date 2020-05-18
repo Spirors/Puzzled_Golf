@@ -1,7 +1,7 @@
-import { Hud } from './Hud';
-import { InGameMenu } from './InGameMenu';
-import { Ball } from '../objects/ball';
-import { MovingBlock } from '../objects/MovingBlock';
+import { Hud } from '../Hud';
+import { InGameMenu } from '../InGameMenu';
+import { Ball } from '../../objects/ball';
+import { MovingBlock } from '../../objects/MovingBlock';
 
 export class Level1 extends Phaser.Scene{
     private ball;
@@ -19,7 +19,8 @@ export class Level1 extends Phaser.Scene{
     }
     preload(){
         // Todo: Fix preloading
-        this.load.image("bkgrnd1", "./assets/level1_background.png");
+        this.load.tilemapTiledJSON('map1', './assets/map/level1.json');
+        this.load.image("bkgrnd1", "./assets/background/level1_background.png");
     }
     create(){
         //----------------------------------------------------------------------------

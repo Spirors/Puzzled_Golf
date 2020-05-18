@@ -1,6 +1,6 @@
-import { Level1 } from "./Level1";
-import { Level2 } from "./Level2";
-import { Level3 } from "./Level3";
+import { Level1 } from "./levels/Level1";
+import { Level2 } from "./levels/Level2";
+import { Level3 } from "./levels/Level3";
 
 export class winScreen extends Phaser.Scene{
     private parent;
@@ -34,7 +34,7 @@ export class winScreen extends Phaser.Scene{
         }
     }
     preload(){
-        this.load.image("win_bg", "./assets/win_screen.png");
+        this.load.image("win_bg", "./assets/menu/win_screen.png");
     }
     create ()
     {
