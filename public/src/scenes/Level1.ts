@@ -30,7 +30,6 @@ export class Level1 extends Phaser.Scene{
         this.add.tileSprite(0,0, this.game.renderer.width, this.game.renderer.width, "bkgrnd1").setOrigin(0,0).setScale(1.37);
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
-        this.physics.world.setFPS(120);
 
         console.log(this.scene.manager.keys);
         if(this.scene.manager.getScene("inGameMenu") != null){
@@ -94,8 +93,8 @@ export class Level1 extends Phaser.Scene{
 
         this.moving_block = new MovingBlock({
             scene : this,
-            x : this.scale.width - 550, //x coordnate of moving_block
-            y : this.scale.height - 255 //y coordnate of moving_block
+            x : this.scale.width - 556, //x coordnate of moving_block
+            y : this.scale.height - 256 //y coordnate of moving_block
         });
         this.physics.add.collider(this.ball, this.moving_block);
     }
@@ -151,6 +150,7 @@ export class Level1 extends Phaser.Scene{
     win() {
         console.log("win");
         this.menu.removeInteractive();
+        this.ball.hide();
         this.scene.pause();
         this.events.emit('levelWin');
     }

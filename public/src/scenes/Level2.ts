@@ -14,15 +14,13 @@ export class Level2 extends Phaser.Scene{
     private door;
 
     private plate;
-    private plateX;
-    private plateY;
-    private plateR;
 
     private waterLayer;
     private boolWin;
     private menu;
 
     private boolPressed;
+    private boolOpened;
 
     constructor(){
         super("level2");
@@ -30,6 +28,7 @@ export class Level2 extends Phaser.Scene{
     init(){
         this.boolWin = false;
         this.boolPressed = false;
+        this.boolOpened = false;
     }
     preload(){
         this.load.tilemapTiledJSON('map2', './assets/level2.json');
@@ -43,7 +42,7 @@ export class Level2 extends Phaser.Scene{
         this.add.tileSprite(0,0, this.game.renderer.width, this.game.renderer.width, "bkgrnd2").setOrigin(0,0).setScale(1.37);
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
-        this.physics.world.setFPS(120);
+        // this.physics.world.setFPS(120);
 
         if(this.scene.manager.getScene("inGameMenu") != null){
             this.scene.remove("inGameMenu");
@@ -104,15 +103,11 @@ export class Level2 extends Phaser.Scene{
         var plateLayer = map.getObjectLayer('plate')['objects'];
         this.plate = this.physics.add.staticGroup();
         plateLayer.forEach(object => {
-            // console.log(object.x,object.y);
-            this.plateX = mapX + object.x;
-            this.plateY = mapY + object.y;
-            this.plateR = object.width/2;
             let obj = this.plate.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "plate"); 
         });
 
         // Overlap of ball and plate
-        this.physics.add.overlap(this.ball, this.plate, this.checkPressed, null, this);
+        this.physics.add.overlap(this.ball, this.plate, this.pressed, null, this);
 
         var waterLayer = map.getObjectLayer('water')['objects'];
         this.waterLayer = this.physics.add.staticGroup();
@@ -143,6 +138,7 @@ export class Level2 extends Phaser.Scene{
         // this.checkPressed();
         // this.checkWater();
         // this.checkWin();
+        this.checkOpen();
     }
 
     createWindow(func, name, x, y, data){
@@ -190,14 +186,14 @@ export class Level2 extends Phaser.Scene{
     win() {
         console.log("win");
         this.menu.removeInteractive();
+        this.ball.hide();
         this.scene.pause();
         this.events.emit('levelWin');
     }
 
-    checkPressed() {
+    pressed() {
         if (this.boolPressed == false) {
             this.boolPressed = true;
-            this.pressed();
         }
         // let ballX = this.ball.getX();
         // let ballY = this.ball.getY();
@@ -211,10 +207,21 @@ export class Level2 extends Phaser.Scene{
         //     this.pressed();
         // }
     }
-    pressed() {
-        this.door.setOpen();
-    }
     inwater() {
+        if (this.boolPressed == true) {
+            this.boolPressed = false;
+        }
         this.ball.moveBack();
+    }
+
+    checkOpen() {
+        if (this.ball.stopped()) {
+            if (this.boolPressed) {
+                if (this.boolOpened == false) {
+                    this.boolOpened = true;
+                    this.door.setOpen();
+                }
+            }
+        }
     }
 }
