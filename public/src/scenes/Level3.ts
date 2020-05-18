@@ -2,22 +2,15 @@ import { Hud } from './Hud';
 import { InGameMenu } from './InGameMenu';
 import { Ball } from '../objects/ball';
 import { Plate } from '../objects/Plate';
-import { NONE } from 'phaser';
 
 export class Level3 extends Phaser.Scene{
     private ball;
     private hole;
-    private holeX;
-    private holeY;
-    private holeR;
 
     private doorLayer;
 
     private plateArray = new Array();
     private plate;
-    private plateX;
-    private plateY;
-    private plateR;
 
     private waterLayer;
     private boolWin;
@@ -43,20 +36,16 @@ export class Level3 extends Phaser.Scene{
         this.load.image("bkgrnd2", "./assets/level2_background.png");
     }
     create(){
-        // this.cameras.main.setBounds(0,0,this.game.renderer.width,this.game.renderer.height);
-        // this.cameras.main.centerOn(0, 0);
-        this.add.tileSprite(0,0, this.game.renderer.width, this.game.renderer.width, "bkgrnd2").setOrigin(0,0).setScale(1.37);
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
+        this.add.tileSprite(0,0, this.game.renderer.width, this.game.renderer.width, "bkgrnd2").setOrigin(0,0).setScale(1.37);
         this.physics.world.setFPS(120);
-
         if(this.scene.manager.getScene("inGameMenu") != null){
             this.scene.remove("inGameMenu");
         }
         if(this.scene.manager.getScene("winScreen") != null){
             this.scene.remove("winScreen");
         }
-        // console.log(this.scene.manager.keys);
         this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 3});
         this.createWindow(Hud, "hud", 0, 0, {level : 3});
         console.log(this.scene.manager.keys);
@@ -99,25 +88,14 @@ export class Level3 extends Phaser.Scene{
         var holeLayer = map.getObjectLayer('hole')['objects'];
         this.hole = this.physics.add.staticGroup();
         holeLayer.forEach(object => {
-            console.log(object.x,object.y);
-            this.holeX = mapX + object.x;
-            this.holeY = mapY + object.y
-            this.holeR = object.width/2;
             let obj = this.hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole"); 
         });
-
-        // Overlap of ball and hole
         this.physics.add.overlap(this.ball, this.hole, this.checkWin, null, this);
         //--------------------------------------------------------------------------------
         // create plate
         var plateLayer = map.getObjectLayer('plate')['objects'];
         this.plate = this.physics.add.staticGroup();
         plateLayer.forEach(object => {
-            // console.log(object.x,object.y);
-            this.plateX = mapX + object.x;
-            this.plateY = mapY + object.y;
-            this.plateR = object.width/2;
-            // let obj = this.plate.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "plate"); 
             let plate = new Plate({
                 scene : this,
                 x : mapX + object.x - object.width/2, //x coordnate of ball
@@ -166,29 +144,20 @@ export class Level3 extends Phaser.Scene{
         this.cameras.main.setBounds(0, 0, 2800, 1600);
     }
 
-    // update(delta) {
-    //     this.controls.update(delta);
-    //     this.ball.update();
-    //     // this.door.update();
-    //     // this.checkPressed();
-    //     // this.checkWater();
-    //     // this.checkWin();
-    // }
-
     update (time, delta)
     {
         this.controls.update(delta);
         this.ball.update();
+        // this.door.update();
+        // this.checkPressed();
+        // this.checkWater();
+        // this.checkWin();
     }
 
     createWindow(func, name, x, y, data){
         var win = this.add.zone(x,y, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
         var window = new func(name, win);
-        if(data == NONE){
-            this.scene.add(name, window, true);
-        }else{
-            this.scene.add(name, window, true, data);
-        }
+        this.scene.add(name, window, true, data);
     }
 
     setHighLight(obj){
