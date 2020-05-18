@@ -24,6 +24,7 @@ export class Level3 extends Phaser.Scene{
     private menu;
 
     private boolPressed;
+    private controls
 
     constructor(){
         super("level3");
@@ -41,6 +42,8 @@ export class Level3 extends Phaser.Scene{
         this.load.image("bkgrnd2", "./assets/level2_background.png");
     }
     create(){
+        // this.cameras.main.setBounds(0,0,this.game.renderer.width,this.game.renderer.height);
+        // this.cameras.main.centerOn(0, 0);
         this.add.tileSprite(0,0, this.game.renderer.width, this.game.renderer.width, "bkgrnd2").setOrigin(0,0).setScale(1.37);
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
@@ -138,9 +141,28 @@ export class Level3 extends Phaser.Scene{
         this.physics.add.overlap(this.ball, this.waterLayer, this.inwater, null, this);
 
         this.children.bringToTop(this.ball);
+
+        //camera movment
+        var cursors = this.input.keyboard.createCursorKeys();
+
+        var controlConfig = {
+            camera: this.cameras.main,
+            left: cursors.left,
+            right: cursors.right,
+            up: cursors.up,
+            down: cursors.down,
+            acceleration: 0.001,
+            drag: 0.0005,
+            maxSpeed: 0.01
+        };
+
+        this.controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
+
+        this.cameras.main.setBounds(0, 0, 2800, 1600);
     }
 
-    update() {
+    update(delta) {
+        this.controls.update(delta);
         this.ball.update();
         // this.door.update();
         // this.checkPressed();

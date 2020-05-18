@@ -71,7 +71,7 @@ export class InGameMenu extends Phaser.Scene{
         var mainMenu = this.add.image(this.menuWidth/2 , this.menuHeight/2 + 40, "button", 2);
         var help = this.add.image(this.menuWidth/2 , this.menuHeight/2 + 100, "button", 1);
         var mute = this.add.image(this.menuWidth/2 , this.menuHeight/2 + 160, "sound", 0);
-        var exit = this.add.image(this.menuWidth - 47, 27, "exit").setOrigin(0);
+        var exit = this.add.image(this.menuWidth - 57, 35, "exit").setOrigin(0);
         let ourGame = this.scene.get("level" + this.level);
         ourGame.events.on('levelWin', function () {
             this.music.stop();
