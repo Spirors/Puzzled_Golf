@@ -29,11 +29,10 @@ export class MainMenu extends Phaser.Scene{
         this.load.spritesheet("sound", "./assets/menu/sound_image.png", {frameWidth: 117, frameHeight: 77});
         this.load.image("golf_ball", "./assets/golf_ball.png");
 
-        // Todo: Fix preloading
+        // For the level
         this.load.image('hole', "./assets/obj/golf_hole.png");
         this.load.image('tiles', './assets/map/tileset.png');
         this.load.image('ball', './assets/obj/ball.png');
-        this.load.image('moving_block', "./assets/obj/moving_block.png");
 
         this.load.image("hills", "./assets/background/hills.png");
         this.load.spritesheet("golfer", "./assets/male_golfer.png",{frameWidth: 256, frameHeight: 256});
