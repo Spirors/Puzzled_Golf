@@ -84,9 +84,9 @@ export class Level5 extends Phaser.Scene{
                 scene : this,
                 x : mapX + object.x - object.width/2, //x coordnate of moving_block
                 y : mapY + object.y - object.height/2, //y coordnate of moving_block
-                v : 200,
-                start : 0,
-                end : 64,
+                v : 100,
+                start : 128,
+                end : 0,
                 verticle : false,
                 name : 'moving_block_2h'
             });

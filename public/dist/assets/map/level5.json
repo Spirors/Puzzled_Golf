@@ -80,7 +80,7 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":64,
+                 "x":256,
                  "y":352
                 }, 
                 {
@@ -92,7 +92,7 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":736,
+                 "x":928,
                  "y":352
                 }],
          "opacity":1,
@@ -147,7 +147,7 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":10,
+ "nextlayerid":11,
  "nextobjectid":182,
  "orientation":"orthogonal",
  "renderorder":"right-down",

@@ -7,12 +7,14 @@ export class Level6 extends Phaser.Scene{
     private hole;    
 
     private boolWin;
+    private boolSand;
 
     constructor(){
         super("level6");
     }
     init(){
         this.boolWin = false;
+        this.boolSand = false;
     }
     preload(){
         this.load.tilemapTiledJSON('map6', './assets/map/level6.json');
@@ -99,6 +101,7 @@ export class Level6 extends Phaser.Scene{
 
     update() {
         this.ball.update();
+        this.checkSand();
     }
 
     createWindow(func, name, x, y, data){
@@ -139,7 +142,17 @@ export class Level6 extends Phaser.Scene{
     }
 
     inSand() {
-        console.log("in sand");
+        this.boolSand = true;
+    }
+
+    checkSand() {
+        if (this.boolSand) {
+            this.ball.setDelta(0.9);
+            this.boolSand = false;
+        } else if(!this.boolSand) {
+            this.ball.setDelta(0.97);
+            this.boolSand = false;
+        }
     }
 
     onPlate() {

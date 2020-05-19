@@ -9,6 +9,7 @@ export class Level9 extends Phaser.Scene{
     private hole;    
 
     private boolWin;
+    private boolSand;
     private controls
     private cursors;
 
@@ -17,6 +18,7 @@ export class Level9 extends Phaser.Scene{
     }
     init(){
         this.boolWin = false;
+        this.boolSand = false;
     }
     preload(){
         this.load.tilemapTiledJSON('map9', './assets/map/level9.json');
@@ -89,9 +91,9 @@ export class Level9 extends Phaser.Scene{
                 scene : this,
                 x : mapX + object.x - object.width/2, //x coordnate of moving_block
                 y : mapY + object.y - object.height/2, //y coordnate of moving_block
-                v : 200,
-                start : 64,
-                end : 64,
+                v : 150,
+                start : 0,
+                end : 224,
                 verticle : true,
                 name : 'moving_block_3v'
             });
@@ -133,6 +135,7 @@ export class Level9 extends Phaser.Scene{
     update (time, delta) {
         this.controls.update(delta);
         this.ball.update();
+        this.checkSand();
         for(var i = 0; i < this.moving_blocks.length; i++) {
             this.moving_blocks[i].update();
         }
@@ -175,7 +178,17 @@ export class Level9 extends Phaser.Scene{
     }
 
     inSand() {
-        console.log("in sand");
+        this.boolSand = true;
+    }
+
+    checkSand() {
+        if (this.boolSand) {
+            this.ball.setDelta(0.9);
+            this.boolSand = false;
+        } else if(!this.boolSand) {
+            this.ball.setDelta(0.97);
+            this.boolSand = false;
+        }
     }
 
     inLava() {
