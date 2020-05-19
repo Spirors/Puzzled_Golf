@@ -1,6 +1,8 @@
 import { Level1 } from "./levels/Level1";
 import { Level2 } from "./levels/Level2";
 import { Level3 } from "./levels/Level3";
+import { Level4 } from "./levels/Level4";
+import { Level5 } from "./levels/Level5";
 
 export class winScreen extends Phaser.Scene{
     private parent;
@@ -38,8 +40,6 @@ export class winScreen extends Phaser.Scene{
     }
     create ()
     {
-        // console.log(this.score);
-        // console.log(this.starFrame);
         var background = this.add.image(0,0,"win_bg").setOrigin(0);
         this.cameras.main.setViewport(this.game.renderer.width/2 - this.menuWidth/2, this.game.renderer.height/2 - this.menuHeight/2, this.menuWidth, this.menuHeight);
         let star = this.add.sprite(this.menuWidth/2 , this.menuHeight/2 - 50, "stars", this.starFrame);
@@ -67,11 +67,6 @@ export class winScreen extends Phaser.Scene{
         this.setHighLight(nextLevel);
 
         restart.on('pointerdown', () => {
-            // ourGame.events.off('addScore');
-            // ourGame.events.off('setLevel');
-            // this.scene.remove("hud");
-            // var level = this.scene.get("level" + this.level);
-            // level.scene.restart();
             ourGame.events.off('addScore');
             ourGame.events.off('setLevel');
             this.scene.remove("hud");
@@ -82,6 +77,18 @@ export class winScreen extends Phaser.Scene{
             }
             if(this.level == 2){
                 this.scene.add('level2', Level2, true, {id: 2})
+                this.scene.stop();
+            }
+            if(this.level == 3){
+                this.scene.add('level3', Level3, true, {id: 3})
+                this.scene.stop();
+            }
+            if(this.level == 4){
+                this.scene.add('level4', Level4, true, {id: 4})
+                this.scene.stop();
+            }
+            if(this.level == 5){
+                this.scene.add('level5', Level5, true, {id: 5})
                 this.scene.stop();
             }
         });
@@ -97,18 +104,28 @@ export class winScreen extends Phaser.Scene{
         });
 
         nextLevel.on('pointerdown', () => {
-            //stop level 1 goto level2
             ourGame.events.off('addScore');
             ourGame.events.off('setLevel');
             this.scene.remove("hud");
             this.scene.remove("level" + this.level);
+            //goto lv2
             if(this.level == 1){
                 this.scene.add('level2', Level2, true, {id: 2})
                 this.scene.stop();
             }
-            //implment goto level 3
+            //goto lv3
             if(this.level == 2){
                 this.scene.add('level3', Level3, true, {id: 3})
+                this.scene.stop();
+            }
+            //goto lv4
+            if(this.level == 3){
+                this.scene.add('level4', Level4, true, {id: 4})
+                this.scene.stop();
+            }
+            //goto lv5
+            if(this.level == 4){
+                this.scene.add('level5', Level5, true, {id: 5})
                 this.scene.stop();
             }
         });

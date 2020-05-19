@@ -2,6 +2,8 @@ import { HelpMenu } from './HelpMenu';
 import { Level1 } from "./levels/Level1";
 import { Level2 } from "./levels/Level2";
 import { Level3 } from './levels/Level3';
+import { Level4 } from './levels/Level4';
+import { Level5 } from './levels/Level5';
 
 export class InGameMenu extends Phaser.Scene{
     private parent;
@@ -111,6 +113,14 @@ export class InGameMenu extends Phaser.Scene{
             }
             if(this.level == 3){
                 this.scene.add('level3', Level3, true, {id: 3})
+                this.scene.stop();
+            }
+            if(this.level == 4){
+                this.scene.add('level4', Level4, true, {id: 4})
+                this.scene.stop();
+            }
+            if(this.level == 5){
+                this.scene.add('level5', Level5, true, {id: 5})
                 this.scene.stop();
             }
             // var level = this.scene.get("level" + this.level);
