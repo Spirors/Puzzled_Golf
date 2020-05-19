@@ -2,6 +2,8 @@ import { HelpMenu } from "./HelpMenu";
 import { Level1 } from "./levels/Level1";
 import { Level2 } from "./levels/Level2";
 import { Level3 } from "./levels/Level3";
+import { Level4 } from "./levels/Level4";
+import { Level5 } from "./levels/Level5";
 
 export class MainMenu extends Phaser.Scene{
     private muted;
@@ -174,6 +176,16 @@ export class MainMenu extends Phaser.Scene{
         });
         level3.on('pointerdown', () => {
             var newScene = this.scene.add('level3', Level3, true, {id: 3});
+            music.stop();
+            this.scene.stop();
+        });
+        level4.on('pointerdown', () => {
+            var newScene = this.scene.add('level4', Level4, true, {id: 4});
+            music.stop();
+            this.scene.stop();
+        });
+        level5.on('pointerdown', () => {
+            var newScene = this.scene.add('level5', Level5, true, {id: 5});
             music.stop();
             this.scene.stop();
         });
