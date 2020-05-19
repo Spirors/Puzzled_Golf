@@ -10,6 +10,9 @@ export class Level1 extends Phaser.Scene{
     private moving_blocks = new Array();
     private boolWin;
     private menu;
+    private wall_sound;
+    private ball_hole;
+    private win_sound;
 
     constructor(){
         super("level1");
@@ -23,6 +26,9 @@ export class Level1 extends Phaser.Scene{
         this.load.image('moving_block', "./assets/obj/moving_block1.png");
     }
     create(){
+        this.wall_sound = this.sound.add("wall_bounce")
+        this.ball_hole = this.sound.add("ball_in_hole");
+        this.win_sound = this.sound.add("win_music");
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
         this.add.tileSprite(0,0, this.game.renderer.width, this.game.renderer.width, "bkgrnd1").setOrigin(0,0).setScale(1.37);
@@ -98,6 +104,9 @@ export class Level1 extends Phaser.Scene{
 
     update() {
         this.ball.update();
+        if(this.boolWin == false && (this.ball.body.onFloor() || this.ball.body.onCeiling() || this.ball.body.onWall())){
+            this.wall_sound.play();
+        }
         for(var i = 0; i < this.moving_blocks.length; i++) {
             this.moving_blocks[i].update();
         }
@@ -124,6 +133,7 @@ export class Level1 extends Phaser.Scene{
         let velocity = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
         if (velocity <= 150) {
             if(this.boolWin == false){
+                this.ball_hole.play();
                 this.boolWin = true;
                 this.win();
             }
@@ -133,6 +143,7 @@ export class Level1 extends Phaser.Scene{
         this.menu.removeInteractive();
         this.ball.hide();
         this.scene.pause();
+        this.win_sound.play();
         this.events.emit('levelWin');
     }
 }
