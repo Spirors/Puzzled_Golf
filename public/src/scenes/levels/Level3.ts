@@ -4,19 +4,12 @@ import { Ball } from '../../objects/ball';
 import { Plate } from '../../objects/Plate';
 
 export class Level3 extends Phaser.Scene{
-    private ball;
-    private hole;
-
-    private doorLayer;
-
-    private plateArray = new Array();
-    private plate;
-
-    private waterLayer;
-    private boolWin;
     private menu;
 
-    private boolPressed;
+    private ball;
+    private hole;    
+
+    private boolWin;
     private controls
     private cursors;
 
@@ -25,14 +18,9 @@ export class Level3 extends Phaser.Scene{
     }
     init(){
         this.boolWin = false;
-        this.boolPressed = false;
     }
     preload(){
         this.load.tilemapTiledJSON('map3', './assets/map/level3.json');
-        this.load.image('plate', "./assets/obj/plate.png");
-        this.load.image('door', "./assets/obj/moving_block.png");
-        this.load.image('water', "./assets/obj/water.png");
-
         this.load.image("bkgrnd2", "./assets/background/level2_background.png");
     }
     create(){
@@ -58,69 +46,49 @@ export class Level3 extends Phaser.Scene{
             this.menu.setTint( 1 * 0xffffff);
             this.scene.pause();
             this.scene.resume("inGameMenu");
-            this.scene.setVisible(true, "inGameMenu") ;
+            this.scene.setVisible(true, "inGameMenu");
         }, this)
         //-----------------------------------------------------------------------------
         //map
         var map = this.make.tilemap({ key: 'map3' });
-        var tileset = map.addTilesetImage('golf_course', 'tiles');
-        var bgLayer = map.createStaticLayer('background', tileset, 0, 0);
+        var tileset = map.addTilesetImage('Golf Tiles', 'tiles');
+        var bgLayer = map.createStaticLayer('Grass', tileset, 0, 0);
         var mapX = this.game.renderer.width/2 - bgLayer.width/2;
         var mapY = this.game.renderer.height/2 - bgLayer.height/2;
         bgLayer.setPosition(mapX, mapY);
-        var borderLayer = map.createStaticLayer('border', tileset, 0, 0);
+        var borderLayer = map.createStaticLayer('Border', tileset, 0, 0);
         borderLayer.setPosition(mapX, mapY);
         borderLayer.setCollisionByExclusion([-1],true);
-        this.doorLayer = map.createStaticLayer('door', tileset, 0, 0);
-        this.doorLayer.setPosition(mapX, mapY);
-        this.doorLayer.setCollisionByExclusion([-1],true);
+
+        //create water
+        var waterLayer = map.createDynamicLayer('Water', tileset, 0, 0);
+        waterLayer.setPosition(mapX, mapY);
+        waterLayer.setTileIndexCallback([3,4,5,6,7,8,9,10,11], this.inwater, this);
         //-------------------------------------------------------------------------------
         //create ball
-        this.ball = new Ball({
-            scene : this,
-            x : this.scale.width - 700, //x coordnate of ball
-            y : this.scale.height - 700 //y coordnate of ball
-        });
-        this.physics.add.collider(this.ball, borderLayer);
-        this.physics.add.collider(this.ball, this.doorLayer);
-        //--------------------------------------------------------------------------------
-        //create hole
-        var holeLayer = map.getObjectLayer('hole')['objects'];
-        this.hole = this.physics.add.staticGroup();
-        holeLayer.forEach(object => {
-            let obj = this.hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole"); 
-        });
-        this.physics.add.overlap(this.ball, this.hole, this.checkWin, null, this);
-        //--------------------------------------------------------------------------------
-        // create plate
-        var plateLayer = map.getObjectLayer('plate')['objects'];
-        this.plate = this.physics.add.staticGroup();
-        plateLayer.forEach(object => {
-            let plate = new Plate({
+        var ballLayer = map.getObjectLayer('Ball')['objects'];
+        ballLayer.forEach(object => {
+            this.ball = new Ball({
                 scene : this,
                 x : mapX + object.x - object.width/2, //x coordnate of ball
                 y : mapY + object.y - object.height/2 //y coordnate of ball
             });
-            this.physics.add.overlap(this.ball, plate, this.checkPressed, null, this);
-            this.plateArray.push(plate);
+        });
+        //--------------------------------------------------------------------------------
+        //create hole
+        var holeLayer = map.getObjectLayer('Hole')['objects'];
+        this.hole = this.physics.add.staticGroup();
+        holeLayer.forEach(object => {
+            this.hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole"); 
         });
 
-        // Overlap of ball and plate
-        // this.plateArray.forEach(plate =>{
-        //     this.physics.add.overlap(this.ball, this.plate, this.checkPressed, null, this);
-        // });
-
-        var waterLayer = map.getObjectLayer('water')['objects'];
-        this.waterLayer = this.physics.add.staticGroup();
-        waterLayer.forEach(object => {
-            let obj = this.waterLayer.create(mapX + object.x + 32 - object.width/2, mapY + object.y - object.height/2, "water");
-        });
-
-        // Overlap of ball and water
-        this.physics.add.overlap(this.ball, this.waterLayer, this.inwater, null, this);
-
+        // Add physics
+        this.physics.add.collider(this.ball, borderLayer);
+        this.physics.add.overlap(this.ball, waterLayer);
+        this.physics.add.overlap(this.ball, this.hole, this.checkWin, null, this);
         this.children.bringToTop(this.ball);
 
+        
         //camera movment
         this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -148,10 +116,6 @@ export class Level3 extends Phaser.Scene{
     {
         this.controls.update(delta);
         this.ball.update();
-        // this.door.update();
-        // this.checkPressed();
-        // this.checkWater();
-        // this.checkWin();
     }
 
     createWindow(func, name, x, y, data){
@@ -186,22 +150,50 @@ export class Level3 extends Phaser.Scene{
         this.scene.pause();
         this.events.emit('levelWin');
     }
-
-    checkPressed() {
-        // if (this.boolPressed == false) {
-        //     this.boolPressed = true;
-        //     this.pressed();
-        // }
-        this.plateArray.forEach(plate =>{
-            this.physics.add.overlap(this.ball, this.plate, this.checkPressed, null, this);
-        });
-        console.log("pressed");
-    }
-    pressed() {
-        this.doorLayer.setCollisionByExclusion([-1],false);
-        this.doorLayer.setVisible(false);
-    }
     inwater() {
         this.ball.moveBack();
     }
 }
+
+//--------------------------------------------------------------------------------
+// this.load.image('plate', "./assets/obj/plate.png");
+// this.load.image('door', "./assets/obj/moving_block.png");
+// this.load.image('water', "./assets/obj/water.png");
+
+        // create plate
+        // var plateLayer = map.getObjectLayer('plate')['objects'];
+        // this.plate = this.physics.add.staticGroup();
+        // plateLayer.forEach(object => {
+        //     let plate = new Plate({
+        //         scene : this,
+        //         x : mapX + object.x - object.width/2, //x coordnate of ball
+        //         y : mapY + object.y - object.height/2 //y coordnate of ball
+        //     });
+        //     this.physics.add.overlap(this.ball, plate, this.checkPressed, null, this);
+        //     this.plateArray.push(plate);
+        // });
+
+        // Overlap of ball and plate
+        // this.plateArray.forEach(plate =>{
+        //     this.physics.add.overlap(this.ball, this.plate, this.checkPressed, null, this);
+        // });
+
+
+    // checkPressed() {
+    //     // if (this.boolPressed == false) {
+    //     //     this.boolPressed = true;
+    //     //     this.pressed();
+    //     // }
+    //     this.plateArray.forEach(plate =>{
+    //         this.physics.add.overlap(this.ball, this.plate, this.checkPressed, null, this);
+    //     });
+    //     console.log("pressed");
+    // }
+// this.doorLayer = map.createStaticLayer('door', tileset, 0, 0);
+//         this.doorLayer.setPosition(mapX, mapY);
+//         this.doorLayer.setCollisionByExclusion([-1],true);
+
+// pressed() {
+//     this.doorLayer.setCollisionByExclusion([-1],false);
+//     this.doorLayer.setVisible(false);
+// }
