@@ -72,7 +72,8 @@ export class Level3 extends Phaser.Scene{
         holeLayer.forEach(object => {
             this.hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole"); 
         });
-
+        //--------------------------------------------------------------------------------
+        //create moving block
         var movingLayer = map.getObjectLayer('Moving1')['objects'];
         movingLayer.forEach(object => {
             var moving_block = new MovingBlock({

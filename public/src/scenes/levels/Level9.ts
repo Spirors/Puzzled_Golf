@@ -21,6 +21,7 @@ export class Level9 extends Phaser.Scene{
     preload(){
         this.load.tilemapTiledJSON('map9', './assets/map/level9.json');
         this.load.image("bkgrnd2", "./assets/background/level2_background.png");
+        this.load.image('moving_block_3v', "./assets/obj/moving_block_3v.png");
     }
     create(){
         //----------------------------------------------------------------------------
@@ -92,7 +93,7 @@ export class Level9 extends Phaser.Scene{
                 start : 64,
                 end : 64,
                 verticle : true,
-                name : 'moving_block_5v'
+                name : 'moving_block_3v'
             });
             this.moving_blocks.push(moving_block);
         });
