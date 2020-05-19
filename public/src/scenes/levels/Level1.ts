@@ -4,12 +4,13 @@ import { Ball } from '../../objects/ball';
 import { MovingBlock } from '../../objects/MovingBlock';
 
 export class Level1 extends Phaser.Scene{
+    private menu;
+
     private ball;
     private hole;
 
-    private moving_block;
+    private moving_blocks = new Array();
     private boolWin;
-    private menu;
 
     constructor(){
         super("level1");
@@ -18,9 +19,9 @@ export class Level1 extends Phaser.Scene{
         this.boolWin = false;
     }
     preload(){
-        // Todo: Fix preloading
         this.load.tilemapTiledJSON('map1', './assets/map/level1.json');
         this.load.image("bkgrnd1", "./assets/background/level1_background.png");
+        this.load.image('moving_block1', "./assets/obj/moving_block1.png");
     }
     create(){
         //----------------------------------------------------------------------------
@@ -51,44 +52,62 @@ export class Level1 extends Phaser.Scene{
         //-----------------------------------------------------------------------------
         //map
         var map = this.make.tilemap({ key: 'map1' });
-        var tileset = map.addTilesetImage('golf_course', 'tiles');
-        var bgLayer = map.createStaticLayer('background', tileset, 0, 0);
+        var tileset = map.addTilesetImage('Golf Tiles', 'tiles');
+        var bgLayer = map.createStaticLayer('Grass', tileset, 0, 0);
         var mapX = this.game.renderer.width/2 - bgLayer.width/2;
         var mapY = this.game.renderer.height/2 - bgLayer.height/2;
         bgLayer.setPosition(mapX, mapY);
-        var borderLayer = map.createStaticLayer('border', tileset, 0, 0);
+        var borderLayer = map.createStaticLayer('Border', tileset, 0, 0);
         borderLayer.setPosition(mapX, mapY);
         borderLayer.setCollisionByExclusion([-1],true);
         //-------------------------------------------------------------------------------
         //create ball
-        this.ball = new Ball({
-            scene : this,
-            x : this.scale.width - 1000, //x coordnate of ball
-            y : this.scale.height - 600 //y coordnate of ball
+        var ballLayer = map.getObjectLayer('Ball')['objects'];
+        ballLayer.forEach(object => {
+            this.ball = new Ball({
+                scene : this,
+                x : mapX + object.x - object.width/2, //x coordnate of ball
+                y : mapY + object.y - object.height/2 //y coordnate of ball
+            });
         });
-        this.physics.add.collider(this.ball, borderLayer);
         //--------------------------------------------------------------------------------
         //create hole
-        var holeLayer = map.getObjectLayer('hole')['objects'];
+        var holeLayer = map.getObjectLayer('Hole')['objects'];
         this.hole = this.physics.add.staticGroup();
         holeLayer.forEach(object => {
-            let obj = this.hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole"); 
+            this.hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole"); 
         });
-        this.children.bringToTop(this.ball);
-        this.physics.add.overlap(this.ball, this.hole, this.checkWin, null, this);
         //--------------------------------------------------------------------------------
         //create moving block
-        this.moving_block = new MovingBlock({
-            scene : this,
-            x : this.scale.width - 556, //x coordnate of moving_block
-            y : this.scale.height - 256 //y coordnate of moving_block
+        var movingLayer = map.getObjectLayer('Moving')['objects'];
+        movingLayer.forEach(object => {
+            var moving_block = new MovingBlock({
+                scene : this,
+                x : mapX + object.x - object.width/2, //x coordnate of moving_block
+                y : mapY + object.y - object.height/2, //y coordnate of moving_block
+                v : 200,
+                start : 64,
+                end : 64,
+                verticle : true,
+                name : 'moving_block1'
+            });
+            this.moving_blocks.push(moving_block);
         });
-        this.physics.add.collider(this.ball, this.moving_block);
+        //--------------------------------------------------------------------------------
+        //add physics
+        this.physics.add.collider(this.ball, borderLayer);
+        this.physics.add.overlap(this.ball, this.hole, this.checkWin, null, this);
+        for(let moving_block of this.moving_blocks) {
+            this.physics.add.collider(this.ball, moving_block);
+        }
+        this.children.bringToTop(this.ball);
     }
 
     update() {
         this.ball.update();
-        this.moving_block.update();
+        for(var i = 0; i < this.moving_blocks.length; i++) {
+            this.moving_blocks[i].update();
+        }
     }
 
     createWindow(func, name, x, y, data){
