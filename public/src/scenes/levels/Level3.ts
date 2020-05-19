@@ -10,8 +10,6 @@ export class Level3 extends Phaser.Scene{
     private moving_blocks = new Array();
 
     private boolWin;
-    private controls
-    private cursors;
 
     constructor(){
         super("level3");
@@ -113,33 +111,9 @@ export class Level3 extends Phaser.Scene{
             this.physics.add.collider(this.ball, moving_block);
         }
         this.children.bringToTop(this.ball);
-
-        
-        //camera movment
-        this.cursors = this.input.keyboard.createCursorKeys();
-
-        this.cursors = this.input.keyboard.addKeys(
-            {up:Phaser.Input.Keyboard.KeyCodes.W,
-            down:Phaser.Input.Keyboard.KeyCodes.S,
-            left:Phaser.Input.Keyboard.KeyCodes.A,
-            right:Phaser.Input.Keyboard.KeyCodes.D});
-
-        var controlConfig = {
-            camera: this.cameras.main,
-            left: this.cursors.left,
-            right: this.cursors.right,
-            up: this.cursors.up,
-            down: this.cursors.down,
-            speed: 0.5
-        };
-        
-        this.controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
-
-        this.cameras.main.setBounds(0, 0, 2800, 1600);
     }
 
     update (time, delta) {
-        this.controls.update(delta);
         this.ball.update();
         for(var i = 0; i < this.moving_blocks.length; i++) {
             this.moving_blocks[i].update();

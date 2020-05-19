@@ -1,10 +1,10 @@
 import { Hud } from '../Hud';
 import { InGameMenu } from '../InGameMenu';
 import { Ball } from '../../objects/ball';
+import { MovingBlock } from '../../objects/MovingBlock';
 
 export class Level9 extends Phaser.Scene{
-    // private menu;
-
+    private moving_blocks = new Array();
     private ball;
     private hole;    
 
@@ -81,12 +81,31 @@ export class Level9 extends Phaser.Scene{
             this.hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole"); 
         });
         //--------------------------------------------------------------------------------
+        //create moving block
+        var movingLayer = map.getObjectLayer('Moving')['objects'];
+        movingLayer.forEach(object => {
+            var moving_block = new MovingBlock({
+                scene : this,
+                x : mapX + object.x - object.width/2, //x coordnate of moving_block
+                y : mapY + object.y - object.height/2, //y coordnate of moving_block
+                v : 200,
+                start : 64,
+                end : 64,
+                verticle : true,
+                name : 'moving_block_5v'
+            });
+            this.moving_blocks.push(moving_block);
+        });
+        //--------------------------------------------------------------------------------
         //add physics
         this.physics.add.collider(this.ball, borderLayer);
         this.physics.add.overlap(this.ball, waterLayer);
         this.physics.add.overlap(this.ball, sandLayer);
         this.physics.add.overlap(this.ball, lavaLayer);
         this.physics.add.overlap(this.ball, this.hole, this.checkWin, null, this);
+        for(let moving_block of this.moving_blocks) {
+            this.physics.add.collider(this.ball, moving_block);
+        }
         this.children.bringToTop(this.ball);
 
         //camera movment
@@ -106,18 +125,16 @@ export class Level9 extends Phaser.Scene{
             down: this.cursors.down,
             speed: 0.5
         };
-        
         this.controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
-
         this.cameras.main.setBounds(0, 0, 1900, 800);
     }
 
     update (time, delta) {
         this.controls.update(delta);
         this.ball.update();
-        // for(var i = 0; i < this.moving_blocks.length; i++) {
-        //     this.moving_blocks[i].update();
-        // }
+        for(var i = 0; i < this.moving_blocks.length; i++) {
+            this.moving_blocks[i].update();
+        }
     }
 
     createWindow(func, name, x, y, data){

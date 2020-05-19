@@ -1,4 +1,12 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "format":"json",
+         "target":"level9.json"
+        }
+    },
  "height":14,
  "infinite":false,
  "layers":[
@@ -95,7 +103,7 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":480,
+                 "x":512,
                  "y":128
                 }, 
                 {
@@ -107,7 +115,7 @@
                  "type":"",
                  "visible":true,
                  "width":32,
-                 "x":1024,
+                 "x":1056,
                  "y":128
                 }],
          "opacity":1,
