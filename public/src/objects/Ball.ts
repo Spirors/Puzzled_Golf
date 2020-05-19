@@ -107,6 +107,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
         this.scene.sound.play("hit");
         this.prevX = this.x;
         this.prevY = this.y;
+        console.log(this.prevX, this.prevY);
         this.setVelocity(velocity * -Math.cos(angle), velocity * -Math.sin(angle));
     }
 
@@ -134,6 +135,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
         this.setVelocity(0, 0);
         this.x = this.prevX;
         this.y = this.prevY;
+        console.log(this.prevX, this.prevY);
     }
 
     hide(){
