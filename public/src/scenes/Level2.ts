@@ -2,21 +2,10 @@ import { Hud } from './Hud';
 import { InGameMenu } from './InGameMenu';
 import { Ball } from '../objects/ball';
 import { Door } from '../objects/Door';
-import { NONE } from 'phaser';
 
 export class Level2 extends Phaser.Scene{
     private ball;
-    private hole;
-    private holeX;
-    private holeY;
-    private holeR;
-
     private door;
-
-    private plate;
-    private plateX;
-    private plateY;
-    private plateR;
 
     private waterLayer;
     private boolWin;
@@ -36,25 +25,21 @@ export class Level2 extends Phaser.Scene{
         this.load.image('plate', "./assets/plate.png");
         this.load.image('door', "./assets/moving_block.png");
         this.load.image('water', "./assets/water.png");
-
         this.load.image("bkgrnd2", "./assets/level2_background.png");
     }
     create(){
-        this.add.tileSprite(0,0, this.game.renderer.width, this.game.renderer.width, "bkgrnd2").setOrigin(0,0).setScale(1.37);
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
+        this.add.tileSprite(0,0, this.game.renderer.width, this.game.renderer.width, "bkgrnd2").setOrigin(0,0).setScale(1.37);
         this.physics.world.setFPS(120);
-
         if(this.scene.manager.getScene("inGameMenu") != null){
             this.scene.remove("inGameMenu");
         }
         if(this.scene.manager.getScene("winScreen") != null){
             this.scene.remove("winScreen");
         }
-        // console.log(this.scene.manager.keys);
         this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 2});
         this.createWindow(Hud, "hud", 0, 0, {level : 2});
-        console.log(this.scene.manager.keys);
         this.scene.setVisible(false, "inGameMenu") ;
         this.events.emit('setLevel');
         this.menu = this.add.sprite(this.game.renderer.width - 100, 30, 'button', 3);
@@ -85,50 +70,33 @@ export class Level2 extends Phaser.Scene{
             y : this.scale.height - 400 //y coordnate of ball
         });
         this.physics.add.collider(this.ball, borderLayer);
+        this.children.bringToTop(this.ball);
         //--------------------------------------------------------------------------------
         //create hole
         var holeLayer = map.getObjectLayer('hole')['objects'];
-        this.hole = this.physics.add.staticGroup();
+        var holes = this.physics.add.staticGroup();
         holeLayer.forEach(object => {
-            console.log(object.x,object.y);
-            this.holeX = mapX + object.x;
-            this.holeY = mapY + object.y
-            this.holeR = object.width/2;
-            let obj = this.hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole"); 
+            let obj = holes.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole"); 
         });
-
-        // Overlap of ball and hole
-        this.physics.add.overlap(this.ball, this.hole, this.checkWin, null, this);
+        this.physics.add.overlap(this.ball, holes, this.checkWin, null, this);
         //--------------------------------------------------------------------------------
-        // create plate
+        //create plate
         var plateLayer = map.getObjectLayer('plate')['objects'];
-        this.plate = this.physics.add.staticGroup();
+        var plates = this.physics.add.staticGroup();
         plateLayer.forEach(object => {
-            // console.log(object.x,object.y);
-            this.plateX = mapX + object.x;
-            this.plateY = mapY + object.y;
-            this.plateR = object.width/2;
-            let obj = this.plate.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "plate"); 
+            let obj = plates.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "plate"); 
         });
-
-        // Overlap of ball and plate
-        this.physics.add.overlap(this.ball, this.plate, this.checkPressed, null, this);
-
+        this.physics.add.overlap(this.ball, plates, this.checkPressed, null, this);
+        //--------------------------------------------------------------------------------
+        //create water
         var waterLayer = map.getObjectLayer('water')['objects'];
         this.waterLayer = this.physics.add.staticGroup();
         waterLayer.forEach(object => {
-            // console.log(object.x,object.y);
-            // this.holeX = mapX + object.x;
-            // this.holeY = mapY + object.y
-            // this.holeR = object.width/2;
             let obj = this.waterLayer.create(mapX + object.x + 32 - object.width/2, mapY + object.y - object.height/2, "water");
         });
-
-        // Overlap of ball and water
         this.physics.add.overlap(this.ball, this.waterLayer, this.inwater, null, this);
-
-        this.children.bringToTop(this.ball);
-
+        //--------------------------------------------------------------------------------
+        //create door
         this.door = new Door({
             scene : this,
             x : this.scale.width - 556, //x coordnate of moving_block
@@ -140,19 +108,12 @@ export class Level2 extends Phaser.Scene{
     update() {
         this.ball.update();
         this.door.update();
-        // this.checkPressed();
-        // this.checkWater();
-        // this.checkWin();
     }
 
     createWindow(func, name, x, y, data){
         var win = this.add.zone(x,y, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
         var window = new func(name, win);
-        if(data == NONE){
-            this.scene.add(name, window, true);
-        }else{
-            this.scene.add(name, window, true, data);
-        }
+        this.scene.add(name, window, true, data);
     }
 
     setHighLight(obj){
@@ -173,22 +134,9 @@ export class Level2 extends Phaser.Scene{
                 this.boolWin = true;
                 this.win();
             }
-            // let ballX = this.ball.getX();
-            // let ballY = this.ball.getY();
-            // // console.log(this.holeX - this.holeR, ballX, this.holeX + this.holeR);
-            // // console.log(this.holeY - this.holeR, ballY, this.holeY + this.holeR);
-            // if (ballX >= this.holeX - this.holeR && ballX <= this.holeX + this.holeR &&
-            //     ballY >= this.holeY - this.holeR && ballY <= this.holeY + this.holeR) {
-            //     // console.log(velocity);
-            //     if(this.boolWin == false){
-            //         this.boolWin = true;
-            //         this.win();
-            //     }
-            // }
         }
     }
     win() {
-        console.log("win");
         this.menu.removeInteractive();
         this.scene.pause();
         this.events.emit('levelWin');
@@ -199,17 +147,6 @@ export class Level2 extends Phaser.Scene{
             this.boolPressed = true;
             this.pressed();
         }
-        // let ballX = this.ball.getX();
-        // let ballY = this.ball.getY();
-        // let ballR = this.ball.getR();
-        // // console.log(ballX - ballR, ballY - ballR, ballR);
-        // // console.log(this.plateX - this.plateR, ballX, this.plateX + this.plateR);
-        // // console.log(this.plateY - this.plateR, ballY, this.plateY + this.plateR);
-
-        // if (ballX >= this.plateX - this.plateR && ballX <= this.plateX + this.plateR &&
-        //     ballY >= this.plateY - this.plateR && ballY <= this.plateY + this.plateR) {
-        //     this.pressed();
-        // }
     }
     pressed() {
         this.door.setOpen();
