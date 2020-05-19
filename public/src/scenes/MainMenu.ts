@@ -41,6 +41,7 @@ export class MainMenu extends Phaser.Scene{
         this.load.audio('wall_bounce','./assets/audio/sound_effects/wall_bounce.mp3'); 
         this.load.audio('ball_in_hole','./assets/audio/sound_effects/ball_in_hole.mp3'); 
         this.load.audio('win_music', './assets/audio/sound_effects/win_music.mp3'); 
+        this.load.audio('water_splash', './assets/audio/sound_effects/water_splash.mp3'); 
 
     }
     create(){

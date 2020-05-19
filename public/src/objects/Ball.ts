@@ -15,6 +15,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     private prevY;
 
     private bool_win;
+    private water_sound;
 
     constructor(config) {
         super(config.scene, config.x, config.y, 'ball');
@@ -28,6 +29,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
         this.scene.input.setDraggable(this);
 
         this.bool_win = false;
+        this.water_sound = this.scene.sound.add("water_splash");
 
         this.ball_delta = .97;
         this.ball_power = 1/12;
@@ -131,6 +133,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     }
 
     moveBack() {
+        this.water_sound.play();
         this.setVelocity(0, 0);
         this.x = this.prevX;
         this.y = this.prevY;

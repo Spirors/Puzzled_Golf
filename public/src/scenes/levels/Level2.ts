@@ -11,6 +11,13 @@ export class Level2 extends Phaser.Scene{
 
     private boolWin;
 
+    private wall_sound;
+    private win_sound;
+    private ball_in_hole;
+    private water_spalsh;
+
+
+
     constructor(){
         super("level2");
     }
@@ -22,6 +29,13 @@ export class Level2 extends Phaser.Scene{
         this.load.image("bkgrnd2", "./assets/background/level2_background.png");
     }
     create(){
+        //----------------------------------------------------------------------------
+        // sound effects
+        this.wall_sound = this.sound.add("wall_bounce");
+        this.ball_in_hole = this.sound.add("ball_in_hole");
+        this.win_sound = this.sound.add("win_music");
+        this.water_spalsh = this.sound.add("water_splash");
+
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
         this.add.tileSprite(0,0, this.game.renderer.width, this.game.renderer.width, "bkgrnd2").setOrigin(0,0).setScale(1.37);
@@ -87,6 +101,9 @@ export class Level2 extends Phaser.Scene{
 
     update() {
         this.ball.update();
+        if(this.boolWin == false && (this.ball.body.onFloor() || this.ball.body.onCeiling() || this.ball.body.onWall())){
+            this.wall_sound.play();
+        }
     }
 
     createWindow(func, name, x, y, data){
@@ -119,6 +136,7 @@ export class Level2 extends Phaser.Scene{
         this.menu.removeInteractive();
         this.ball.hide();
         this.scene.pause();
+        this.win_sound.play();
         this.events.emit('levelWin');
     }
 
