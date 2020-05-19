@@ -7,6 +7,7 @@ export class Hud extends Phaser.Scene{
     private levelText;
     private localStorageName;
     private levelHighScore;
+    private menu;
     constructor (handle, parent)
     {
         super(handle);
@@ -19,7 +20,7 @@ export class Hud extends Phaser.Scene{
     {
         let scoreText = this.add.text(10, 10, 'Score: 0', { font: '48px Arial', fill: '#c4a727' });
         this.levelText = this.add.text(10, 50, '', { font: '48px Arial', fill: '#c4a727' });
-        this.cameras.main.setViewport(0, 0, 0, 0);
+        this.cameras.main.setViewport(0, 0, this.game.renderer.width, this.game.renderer.height);
         let ourGame = this.scene.get("level" + this.level);
         this.levelText.setText('Level: ' + this.level);
         this.localStorageName = "golfLevel" + this.level + "HighScore";
@@ -27,10 +28,22 @@ export class Hud extends Phaser.Scene{
             this.score += 1;
             scoreText.setText('Score: ' + this.score);
         }, this);
+        //menu button
+        this.menu = this.add.sprite(this.game.renderer.width - 100, 30, 'button', 3);
+        this.menu.setInteractive();
+        this.setHighLight(this.menu);
+        this.menu.on('pointerup', function () {
+            this.menu.setTint( 1 * 0xffffff);
+            this.scene.pause("level" + this.level);
+            this.scene.resume("inGameMenu");
+            this.scene.setVisible(true, "inGameMenu") ;
+        }, this)
+
         this.levelHighScore = localStorage.getItem(this.localStorageName) == null ? 0 :
                               localStorage.getItem(this.localStorageName);
         ourGame.events.on('levelWin', function () {
             console.log("level win");
+            this.menu.removeInteractive();
             let newHighscore = Math.min(this.score, this.levelHighScore);
             localStorage.setItem(this.localStorageName, newHighscore.toString());
             this.events.emit('createWinScreen', {score: this.score});
@@ -49,6 +62,15 @@ export class Hud extends Phaser.Scene{
     {
         this.cameras.main.setPosition(this.parent.x, this.parent.y);
         this.scene.bringToTop();
+    }
+
+    setHighLight(obj){
+        obj.on('pointerover', () => {
+            obj.setTint( 1 * 0xffff66);
+        })
+        .on('pointerout', () => {
+            obj.setTint( 1 * 0xffffff);
+        })
     }
 
     createWindow(func, name, x, y, data){

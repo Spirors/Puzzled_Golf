@@ -7,7 +7,7 @@ import { Level5 } from "./levels/Level5";
 import { Level6 } from "./levels/Level6";
 import { Level7 } from "./levels/Level7";
 import { Level8 } from "./levels/Level8";
-// import { Level9 } from "./levels/Level9";
+import { Level9 } from "./levels/Level9";
 // import { Level10 } from "./levels/Level10";
 // import { Level11 } from "./levels/Level11";
 // import { Level12 } from "./levels/Level12";
@@ -217,11 +217,11 @@ export class MainMenu extends Phaser.Scene{
             music.stop();
             this.scene.stop();
         });
-        // level9.on('pointerdown', () => {
-        //     var newScene = this.scene.add('level9', Level9, true, {id: 9});
-        //     music.stop();
-        //     this.scene.stop();
-        // });
+        level9.on('pointerdown', () => {
+            var newScene = this.scene.add('level9', Level9, true, {id: 9});
+            music.stop();
+            this.scene.stop();
+        });
         // level10.on('pointerdown', () => {
         //     var newScene = this.scene.add('level10', Level10, true, {id: 10});
         //     music.stop();

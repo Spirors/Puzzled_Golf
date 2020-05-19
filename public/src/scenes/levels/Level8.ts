@@ -3,8 +3,6 @@ import { InGameMenu } from '../InGameMenu';
 import { Ball } from '../../objects/ball';
 
 export class Level8 extends Phaser.Scene{
-    private menu;
-
     private ball;
     private hole;    
 
@@ -34,15 +32,6 @@ export class Level8 extends Phaser.Scene{
         this.createWindow(Hud, "hud", 0, 0, {level : 8});
         this.scene.setVisible(false, "inGameMenu") ;
         this.events.emit('setLevel');
-        this.menu = this.add.sprite(this.game.renderer.width - 100, 30, 'button', 3);
-        this.menu.setInteractive();
-        this.setHighLight(this.menu);
-        this.menu.on('pointerup', function () {
-            this.menu.setTint( 1 * 0xffffff);
-            this.scene.pause();
-            this.scene.resume("inGameMenu");
-            this.scene.setVisible(true, "inGameMenu") ;
-        }, this)
         //-----------------------------------------------------------------------------
         //map
         var map = this.make.tilemap({ key: 'map8' });
@@ -60,7 +49,7 @@ export class Level8 extends Phaser.Scene{
         waterLayer.setPosition(mapX, mapY);
         waterLayer.setTileIndexCallback([3,4,5,6,7,8,9,10,11], this.inwater, this);
         //-------------------------------------------------------------------------------
-        //create sand
+        //create lava
         var lavaLayer = map.createDynamicLayer('Lava', tileset, 0, 0);
         lavaLayer.setPosition(mapX, mapY);
         lavaLayer.setTileIndexCallback([12,13,14,15,16,17,18,19,20], this.inLava, this);
@@ -121,7 +110,6 @@ export class Level8 extends Phaser.Scene{
         }
     }
     win() {
-        this.menu.removeInteractive();
         this.ball.hide();
         this.scene.pause();
         this.events.emit('levelWin');

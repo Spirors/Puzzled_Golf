@@ -4,8 +4,6 @@ import { Ball } from '../../objects/ball';
 import { MovingBlock } from '../../objects/MovingBlock';
 
 export class Level1 extends Phaser.Scene{
-    private menu;
-
     private ball;
     private hole;
 
@@ -40,15 +38,6 @@ export class Level1 extends Phaser.Scene{
         console.log(this.scene.manager.keys);
         this.scene.setVisible(false, "inGameMenu");
         this.events.emit('setLevel');
-        this.menu = this.add.sprite(this.game.renderer.width - 100, 30, 'button', 3);
-        this.menu.setInteractive();
-        this.setHighLight(this.menu);
-        this.menu.on('pointerup', function () {
-            this.menu.setTint( 1 * 0xffffff);
-            this.scene.pause();
-            this.scene.resume("inGameMenu");
-            this.scene.setVisible(true, "inGameMenu") ;
-        }, this)
         //-----------------------------------------------------------------------------
         //map
         var map = this.make.tilemap({ key: 'map1' });
@@ -137,7 +126,6 @@ export class Level1 extends Phaser.Scene{
         }
     }
     win() {
-        this.menu.removeInteractive();
         this.ball.hide();
         this.scene.pause();
         this.events.emit('levelWin');

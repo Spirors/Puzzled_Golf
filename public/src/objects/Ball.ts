@@ -23,7 +23,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
         this.body.setCircle(16);
         this.setOrigin(0.5, 0.5);
         this.setInteractive();
-        this.setCollideWorldBounds(true);
+        // this.setCollideWorldBounds(true);
         this.setBounce(1, 1);
         this.scene.input.setDraggable(this);
 
