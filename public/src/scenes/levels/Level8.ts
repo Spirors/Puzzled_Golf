@@ -120,6 +120,6 @@ export class Level8 extends Phaser.Scene{
     }
 
     inLava() {
-        console.log("in lava");
+        this.ball.moveStart();
     }
 }

@@ -14,7 +14,8 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     private prevX;
     private prevY;
 
-    private bool_win;
+    private startX; 
+    private startY;
 
     constructor(config) {
         super(config.scene, config.x, config.y, 'ball');
@@ -27,14 +28,15 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
         this.setBounce(1, 1);
         this.scene.input.setDraggable(this);
 
-        this.bool_win = false;
-
         this.ball_delta = .97;
         this.ball_power = 1/12;
         this.draggable = true;
 
         this.prevX = this.x;
         this.prevY = this.y;
+
+        this.startX = this.x;
+        this.startY = this.y;
 
         this.indicator_line = new Phaser.Geom.Line(
             this.x,
@@ -136,6 +138,12 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
         this.x = this.prevX;
         this.y = this.prevY;
         console.log(this.prevX, this.prevY);
+    }
+
+    moveStart() {
+        this.setVelocity(0, 0);
+        this.x = this.startX;
+        this.y = this.startY;
     }
     
     setDelta(d) {
