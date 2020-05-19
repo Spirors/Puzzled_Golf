@@ -137,6 +137,10 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
         this.y = this.prevY;
         console.log(this.prevX, this.prevY);
     }
+    
+    setDelta(d) {
+        this.ball_delta = d;
+    }
 
     hide(){
         this.setVisible(false);
