@@ -31,9 +31,9 @@
   <object id="27" gid="33" x="736" y="352" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="6" name="Ball">
-  <object id="29" gid="30" x="160" y="128" width="32" height="32"/>
+  <object id="29" gid="30" x="192" y="128" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="7" name="Hole">
-  <object id="28" gid="31" x="416" y="192" width="32" height="32"/>
+  <object id="28" gid="31" x="448" y="192" width="32" height="32"/>
  </objectgroup>
 </map>

@@ -27,9 +27,9 @@
   </data>
  </layer>
  <objectgroup id="5" name="Hole">
-  <object id="165" gid="31" x="672" y="512" width="32" height="32"/>
+  <object id="165" gid="31" x="704" y="512" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="6" name="Ball">
-  <object id="166" gid="30" x="64" y="128" width="32" height="32"/>
+  <object id="166" gid="30" x="96" y="128" width="32" height="32"/>
  </objectgroup>
 </map>
