@@ -4,6 +4,19 @@ import { Level2 } from "./levels/Level2";
 import { Level3 } from './levels/Level3';
 import { Level4 } from './levels/Level4';
 import { Level5 } from './levels/Level5';
+import { Level6 } from './levels/Level6';
+import { Level7 } from "./levels/Level7";
+// import { Level8 } from "./levels/Level8";
+// import { Level9 } from "./levels/Level9";
+// import { Level10 } from "./levels/Level10";
+// import { Level11 } from "./levels/Level11";
+// import { Level12 } from "./levels/Level12";
+// import { Level13 } from "./levels/Level13";
+// import { Level114 } from "./levels/Level14";
+// import { Level15 } from "./levels/Level15";
+// import { Level16 } from "./levels/Level16";
+// import { Level17 } from "./levels/Level17";
+// import { Level18 } from "./levels/Level18";
 
 export class InGameMenu extends Phaser.Scene{
     private parent;
@@ -123,6 +136,62 @@ export class InGameMenu extends Phaser.Scene{
                 this.scene.add('level5', Level5, true, {id: 5})
                 this.scene.stop();
             }
+            if(this.level == 6){
+                this.scene.add('level6', Level6, true, {id: 6})
+                this.scene.stop();
+            }
+            if(this.level == 7){
+                this.scene.add('level7', Level7, true, {id: 7})
+                this.scene.stop();
+            }
+            // if(this.level == 8){
+            //     this.scene.add('level8', Level8, true, {id: 8})
+            //     this.scene.stop();
+            // }
+            // if(this.level == 9){
+            //     this.scene.add('level9', Level9, true, {id: 9})
+            //     this.scene.stop();
+            // }
+            // if(this.level == 9){
+            //     this.scene.add('level9', Level9, true, {id: 9})
+            //     this.scene.stop();
+            // }
+            // if(this.level == 10){
+            //     this.scene.add('level10', Level10, true, {id: 10})
+            //     this.scene.stop();
+            // }
+            // if(this.level == 11){
+            //     this.scene.add('level11', Level11, true, {id: 11})
+            //     this.scene.stop();
+            // }
+            // if(this.level == 12){
+            //     this.scene.add('level12', Level12, true, {id: 12})
+            //     this.scene.stop();
+            // }
+            // if(this.level == 13){
+            //     this.scene.add('level13', Level13, true, {id: 13})
+            //     this.scene.stop();
+            // }
+            // if(this.level == 14){
+            //     this.scene.add('level14', Level14, true, {id: 14})
+            //     this.scene.stop();
+            // }
+            // if(this.level == 15){
+            //     this.scene.add('level15', Level15, true, {id: 15})
+            //     this.scene.stop();
+            // }
+            // if(this.level == 16){
+            //     this.scene.add('level16', Level16, true, {id: 16})
+            //     this.scene.stop();
+            // }
+            // if(this.level == 17){
+            //     this.scene.add('level17', Level17, true, {id: 17})
+            //     this.scene.stop();
+            // }
+            // if(this.level == 18){
+            //     this.scene.add('level18', Level18, true, {id: 18})
+            //     this.scene.stop();
+            // }
             // var level = this.scene.get("level" + this.level);
             // level.scene.restart();
         });
