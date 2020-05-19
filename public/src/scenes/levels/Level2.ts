@@ -109,7 +109,7 @@ export class Level2 extends Phaser.Scene{
         let velocityY = this.ball.getVelocityY();
         let velocity = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
         if (velocity <= 150) {
-            if(this.boolWin == false){
+            if(this.boolWin == false) {
                 this.boolWin = true;
                 this.win();
             }
@@ -123,8 +123,8 @@ export class Level2 extends Phaser.Scene{
     }
 
     inwater() {
-        
-        this.ball.moveBack();
+        // Fix delay
+        this.time.delayedCall(3000, this.ball.moveBack(), [], this);
     }
 
     //--------------------------------------------------------------------------------
