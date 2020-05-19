@@ -10,10 +10,9 @@ export class MovingBlock extends Phaser.Physics.Arcade.Sprite {
         config.scene.add.existing(this);
         this.setImmovable(true);
 
-        this.velocity = 250;
-        this.startY = this.y - 80;
-        this.endY = this.y + 80;
-        // console.log(this.startY, this.y, this.endY);
+        this.velocity = config.v;
+        this.startY = this.y - config.start;
+        this.endY = this.y + config.end;
         this.reversed = false;
 
         this.setVelocity(0, this.velocity);
