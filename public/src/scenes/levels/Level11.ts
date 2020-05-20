@@ -118,12 +118,12 @@ export class Level11 extends Phaser.Scene{
         //create Laser
         this.laserLayer1 = map.createDynamicLayer('Laser1', tileset, 0, 0);
         this.laserLayer1.setPosition(mapX, mapY);
-        this.laserLayer1.setTileIndexCallback(38, this.inLava, this);
+        this.laserLayer1.setTileIndexCallback([37, 38], this.inLava, this);
         //-------------------------------------------------------------------------------
         //create Laser2
         this.laserLayer2 = map.createDynamicLayer('Laser2', tileset, 0, 0);
         this.laserLayer2.setPosition(mapX, mapY);
-        this.laserLayer2.setTileIndexCallback(38, this.inLava, this);
+        this.laserLayer2.setTileIndexCallback([37, 38], this.inLava, this);
         //-------------------------------------------------------------------------------
         //create ball
         var ballLayer = map.getObjectLayer('Ball')['objects'];
@@ -322,12 +322,12 @@ export class Level11 extends Phaser.Scene{
     }
     openL1() {
         this.boolLOpen1 = true;
-        this.laserLayer1.setTileIndexCallback(38, null, this);
+        this.laserLayer1.setTileIndexCallback([37, 38], null, this);
         this.laserLayer1.setVisible(false);
     }
     openL2() {
         this.boolLOpen2 = true;
-        this.laserLayer2.setTileIndexCallback(38, null, this);
+        this.laserLayer2.setTileIndexCallback([37, 38], null, this);
         this.laserLayer2.setVisible(false);
     }
 

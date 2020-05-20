@@ -13,6 +13,24 @@ export class Level12 extends Phaser.Scene{
     private controls
     private cursors;
 
+    private boolPressed1 = false;
+    private boolPressed2 = false;
+
+    private doorLayer1;
+    private doorLayer2;
+
+    private boolOpen1 = false;
+    private boolOpen2 = false;
+
+    private boolLPressed1 = false;
+    private boolLPressed2 = false;
+
+    private laserLayer1;
+    private laserLayer2;
+
+    private boolLOpen1 = false;
+    private boolLOpen2 = false;
+
     constructor(){
         super("level12");
     }
@@ -65,42 +83,42 @@ export class Level12 extends Phaser.Scene{
         //create plate1
         var plateLayer1 = map.createDynamicLayer('Plate1', tileset, 0, 0);
         plateLayer1.setPosition(mapX, mapY);
-        plateLayer1.setTileIndexCallback(34, this.onPlate, this);
+        plateLayer1.setTileIndexCallback(34, this.onPlate1, this);
         //-------------------------------------------------------------------------------
         //create plate2
         var plateLayer2 = map.createDynamicLayer('Plate2', tileset, 0, 0);
         plateLayer2.setPosition(mapX, mapY);
-        plateLayer2.setTileIndexCallback(34, this.onPlate, this);
+        plateLayer2.setTileIndexCallback(34, this.onPlate2, this);
         //-------------------------------------------------------------------------------
         //create door1
-        var doorLayer1 = map.createDynamicLayer('Door1', tileset, 0, 0);
-        doorLayer1.setPosition(mapX, mapY);
-        doorLayer1.setCollisionByExclusion([-1],true);
+        this.doorLayer1 = map.createDynamicLayer('Door1', tileset, 0, 0);
+        this.doorLayer1.setPosition(mapX, mapY);
+        this.doorLayer1.setCollisionByExclusion([-1],true);
         //-------------------------------------------------------------------------------
         //create door2
-        var doorLayer2 = map.createDynamicLayer('Door2', tileset, 0, 0);
-        doorLayer2.setPosition(mapX, mapY);
-        doorLayer2.setCollisionByExclusion([-1],true);
+        this.doorLayer2 = map.createDynamicLayer('Door2', tileset, 0, 0);
+        this.doorLayer2.setPosition(mapX, mapY);
+        this.doorLayer2.setCollisionByExclusion([-1],true);
         //-------------------------------------------------------------------------------
         //create Laser plate1
         var lplateLayer1 = map.createDynamicLayer('LPlate1', tileset, 0, 0);
         lplateLayer1.setPosition(mapX, mapY);
-        lplateLayer1.setTileIndexCallback(34, this.onPlate, this);
+        lplateLayer1.setTileIndexCallback(35, this.onLPlate1, this);
         //-------------------------------------------------------------------------------
         //create Laser plate2
         var lplateLayer2 = map.createDynamicLayer('LPlate2', tileset, 0, 0);
         lplateLayer2.setPosition(mapX, mapY);
-        lplateLayer2.setTileIndexCallback(34, this.onPlate, this);
+        lplateLayer2.setTileIndexCallback(35, this.onLPlate2, this);
         //-------------------------------------------------------------------------------
         //create Laser
-        var laserLayer1 = map.createDynamicLayer('Laser1', tileset, 0, 0);
-        laserLayer1.setPosition(mapX, mapY);
-        laserLayer1.setCollisionByExclusion([-1],true);
+        this.laserLayer1 = map.createDynamicLayer('Laser1', tileset, 0, 0);
+        this.laserLayer1.setPosition(mapX, mapY);
+        this.laserLayer1.setTileIndexCallback([37, 38], this.inLava, this);
         //-------------------------------------------------------------------------------
         //create Laser2
-        var laserLayer2 = map.createDynamicLayer('Laser2', tileset, 0, 0);
-        laserLayer2.setPosition(mapX, mapY);
-        laserLayer2.setCollisionByExclusion([-1],true);
+        this.laserLayer2 = map.createDynamicLayer('Laser2', tileset, 0, 0);
+        this.laserLayer2.setPosition(mapX, mapY);
+        this.laserLayer2.setTileIndexCallback([37, 38], this.inLava, this);
         //-------------------------------------------------------------------------------
         //create ball
         var ballLayer = map.getObjectLayer('Ball')['objects'];
@@ -142,12 +160,12 @@ export class Level12 extends Phaser.Scene{
         this.physics.add.overlap(this.ball, this.hole, this.checkWin, null, this);
         this.physics.add.overlap(this.ball, plateLayer1);
         this.physics.add.overlap(this.ball, plateLayer2);
-        this.physics.add.collider(this.ball, doorLayer1);
-        this.physics.add.collider(this.ball, doorLayer2);
+        this.physics.add.collider(this.ball, this.doorLayer1);
+        this.physics.add.collider(this.ball, this.doorLayer2);
         this.physics.add.overlap(this.ball, lplateLayer1);
         this.physics.add.overlap(this.ball, lplateLayer2);
-        this.physics.add.collider(this.ball, laserLayer1);
-        this.physics.add.collider(this.ball, laserLayer2);
+        this.physics.add.collider(this.ball, this.laserLayer1);
+        this.physics.add.collider(this.ball, this.laserLayer2);
         for(let moving_block of this.moving_blocks) {
             this.physics.add.collider(this.ball, moving_block);
         }
@@ -181,6 +199,7 @@ export class Level12 extends Phaser.Scene{
         for(var i = 0; i < this.moving_blocks.length; i++) {
             this.moving_blocks[i].update();
         }
+        this.checkOpen();
     }
 
     createWindow(func, name, x, y, data){
@@ -216,6 +235,18 @@ export class Level12 extends Phaser.Scene{
     }
 
     inwater() {
+        if (this.boolPressed1 == true) {
+            this.boolPressed1 = false;
+        }
+        if (this.boolPressed2 == true) {
+            this.boolPressed2 = false;
+        }
+        if (this.boolLPressed1 == true) {
+            this.boolLPressed1 = false;
+        }
+        if (this.boolLPressed2 == true) {
+            this.boolLPressed2 = false;
+        }
         this.ball.moveBack();
     }
 
@@ -234,10 +265,88 @@ export class Level12 extends Phaser.Scene{
     }
 
     inLava() {
+        if (this.boolPressed1 == true) {
+            this.boolPressed1 = false;
+        }
+        if (this.boolPressed2 == true) {
+            this.boolPressed2 = false;
+        }
+        if (this.boolLPressed1 == true) {
+            this.boolLPressed1 = false;
+        }
+        if (this.boolLPressed2 == true) {
+            this.boolLPressed2 = false;
+        }
         this.ball.moveStart();
     }
 
-    onPlate() {
-        console.log("on plate");
+    onPlate1() {
+        console.log(1);
+        if (this.boolPressed1 == false) {
+            this.boolPressed1 = true;
+        }
+    }
+    onPlate2() {
+        console.log(2);
+        if (this.boolPressed2 == false) {
+            this.boolPressed2 = true;
+        }
+    }
+    open1() {
+        this.boolOpen1 = true;
+        this.doorLayer1.setCollisionByExclusion([-1],false);
+        this.doorLayer1.setVisible(false);
+    }
+    open2() {
+        this.boolOpen2 = true;
+        this.doorLayer2.setCollisionByExclusion([-1],false);
+        this.doorLayer2.setVisible(false);
+    }
+    onLPlate1() {
+        console.log("L1");
+        if (this.boolLPressed1 == false) {
+            this.boolLPressed1 = true;
+        }
+    }
+    onLPlate2() {
+        console.log("L2");
+        if (this.boolLPressed2 == false) {
+            this.boolLPressed2 = true;
+        }
+    }
+    openL1() {
+        this.boolLOpen1 = true;
+        this.laserLayer1.setTileIndexCallback([37, 38], null, this);
+        this.laserLayer1.setVisible(false);
+    }
+    openL2() {
+        this.boolLOpen2 = true;
+        this.laserLayer2.setTileIndexCallback([37, 38], null, this);
+        this.laserLayer2.setVisible(false);
+    }
+
+    checkOpen() {
+        if (this.ball.stopped()) {
+            if (this.boolPressed1) {
+                if (this.boolOpen1 == false) {
+                    this.open1();
+                }
+            }
+            if (this.boolPressed2) {
+                if (this.boolOpen2 == false) {
+                    this.open2();
+                }
+            }
+            if (this.boolLPressed1) {
+                if (this.boolLOpen1 == false) {
+                    this.openL1();
+                }
+            }
+            if (this.boolLPressed2) {
+                if (this.boolLOpen2 == false) {
+                    this.openL2();
+                }
+            }
+        }
     }
 }
