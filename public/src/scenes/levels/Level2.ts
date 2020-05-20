@@ -114,46 +114,4 @@ export class Level2 extends Phaser.Scene{
         // Fix delay
         this.time.delayedCall(3000, this.ball.moveBack(), [], this);
     }
-
-    //--------------------------------------------------------------------------------
-        //create plate
-        // var plateLayer = map.getObjectLayer('plate')['objects'];
-        // var plates = this.physics.add.staticGroup();
-        // plateLayer.forEach(object => {
-        //     let obj = plates.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "plate"); 
-        // });
-        // this.physics.add.overlap(this.ball, plates, this.pressed, null, this);
-        //--------------------------------------------------------------------------------
-        //--------------------------------------------------------------------------------
-        //create door
-        // this.door = new Door({
-        //     scene : this,
-        //     x : this.scale.width - 556, //x coordnate of moving_block
-        //     y : this.scale.height - 400 //y coordnate of moving_block
-        // });
-        // this.physics.add.collider(this.ball, this.door);
-    
-        // this.door.update();
-        // this.checkPressed();
-        // this.checkWater();
-        // this.checkWin();
-        // this.checkOpen();
-
-
-    // pressed() {
-    //     if (this.boolPressed == false) {
-    //         this.boolPressed = true;
-    //     }
-    // }
-
-    // checkOpen() {
-    //     if (this.ball.stopped()) {
-    //         if (this.boolPressed) {
-    //             if (this.boolOpened == false) {
-    //                 this.boolOpened = true;
-    //                 this.door.setOpen();
-    //             }
-    //         }
-    //     }
-    // }
 }

@@ -17,12 +17,14 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     private startX; 
     private startY;
 
+    private boolBack = false;
+    private boolStart = false;
+
     constructor(config) {
         super(config.scene, config.x, config.y, 'ball');
         config.scene.physics.world.enable(this);
         config.scene.add.existing(this);
         this.body.setCircle(16);
-        this.setOrigin(0.5, 0.5);
         this.setInteractive();
         // this.setCollideWorldBounds(true);
         this.setBounce(1, 1);
@@ -82,15 +84,33 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
-        this.updateBall();
         this.updateLine();
+        if(this.boolStart) {
+            this.setVelocity(0, 0);
+            this.x = this.startX;
+            this.y = this.startY;
+            this.boolStart = false;
+        } else if(this.boolBack) {
+            this.setVelocity(0, 0);
+            this.x = this.prevX;
+            this.y = this.prevY;
+            this.boolBack = false;
+        } else {
+            this.updateBall();
+        }
+        this.checkDraggable();
+    }
+
+    checkDraggable() {
+        if (this.body.velocity.x == 0 && this.body.velocity.y == 0) {
+            this.draggable = true;
+        }
     }
 
     updateBall() {
         // console.log(this.body.velocity.x, this.body.velocity.y);
         if (Math.abs(this.body.velocity.x) < 1 && Math.abs(this.body.velocity.y) < 1) {
             this.setVelocity(0, 0);
-            this.draggable = true;
         } else {
             this.setVelocity(this.ball_delta * this.body.velocity.x, this.ball_delta * this.body.velocity.y);
         }
@@ -134,16 +154,11 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     }
 
     moveBack() {
-        this.setVelocity(0, 0);
-        this.x = this.prevX;
-        this.y = this.prevY;
-        console.log(this.prevX, this.prevY);
+        this.boolBack = true;
     }
 
     moveStart() {
-        this.setVelocity(0, 0);
-        this.x = this.startX;
-        this.y = this.startY;
+        this.boolStart = true;
     }
     
     setDelta(d) {
