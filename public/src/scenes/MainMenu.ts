@@ -13,7 +13,7 @@ import { Level11 } from "./levels/Level11";
 import { Level12 } from "./levels/Level12";
 import { Level13 } from "./levels/Level13";
 import { Level14 } from "./levels/Level14";
-// import { Level15 } from "./levels/Level15";
+import { Level15 } from "./levels/Level15";
 // import { Level16 } from "./levels/Level16";
 // import { Level17 } from "./levels/Level17";
 // import { Level18 } from "./levels/Level18";
@@ -247,11 +247,11 @@ export class MainMenu extends Phaser.Scene{
             music.stop();
             this.scene.stop();
         });
-        // level15.on('pointerdown', () => {
-        //     var newScene = this.scene.add('level15', Level15, true, {id: 15});
-        //     music.stop();
-        //     this.scene.stop();
-        // });
+        level15.on('pointerdown', () => {
+            var newScene = this.scene.add('level15', Level15, true, {id: 15});
+            music.stop();
+            this.scene.stop();
+        });
         // level16.on('pointerdown', () => {
         //     var newScene = this.scene.add('level16', Level16, true, {id: 16});
         //     music.stop();
