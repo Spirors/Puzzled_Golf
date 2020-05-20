@@ -175,4 +175,12 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
         }
         return false;
     }
+
+    teleport(x, y, stop) {
+        if(stop) {
+            this.setVelocity(0, 0);
+        }
+        this.x = x;
+        this.y = y;
+    }
 }   

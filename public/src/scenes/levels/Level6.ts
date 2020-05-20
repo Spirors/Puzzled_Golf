@@ -58,7 +58,7 @@ export class Level6 extends Phaser.Scene{
         //create sand
         var sandLayer = map.createDynamicLayer('Sand', tileset, 0, 0);
         sandLayer.setPosition(mapX, mapY);
-        sandLayer.setTileIndexCallback([20,21,22,23,24,25,26,27,28], this.inSand, this);
+        sandLayer.setTileIndexCallback([21,22,23,24,25,26,27,28,29], this.inSand, this);
         //-------------------------------------------------------------------------------
         //create plate1
         var plateLayer1 = map.createDynamicLayer('Plate1', tileset, 0, 0);

@@ -1,7 +1,6 @@
 import { Hud } from '../Hud';
 import { InGameMenu } from '../InGameMenu';
 import { Ball } from '../../objects/ball';
-import { Door } from '../../objects/Door';
 
 export class Level2 extends Phaser.Scene{
     private ball;
@@ -48,7 +47,7 @@ export class Level2 extends Phaser.Scene{
         //create water
         var waterLayer = map.createDynamicLayer('Water', tileset, 0, 0);
         waterLayer.setPosition(mapX, mapY);
-        waterLayer.setTileIndexCallback([2,3,4,5,6,7,8,9,10], this.inwater, this);
+        waterLayer.setTileIndexCallback([3,4,5,6,7,8,9,10,11], this.inwater, this);
         //-------------------------------------------------------------------------------
         //create ball
         var ballLayer = map.getObjectLayer('Ball')['objects'];

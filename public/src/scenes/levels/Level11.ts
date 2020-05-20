@@ -73,17 +73,17 @@ export class Level11 extends Phaser.Scene{
         //create water
         var waterLayer = map.createDynamicLayer('Water', tileset, 0, 0);
         waterLayer.setPosition(mapX, mapY);
-        waterLayer.setTileIndexCallback([2,3,4,5,6,7,8,9,10], this.inwater, this);
+        waterLayer.setTileIndexCallback([3,4,5,6,7,8,9,10,11], this.inwater, this);
         //-------------------------------------------------------------------------------
         //create sand
         var sandLayer = map.createDynamicLayer('Sand', tileset, 0, 0);
         sandLayer.setPosition(mapX, mapY);
-        sandLayer.setTileIndexCallback([20,21,22,23,24,25,26,27,28], this.inSand, this);
+        sandLayer.setTileIndexCallback([21,22,23,24,25,26,27,28,29], this.inSand, this);
         //-------------------------------------------------------------------------------
         //create lava
         var lavaLayer = map.createDynamicLayer('Lava', tileset, 0, 0);
         lavaLayer.setPosition(mapX, mapY);
-        lavaLayer.setTileIndexCallback([11,12,13,14,15,16,17,18,19], this.inLava, this);
+        lavaLayer.setTileIndexCallback([12,13,14,15,16,17,18,19,20], this.inLava, this);
         //-------------------------------------------------------------------------------
         //create plate1
         var plateLayer1 = map.createDynamicLayer('Plate1', tileset, 0, 0);
