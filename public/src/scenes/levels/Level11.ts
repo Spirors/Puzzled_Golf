@@ -149,10 +149,10 @@ export class Level11 extends Phaser.Scene{
                 scene : this,
                 x : mapX + object.x - object.width/2, //x coordnate of moving_block
                 y : mapY + object.y - object.height/2, //y coordnate of moving_block
-                v : 100,
-                start : 32,
-                end : 64,
-                verticle : true,
+                v : 150,
+                start : 96,
+                end : 128,
+                verticle : false,
                 name : 'moving_block_3h'
             });
             this.moving_blocks.push(moving_block);
