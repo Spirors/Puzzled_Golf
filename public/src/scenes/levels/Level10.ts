@@ -279,3 +279,5 @@ export class Level10 extends Phaser.Scene{
         }
     }
 }
+
+// waterLayer.setTileIndexCallback([2,3,4,5,6,7,8,9,10], null, this);
