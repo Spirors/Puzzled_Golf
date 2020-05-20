@@ -2,7 +2,6 @@ import { Hud } from '../Hud';
 import { InGameMenu } from '../InGameMenu';
 import { Ball } from '../../objects/ball';
 import { MovingBlock } from '../../objects/MovingBlock';
-import { Portal } from '../../objects/Portal';
 
 export class Level13 extends Phaser.Scene{
     private moving_blocks = new Array();
@@ -26,8 +25,8 @@ export class Level13 extends Phaser.Scene{
 
     private boolLOpen1 = false;
 
-    private rportal1;
-    private rportal2;
+    private rportalLayer1;
+    private rportalLayer2;
 
     constructor(){
         super("level13");
@@ -41,7 +40,6 @@ export class Level13 extends Phaser.Scene{
         this.load.image("bkgrnd2", "./assets/background/level2_background.png");
         this.load.image('moving_block_3v', "./assets/obj/moving_block_3v.png");
         this.load.image('moving_block_3h', "./assets/obj/moving_block_3h.png");
-        this.load.image('rportal', "./assets/obj/rportal.png");
     }
     create(){
         //----------------------------------------------------------------------------
@@ -100,6 +98,16 @@ export class Level13 extends Phaser.Scene{
         this.laserLayer1.setPosition(mapX, mapY);
         this.laserLayer1.setTileIndexCallback([37, 38], this.inLava, this);
         //-------------------------------------------------------------------------------
+        //create portal1
+        this.rportalLayer1 = map.createDynamicLayer('RPortal1', tileset, 0, 0);
+        this.rportalLayer1.setPosition(mapX, mapY);
+        this.rportalLayer1.setTileIndexCallback([40], this.inLava, this);
+        //-------------------------------------------------------------------------------
+        //create portal2
+        this.rportalLayer2 = map.createDynamicLayer('RPortal2', tileset, 0, 0);
+        this.rportalLayer2.setPosition(mapX, mapY);
+        this.rportalLayer2.setTileIndexCallback([40], this.inLava, this);
+        //-------------------------------------------------------------------------------
         //create ball
         var ballLayer = map.getObjectLayer('Ball')['objects'];
         ballLayer.forEach(object => {
@@ -147,28 +155,6 @@ export class Level13 extends Phaser.Scene{
             });
             this.moving_blocks.push(moving_block);
         });
-        //-------------------------------------------------------------------------------
-        //create portal1
-        var rportalLayer = map.getObjectLayer('RPortal1')['objects'];
-        rportalLayer.forEach(object => {
-            this.rportal1 = new Portal({
-                scene : this,
-                x : mapX + object.x - object.width/2, //x coordnate of ball
-                y : mapY + object.y - object.height/2, //y coordnate of ball
-                name : "rportal"
-            });
-        });
-        //-------------------------------------------------------------------------------
-        //create portal2
-        var rportalLayer = map.getObjectLayer('RPortal2')['objects'];
-        rportalLayer.forEach(object => { 
-            this.rportal2 = new Portal({
-                scene : this,
-                x : mapX + object.x - object.width/2, //x coordnate of ball
-                y : mapY + object.y - object.height/2, //y coordnate of ball
-                name : "rportal"
-            });
-        });
         //--------------------------------------------------------------------------------
         //add physics
         this.physics.add.collider(this.ball, borderLayer);
@@ -179,8 +165,8 @@ export class Level13 extends Phaser.Scene{
         this.physics.add.collider(this.ball, this.doorLayer1);
         this.physics.add.overlap(this.ball, lplateLayer1);
         this.physics.add.collider(this.ball, this.laserLayer1);
-        this.physics.add.overlap(this.ball, this.rportal1, this.tp1, null, this);
-        this.physics.add.overlap(this.ball, this.rportal2, this.tp2, null, this);
+        this.physics.add.overlap(this.ball, this.rportalLayer1);
+        this.physics.add.overlap(this.ball, this.rportalLayer2);
         for(let moving_block of this.moving_blocks) {
             this.physics.add.collider(this.ball, moving_block);
         }
@@ -320,10 +306,223 @@ export class Level13 extends Phaser.Scene{
             }
         }
     }
-    tp1() {
-        this.ball.teleport(this.rportal2.getTPX(), this.rportal2.getTPY(), true);
-    }
-    tp2() {
-        this.ball.teleport(this.rportal1.getTPX(), this.rportal1.getTPY(), true);
-    }
 }
+// import { LevelCreator } from './LevelCreator';
+
+// export class Level13 extends LevelCreator{
+//     private bgLayer;
+//     private borderLayer;
+//     private waterLayer;
+//     private sandLayer;
+//     private plateLayer1;
+//     private doorLayer1;
+//     private lplateLayer1;
+
+//     private moving_blocks = new Array();
+//     private ball;
+//     private hole;    
+
+//     private boolWin;
+//     private boolSand;
+//     private controls
+//     private cursors;
+
+//     private boolPressed1 = false;
+
+//     private boolOpen1 = false;
+
+//     private boolLPressed1 = false;
+
+//     private laserLayer1;
+
+//     private boolLOpen1 = false;
+
+//     private rportal1;
+//     private rportal2;
+
+//     constructor(){
+//         super("level13");
+//     }
+//     init(){
+//         this.boolWin = false;
+//         this.boolSand = false;
+//     }
+//     preload(){
+//         this.load.tilemapTiledJSON('map13', './assets/map/level13.json');
+//         this.load.image("bkgrnd2", "./assets/background/level2_background.png");
+//         this.load.image('moving_block_3v', "./assets/obj/moving_block_3v.png");
+//         this.load.image('moving_block_3h', "./assets/obj/moving_block_3h.png");
+//         this.load.image('rportal', "./assets/obj/rportal.png");
+//     }
+//     create(){
+//         //----------------------------------------------------------------------------
+//         //core level creation, hud and in game menu
+//         this.createCore('bkgrnd2', 13);
+//         //-----------------------------------------------------------------------------
+//         //map
+//         this.bgLayer = this.createMap('map13');
+//         this.borderLayer = this.createBorder();
+//         //-------------------------------------------------------------------------------
+//         //create water
+//         this.waterLayer = this.createWater(this.inWater);
+//         //-------------------------------------------------------------------------------
+//         //create sand
+//         this.sandLayer = this.createSand(this.inSand);
+//         //-------------------------------------------------------------------------------
+//         //create plate1
+//         this.plateLayer1 = this.createPlate(this.onPlate1, "Plate1");
+//         //-------------------------------------------------------------------------------
+//         //create door1
+//         this.doorLayer1 = this.createDoor("Door1");
+//         //-------------------------------------------------------------------------------
+//         //create Laser plate1
+//         this.lplateLayer1 = this.createLPlate(this.onLPlate1, 'LPlate1');
+//         //-------------------------------------------------------------------------------
+//         //create Laser
+//         this.laserLayer1 = this.createLaser(this.inLava, "Laser1");
+//         //-------------------------------------------------------------------------------
+//         //create ball
+//         this.ball = this.createBall();
+//         //--------------------------------------------------------------------------------
+//         //create hole
+//         this.hole = this.createHole();
+//         //--------------------------------------------------------------------------------
+//         //create moving block
+//         this.moving_blocks = this.createMoving("Moving1", 100, 0, 192, true, 'moving_block_3v');
+//         this.moving_blocks.push(this.createMoving("Moving2", 100, 192, 0, false, 'moving_block_3h'));
+//         //-------------------------------------------------------------------------------
+//         //create portal1
+//         this.rportal1 = this.createPortal("RPortal1", "rportal");
+//         //-------------------------------------------------------------------------------
+//         //create portal2
+//         this.rportal2 = this.createPortal("RPortal2", "rportal");
+//         //--------------------------------------------------------------------------------
+//         //add physics
+//         this.physics.add.collider(this.ball, this.borderLayer);
+//         this.physics.add.overlap(this.ball, this.waterLayer);
+//         this.physics.add.overlap(this.ball, this.sandLayer);
+//         this.physics.add.overlap(this.ball, this.hole, this.cwin, null, this);
+//         this.physics.add.overlap(this.ball, this.plateLayer1);
+//         this.physics.add.collider(this.ball, this.doorLayer1);
+//         this.physics.add.overlap(this.ball, this.lplateLayer1);
+//         this.physics.add.collider(this.ball, this.laserLayer1);
+//         this.physics.add.overlap(this.ball, this.rportal1, this.tp1, null, this);
+//         this.physics.add.overlap(this.ball, this.rportal2, this.tp2, null, this);
+//         for(let moving_block of this.moving_blocks) {
+//             this.physics.add.collider(this.ball, moving_block);
+//         }
+//         this.children.bringToTop(this.ball);
+
+//         //camera movment
+//         this.cursors = this.input.keyboard.createCursorKeys();
+
+//         this.cursors = this.input.keyboard.addKeys(
+//             {up:Phaser.Input.Keyboard.KeyCodes.W,
+//             down:Phaser.Input.Keyboard.KeyCodes.S,
+//             left:Phaser.Input.Keyboard.KeyCodes.A,
+//             right:Phaser.Input.Keyboard.KeyCodes.D});
+
+//         var controlConfig = {
+//             camera: this.cameras.main,
+//             left: this.cursors.left,
+//             right: this.cursors.right,
+//             up: this.cursors.up,
+//             down: this.cursors.down,
+//             speed: 0.5
+//         };
+//         this.controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
+//         this.cameras.main.setBounds(0, 0, this.bgLayer.width + 300, this.bgLayer.height+300);
+//     }
+
+//     update (time, delta) {
+//         this.controls.update(delta);
+//         this.ball.update();
+//         this.checkSand();
+//         for(var i = 0; i < this.moving_blocks.length; i++) {
+//             this.moving_blocks[i].update();
+//         }
+//         this.checkOpen();
+//     }
+
+//     cwin() {
+//         this.boolWin = this.checkWin(this.ball, this.boolWin);
+//     }
+
+//     inWater() {
+//         if (this.boolPressed1 == true) {
+//             this.boolPressed1 = false;
+//         }
+//         if (this.boolLPressed1 == true) {
+//             this.boolLPressed1 = false;
+//         }
+//         this.ball.moveBack();
+//     }
+
+//     inSand() {
+//         this.boolSand = true;
+//     }
+
+//     checkSand() {
+//         if (this.boolSand) {
+//             this.ball.setDelta(0.9);
+//             this.boolSand = false;
+//         } else if(!this.boolSand) {
+//             this.ball.setDelta(0.97);
+//             this.boolSand = false;
+//         }
+//     }
+
+//     inLava() {
+//         if (this.boolPressed1 == true) {
+//             this.boolPressed1 = false;
+//         }
+//         if (this.boolLPressed1 == true) {
+//             this.boolLPressed1 = false;
+//         }
+//         this.ball.moveStart();
+//     }
+
+//     onPlate1() {
+//         console.log(1);
+//         if (this.boolPressed1 == false) {
+//             this.boolPressed1 = true;
+//         }
+//     }
+//     open1() {
+//         this.boolOpen1 = true;
+//         this.doorLayer1.setCollisionByExclusion([-1],false);
+//         this.doorLayer1.setVisible(false);
+//     }
+//     onLPlate1() {
+//         console.log("L1");
+//         if (this.boolLPressed1 == false) {
+//             this.boolLPressed1 = true;
+//         }
+//     }
+//     openL1() {
+//         this.boolLOpen1 = true;
+//         this.laserLayer1.setTileIndexCallback([37, 38], null, this);
+//         this.laserLayer1.setVisible(false);
+//     }
+
+//     checkOpen() {
+//         if (this.ball.stopped()) {
+//             if (this.boolPressed1) {
+//                 if (this.boolOpen1 == false) {
+//                     this.open1();
+//                 }
+//             }
+//             if (this.boolLPressed1) {
+//                 if (this.boolLOpen1 == false) {
+//                     this.openL1();
+//                 }
+//             }
+//         }
+//     }
+//     tp1() {
+//         this.ball.teleport(this.rportal2.getTPX(), this.rportal2.getTPY(), true);
+//     }
+//     tp2() {
+//         this.ball.teleport(this.rportal1.getTPX(), this.rportal1.getTPY(), true);
+//     }
+// }
