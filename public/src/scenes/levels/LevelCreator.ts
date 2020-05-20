@@ -148,26 +148,5 @@ export class LevelCreator extends Phaser.Scene {
         });
         return portal;
     }
-
     //------------------------------------------------------------------------------------------
-    //Checks
-
-    checkWin(ball, boolWin){
-        let velocityX = ball.getVelocityX();
-        let velocityY = ball.getVelocityY();
-        let velocity = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
-        if (velocity <= 150) {
-            if(boolWin == false){
-                var win = true;
-                this.win(ball);
-            }
-        }
-        return win;
-    }
-    
-    win(ball) {
-        ball.hide();
-        this.scene.pause();
-        this.events.emit('levelWin');
-    }
 }

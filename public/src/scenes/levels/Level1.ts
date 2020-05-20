@@ -40,7 +40,7 @@ export class Level1 extends LevelCreator{
         //--------------------------------------------------------------------------------
         //add physics
         this.physics.add.collider(this.ball, this.borderLayer);
-        this.physics.add.overlap(this.ball, this.hole, this.cwin, null, this);
+        this.physics.add.overlap(this.ball, this.hole, this.checkWin, null, this);
         for(let moving_block of this.moving_blocks) {
             this.physics.add.collider(this.ball, moving_block);
         }
@@ -53,7 +53,21 @@ export class Level1 extends LevelCreator{
             this.moving_blocks[i].update();
         }
     }
-    cwin() {
-        this.boolWin = this.checkWin(this.ball, this.boolWin);
+    
+    checkWin(){
+        let velocityX = this.ball.getVelocityX();
+        let velocityY = this.ball.getVelocityY();
+        let velocity = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
+        if (velocity <= 150) {
+            if(this.boolWin == false){
+                this.boolWin = true;
+                this.win();
+            }
+        }
+    }
+    win() {
+        this.ball.hide();
+        this.scene.pause();
+        this.events.emit('levelWin');
     }
 }
