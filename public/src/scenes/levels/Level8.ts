@@ -157,10 +157,12 @@ export class Level8 extends Phaser.Scene{
     }
 
     inwater() {
+        console.log("water");
         this.ball.moveBack();
     }
 
     inLava() {
+        console.log("lava");
         this.ball.moveStart();
     }
 }
