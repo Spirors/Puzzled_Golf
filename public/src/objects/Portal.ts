@@ -5,7 +5,7 @@ export class Portal extends Phaser.Physics.Arcade.Sprite {
         super(config.scene, config.x, config.y, config.name);
         config.scene.physics.world.enable(this);
         config.scene.add.existing(this);
-        this.tpX = this.x + 80;
+        this.tpX = this.x + 100;
         this.tpY = this.y;
     }
     getTPX() {
