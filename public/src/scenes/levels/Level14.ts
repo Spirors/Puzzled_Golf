@@ -46,6 +46,7 @@ export class Level14 extends Phaser.Scene{
         this.load.tilemapTiledJSON('map14', './assets/map/level14.json');
         this.load.image("bkgrnd2", "./assets/background/level2_background.png");
         this.load.image('moving_block_3v', "./assets/obj/moving_block_3v.png");
+        this.load.image('rportal', "./assets/obj/rportal.png");
     }
     create(){
         //----------------------------------------------------------------------------

@@ -46,6 +46,7 @@ export class Level15 extends Phaser.Scene{
         this.load.tilemapTiledJSON('map15', './assets/map/level15.json');
         this.load.image("bkgrnd2", "./assets/background/level2_background.png");
         this.load.image('moving_block_3v', "./assets/obj/moving_block_3v.png");
+        this.load.image('bportal', "./assets/obj/bportal.png");
     }
     create(){
         //----------------------------------------------------------------------------
@@ -365,9 +366,9 @@ export class Level15 extends Phaser.Scene{
         }
     }
     tp1() {
-        this.ball.teleport(this.bportal2.getTPX(), this.bportal2.getTPY(), true);
+        this.ball.teleport(this.bportal2.getTPX(), this.bportal2.getTPY(), false);
     }
     tp2() {
-        this.ball.teleport(this.bportal1.getTPX(), this.bportal1.getTPY(), true);
+        this.ball.teleport(this.bportal1.getTPX(), this.bportal1.getTPY(), false);
     }
 }
