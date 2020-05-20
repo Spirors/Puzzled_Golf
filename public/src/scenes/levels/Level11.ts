@@ -23,7 +23,7 @@ export class Level11 extends Phaser.Scene{
     preload(){
         this.load.tilemapTiledJSON('map11', './assets/map/level11.json');
         this.load.image("bkgrnd2", "./assets/background/level2_background.png");
-        this.load.image('moving_block_3v', "./assets/obj/moving_block_3v.png");
+        this.load.image('moving_block_3h', "./assets/obj/moving_block_3h.png");
     }
     create(){
         //----------------------------------------------------------------------------
