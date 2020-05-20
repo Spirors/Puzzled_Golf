@@ -11,8 +11,8 @@ import { Level9 } from "./levels/Level9";
 import { Level10 } from "./levels/Level10";
 import { Level11 } from "./levels/Level11";
 import { Level12 } from "./levels/Level12";
-// import { Level13 } from "./levels/Level13";
-// import { Level114 } from "./levels/Level14";
+import { Level13 } from "./levels/Level13";
+import { Level14 } from "./levels/Level14";
 // import { Level15 } from "./levels/Level15";
 // import { Level16 } from "./levels/Level16";
 // import { Level17 } from "./levels/Level17";
@@ -164,14 +164,14 @@ export class InGameMenu extends Phaser.Scene{
                 this.scene.add('level12', Level12, true, {id: 12})
                 this.scene.stop();
             }
-            // if(this.level == 13){
-            //     this.scene.add('level13', Level13, true, {id: 13})
-            //     this.scene.stop();
-            // }
-            // if(this.level == 14){
-            //     this.scene.add('level14', Level14, true, {id: 14})
-            //     this.scene.stop();
-            // }
+            if(this.level == 13){
+                this.scene.add('level13', Level13, true, {id: 13})
+                this.scene.stop();
+            }
+            if(this.level == 14){
+                this.scene.add('level14', Level14, true, {id: 14})
+                this.scene.stop();
+            }
             // if(this.level == 15){
             //     this.scene.add('level15', Level15, true, {id: 15})
             //     this.scene.stop();
