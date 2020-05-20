@@ -9,7 +9,7 @@ import { Level8 } from "./levels/Level8";
 import { Level9 } from "./levels/Level9";
 import { Level10 } from "./levels/Level10";
 import { Level11 } from "./levels/Level11";
-// import { Level12 } from "./levels/Level12";
+import { Level12 } from "./levels/Level12";
 // import { Level13 } from "./levels/Level13";
 // import { Level114 } from "./levels/Level14";
 // import { Level15 } from "./levels/Level15";
@@ -124,10 +124,10 @@ export class winScreen extends Phaser.Scene{
                 this.scene.add('level10', Level10, true, {id: 10})
                 this.scene.stop();
             }
-            // if(this.level == 11){
-            //     this.scene.add('level11', Level11, true, {id: 11})
-            //     this.scene.stop();
-            // }
+            if(this.level == 11){
+                this.scene.add('level11', Level11, true, {id: 11})
+                this.scene.stop();
+            }
             // if(this.level == 12){
             //     this.scene.add('level12', Level12, true, {id: 12})
             //     this.scene.stop();
@@ -223,11 +223,11 @@ export class winScreen extends Phaser.Scene{
                 this.scene.add('level11', Level11, true, {id: 11})
                 this.scene.stop();
             }
-            // //goto lv6
-            // if(this.level == 11){
-            //     this.scene.add('level12', Level12, true, {id: 12})
-            //     this.scene.stop();
-            // }
+            //goto lv12
+            if(this.level == 11){
+                this.scene.add('level12', Level12, true, {id: 12})
+                this.scene.stop();
+            }
             // //goto lv6
             // if(this.level == 12){
             //     this.scene.add('level13', Level13, true, {id: 13})
