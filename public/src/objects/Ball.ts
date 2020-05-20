@@ -25,7 +25,6 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
         config.scene.physics.world.enable(this);
         config.scene.add.existing(this);
         this.body.setCircle(16);
-        this.setOrigin(0.5, 0.5);
         this.setInteractive();
         // this.setCollideWorldBounds(true);
         this.setBounce(1, 1);
@@ -95,6 +94,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
             this.setVelocity(0, 0);
             this.x = this.prevX;
             this.y = this.prevY;
+            this.boolBack = false;
         } else {
             this.updateBall();
         }
