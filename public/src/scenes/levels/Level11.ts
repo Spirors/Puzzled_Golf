@@ -63,8 +63,8 @@ export class Level11 extends Phaser.Scene{
         var tileset = map.addTilesetImage('Golf Tiles', 'tiles');
         var bgLayer = map.createStaticLayer('Grass', tileset, 0, 0);
         // var mapX = this.game.renderer.width/2 - bgLayer.width/2;
-        var mapX = this.game.renderer.width/2 - bgLayer.width/2 + 400;
-        var mapY = this.game.renderer.height/2 - bgLayer.height/2 + 500;
+        var mapX = this.game.renderer.width/2 - bgLayer.width/2 ;
+        var mapY = this.game.renderer.height/2 - bgLayer.height/2 + 200 ;
         bgLayer.setPosition(mapX, mapY);
         var borderLayer = map.createStaticLayer('Border', tileset, 0, 0);
         borderLayer.setPosition(mapX, mapY);
@@ -150,8 +150,8 @@ export class Level11 extends Phaser.Scene{
                 x : mapX + object.x - object.width/2, //x coordnate of moving_block
                 y : mapY + object.y - object.height/2, //y coordnate of moving_block
                 v : 150,
-                start : 96,
-                end : 128,
+                start : 192,
+                end : 0,
                 verticle : false,
                 name : 'moving_block_3h'
             });
@@ -195,7 +195,7 @@ export class Level11 extends Phaser.Scene{
             speed: 0.5
         };
         this.controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
-        this.cameras.main.setBounds(0, 0, bgLayer.width + 250, bgLayer.height+250);
+        this.cameras.main.setBounds(0, 0, bgLayer.width , bgLayer.height+200);
     }
 
     update (time, delta) {

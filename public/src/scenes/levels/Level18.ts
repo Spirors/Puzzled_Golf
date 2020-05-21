@@ -133,10 +133,20 @@ export class Level18 extends Phaser.Scene{
         lplateLayer1.setPosition(mapX, mapY);
         lplateLayer1.setTileIndexCallback(35, this.onLPlate1, this);
         //-------------------------------------------------------------------------------
+        //create Laser plate2
+        var lplateLayer2 = map.createDynamicLayer('LPlate2', tileset, 0, 0);
+        lplateLayer2.setPosition(mapX, mapY);
+        lplateLayer2.setTileIndexCallback(35, this.onLPlate2, this);
+        //-------------------------------------------------------------------------------
         //create Laser
         this.laserLayer1 = map.createDynamicLayer('Laser1', tileset, 0, 0);
         this.laserLayer1.setPosition(mapX, mapY);
         this.laserLayer1.setTileIndexCallback([37, 38], this.inLava, this);
+        //-------------------------------------------------------------------------------
+        //create Laser2
+        this.laserLayer2 = map.createDynamicLayer('Laser2', tileset, 0, 0);
+        this.laserLayer2.setPosition(mapX, mapY);
+        this.laserLayer2.setTileIndexCallback([37, 38], this.inLava, this);
         //-------------------------------------------------------------------------------
         //create ball
         var ballLayer = map.getObjectLayer('Ball')['objects'];
@@ -240,6 +250,8 @@ export class Level18 extends Phaser.Scene{
         this.physics.add.collider(this.ball, this.doorLayer3);
         this.physics.add.overlap(this.ball, lplateLayer1);
         this.physics.add.collider(this.ball, this.laserLayer1);
+        this.physics.add.overlap(this.ball, lplateLayer2);
+        this.physics.add.collider(this.ball, this.laserLayer2);
         this.physics.add.overlap(this.ball, this.rportal1, this.tp1, null, this);
         this.physics.add.overlap(this.ball, this.rportal2, this.tp2, null, this);
         this.physics.add.overlap(this.ball, this.bportal1, this.tp3, null, this);
