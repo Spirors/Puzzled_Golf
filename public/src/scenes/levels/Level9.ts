@@ -22,13 +22,14 @@ export class Level9 extends Phaser.Scene{
     }
     preload(){
         this.load.tilemapTiledJSON('map9', './assets/map/level9.json');
-        this.load.image("bkgrnd2", "./assets/background/level2_background.png");
         this.load.image('moving_block_3v', "./assets/obj/moving_block_3v.png");
     }
     create(){
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
-        this.add.tileSprite(0,0, this.game.renderer.width, this.game.renderer.width, "bkgrnd2").setOrigin(0,0).setScale(1.37);
+        var bkgrnd = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'lava_bkgrnd');
+        bkgrnd.setScale(this.cameras.main.width/bkgrnd.width, this.cameras.main.height/bkgrnd.height).setScrollFactor(0);
+        //this.add.tileSprite(0,0, this.game.renderer.width, this.game.renderer.width, "lava_bkgrnd").setOrigin(0,0).setScale(1.37);
         if(this.scene.manager.getScene("inGameMenu") != null){
             this.scene.remove("inGameMenu");
         }

@@ -29,13 +29,14 @@ export class Level7 extends Phaser.Scene{
     }
     preload(){
         this.load.tilemapTiledJSON('map7', './assets/map/level7.json');
-        this.load.image("bkgrnd2", "./assets/background/level2_background.png");
         this.load.image('moving_block_2v', "./assets/obj/moving_block_2v.png");
     }
     create(){
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
-        this.add.tileSprite(0,0, this.game.renderer.width, this.game.renderer.width, "bkgrnd2").setOrigin(0,0).setScale(1.37);
+        var bkgrnd = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'beach');
+        bkgrnd.setScale(this.cameras.main.width/bkgrnd.width, this.cameras.main.height/bkgrnd.height).setScrollFactor(0);
+        //this.add.tileSprite(0,0, this.game.renderer.width, this.game.renderer.width, "beach").setOrigin(0,0).setScale(1.37);
         if(this.scene.manager.getScene("inGameMenu") != null){
             this.scene.remove("inGameMenu");
         }
