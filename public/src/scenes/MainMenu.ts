@@ -148,7 +148,7 @@ export class MainMenu extends Phaser.Scene{
         this.setHighLight(help);
         this.setHighLight(exit);
         for(var i = 1; i < this.levelArray.length; i++){
-            if(Number(localStorage.getItem("golfLevel" + i + "HighScore")) < this.nextLevelArray[i-1]){
+            if(Number(localStorage.getItem("golfLevel" + i + "HighScore")) < this.nextLevelArray[i-1] + 1){
                 this.levelArray[i].setTint( 1 * 0xFFFFFF);
                 this.levelArray[i].setInteractive();
             }else{
