@@ -94,7 +94,7 @@
   <object id="14" gid="33" x="1123.85" y="1089.49" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="11" name="RPortal1">
-  <object id="9" gid="40" x="1503.01" y="1219.83" width="32" height="32"/>
+  <object id="9" gid="40" x="1441.01" y="1217.83" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="12" name="RPortal2">
   <object id="10" gid="40" x="993.511" y="707.965" width="32" height="32"/>
