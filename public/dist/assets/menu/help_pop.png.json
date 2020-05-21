@@ -1,0 +1,41 @@
+{
+	"textures": [
+		{
+			"image": "help_pop.png.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 662,
+				"h": 549
+			},
+			"scale": 1.5,
+			"frames": [
+				{
+					"filename": "help.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1080,
+						"h": 810
+					},
+					"spriteSourceSize": {
+						"x": 75,
+						"y": 85,
+						"w": 660,
+						"h": 547
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 660,
+						"h": 547
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:1410d4732de3167920091ef095857258:b452c3db6f7c7f71f473c188723b3b72:e0eceefb6cdfcd60e1fd0c0e9c2e44fc$"
+	}
+}
