@@ -28,7 +28,6 @@ export class Level16 extends Phaser.Scene{
     private boolLPressed2 = false;
 
     private laserLayer1;
-    private laserLayer2;
 
     private boolLOpen1 = false;
     private boolLOpen2 = false;
@@ -222,15 +221,18 @@ export class Level16 extends Phaser.Scene{
         this.physics.add.collider(this.ball, this.borderLayer);
         this.physics.add.overlap(this.ball, this.waterLayer, null, null, {this : this, ball : this.ball});
         this.physics.add.overlap(this.ball, this.sandLayer, null, null, {this : this, ball : this.ball});
-        this.physics.add.overlap(this.ball, this.hole, this.checkWin, null, {this : this, ball : this.ball});
+        // this.physics.add.overlap(this.ball, this.lavaLayer, null, null, {this : this, ball : this.ball});
+        this.physics.add.overlap(this.ball, this.hole, function() {this.checkWin(this.ball)}, null, this);
         this.physics.add.overlap(this.ball, this.plateLayer1, null, null, {this : this, ball : this.ball});
         this.physics.add.overlap(this.ball, this.plateLayer2, null, null, {this : this, ball : this.ball});
         this.physics.add.collider(this.ball, this.doorLayer1, null, null, {this : this, ball : this.ball});
         this.physics.add.collider(this.ball, this.doorLayer2, null, null, {this : this, ball : this.ball});
         this.physics.add.overlap(this.ball, this.lplateLayer1, null, null, {this : this, ball : this.ball});
         this.physics.add.collider(this.ball, this.laserLayer1, null, null, {this : this, ball : this.ball});
-        this.physics.add.overlap(this.ball, this.rportal1, this.tp1, null, {this : this, ball : this.ball});
-        this.physics.add.overlap(this.ball, this.rportal2, this.tp2, null, {this : this, ball : this.ball});
+        this.physics.add.overlap(this.ball, this.rportal1, function() {this.tp1(this.ball)}, null, this);
+        this.physics.add.overlap(this.ball, this.rportal2, function() {this.tp2(this.ball)}, null, this);
+        // this.physics.add.overlap(this.ball, this.bportal1, function() {this.tp3(this.ball)}, null, this);
+        // this.physics.add.overlap(this.ball, this.bportal2, function() {this.tp4(this.ball)}, null, this);
         this.physics.add.overlap(this.ball, this.splateLayer1, null, null, {this : this, ball : this.ball});
         for(let moving_block of this.moving_blocks) {
             this.physics.add.collider(this.ball, moving_block, null, null, {this : this, ball : this.ball});
@@ -314,9 +316,6 @@ export class Level16 extends Phaser.Scene{
         if (this.boolLPressed1 == true) {
             this.boolLPressed1 = false;
         }
-        if (this.boolLPressed2 == true) {
-            this.boolLPressed2 = false;
-        }
         ball.moveBack();
     }
 
@@ -355,9 +354,6 @@ export class Level16 extends Phaser.Scene{
         if (this.boolLPressed1 == true) {
             this.boolLPressed1 = false;
         }
-        if (this.boolLPressed2 == true) {
-            this.boolLPressed2 = false;
-        }
         ball.moveStart();
     }
 
@@ -389,21 +385,10 @@ export class Level16 extends Phaser.Scene{
             this.boolLPressed1 = true;
         }
     }
-    onLPlate2() {
-        console.log("L2");
-        if (this.boolLPressed2 == false) {
-            this.boolLPressed2 = true;
-        }
-    }
     openL1() {
         this.boolLOpen1 = true;
         this.laserLayer1.setTileIndexCallback([37, 38], null, this);
         this.laserLayer1.setVisible(false);
-    }
-    openL2() {
-        this.boolLOpen2 = true;
-        this.laserLayer2.setTileIndexCallback([37, 38], null, this);
-        this.laserLayer2.setVisible(false);
     }
 
     checkOpen() {
@@ -423,11 +408,6 @@ export class Level16 extends Phaser.Scene{
                     this.openL1();
                 }
             }
-            if (this.boolLPressed2) {
-                if (this.boolLOpen2 == false) {
-                    this.openL2();
-                }
-            }
         }
     }
     tp1(ball) {
@@ -441,27 +421,27 @@ export class Level16 extends Phaser.Scene{
             this.ball2.setVisible(true);
             this.ball2.setInteractive(true);
 
-            this.physics.add.collider(this.ball2, this.borderLayer, null, null, {this : this, ball : this.ball2});
+            this.physics.add.collider(this.ball2, this.borderLayer);
             this.physics.add.overlap(this.ball2, this.waterLayer, null, null, {this : this, ball : this.ball2});
             this.physics.add.overlap(this.ball2, this.sandLayer, null, null, {this : this, ball : this.ball2});
-            // this.physics.add.overlap(this.ball2, this.hole, this.checkWin, null, {this : this, ball : this.ball2});
-            this.physics.add.overlap(this.ball2, this.hole, this.checkWin, null, this);
+            // this.physics.add.overlap(this.ball2, this.lavaLayer, null, null, {this : this, ball : this.ball2});
+            this.physics.add.overlap(this.ball2, this.hole, function() {this.checkWin(this.ball2)}, null, this);
             this.physics.add.overlap(this.ball2, this.plateLayer1, null, null, {this : this, ball : this.ball2});
             this.physics.add.overlap(this.ball2, this.plateLayer2, null, null, {this : this, ball : this.ball2});
-
             this.physics.add.collider(this.ball2, this.doorLayer1, null, null, {this : this, ball : this.ball2});
             this.physics.add.collider(this.ball2, this.doorLayer2, null, null, {this : this, ball : this.ball2});
-
             this.physics.add.overlap(this.ball2, this.lplateLayer1, null, null, {this : this, ball : this.ball2});
             this.physics.add.collider(this.ball2, this.laserLayer1, null, null, {this : this, ball : this.ball2});
-            // this.physics.add.overlap(this.ball2, this.rportal1, this.tp1, null, {this : this, ball : this.ball2});
-            // this.physics.add.overlap(this.ball2, this.rportal2, this.tp2, null, {this : this, ball : this.ball2});
-            this.physics.add.overlap(this.ball2, this.rportal1, this.tp1, null, this);
-            this.physics.add.overlap(this.ball2, this.rportal2, this.tp2, null, this);
+            this.physics.add.overlap(this.ball2, this.rportal1, function() {this.tp1(this.ball2)}, null, this);
+            this.physics.add.overlap(this.ball2, this.rportal2, function() {this.tp2(this.ball2)}, null, this);
+            // this.physics.add.overlap(this.ball2, this.bportal1, function() {this.tp3(this.ball2)}, null, this);
+            // this.physics.add.overlap(this.ball2, this.bportal2, function() {this.tp4(this.ball2)}, null, this);
 
+            this.physics.add.overlap(this.ball2, this.splateLayer1, null, null, {this : this, ball : this.ball2});
             for(let moving_block of this.moving_blocks) {
                 this.physics.add.collider(this.ball2, moving_block, null, null, {this : this, ball : this.ball2});
             }
+            this.children.bringToTop(this.ball2);
             this.boolBall2 = true;
         }
     }
