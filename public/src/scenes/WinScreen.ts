@@ -13,9 +13,9 @@ import { Level12 } from "./levels/Level12";
 import { Level13 } from "./levels/Level13";
 import { Level14 } from "./levels/Level14";
 import { Level15 } from "./levels/Level15";
-// import { Level16 } from "./levels/Level16";
-// import { Level17 } from "./levels/Level17";
-// import { Level18 } from "./levels/Level18";
+import { Level16 } from "./levels/Level16";
+import { Level17 } from "./levels/Level17";
+import { Level18 } from "./levels/Level18";
 
 export class winScreen extends Phaser.Scene{
     private parent;
@@ -144,18 +144,18 @@ export class winScreen extends Phaser.Scene{
                 this.scene.add('level15', Level15, true, {id: 15})
                 this.scene.stop();
             }
-            // if(this.level == 16){
-            //     this.scene.add('level16', Level16, true, {id: 16})
-            //     this.scene.stop();
-            // }
-            // if(this.level == 17){
-            //     this.scene.add('level17', Level17, true, {id: 17})
-            //     this.scene.stop();
-            // }
-            // if(this.level == 18){
-            //     this.scene.add('level18', Level18, true, {id: 18})
-            //     this.scene.stop();
-            // }
+            if(this.level == 16){
+                this.scene.add('level16', Level16, true, {id: 16})
+                this.scene.stop();
+            }
+            if(this.level == 17){
+                this.scene.add('level17', Level17, true, {id: 17})
+                this.scene.stop();
+            }
+            if(this.level == 18){
+                this.scene.add('level18', Level18, true, {id: 18})
+                this.scene.stop();
+            }
         });
 
         mainMenu.on('pointerdown', () => {
@@ -232,31 +232,31 @@ export class winScreen extends Phaser.Scene{
             if(this.level == 12){
                 this.scene.add('level13', Level13, true, {id: 13})
                 this.scene.stop();
-            }//goto lv4
+            }//goto lv14
             if(this.level == 13){
                 this.scene.add('level14', Level14, true, {id: 14})
                 this.scene.stop();
             }
-            // //goto lv6
-            // if(this.level == 14){
-            //     this.scene.add('level15', Level15, true, {id: 15})
-            //     this.scene.stop();
-            // }
-            // //goto lv6
-            // if(this.level == 15){
-            //     this.scene.add('level16', Level16, true, {id: 16})
-            //     this.scene.stop();
-            // }
-            // //goto lv6
-            // if(this.level == 16){
-            //     this.scene.add('level17', Level17, true, {id: 17})
-            //     this.scene.stop();
-            // }
-            // //goto lv6
-            // if(this.level == 17){
-            //     this.scene.add('level18', Level18, true, {id: 18})
-            //     this.scene.stop();
-            // }
+            //goto lv15
+            if(this.level == 14){
+                this.scene.add('level15', Level15, true, {id: 15})
+                this.scene.stop();
+            }
+            //goto lv16
+            if(this.level == 15){
+                this.scene.add('level16', Level16, true, {id: 16})
+                this.scene.stop();
+            }
+            //goto lv17
+            if(this.level == 16){
+                this.scene.add('level17', Level17, true, {id: 17})
+                this.scene.stop();
+            }
+            //goto lv18
+            if(this.level == 17){
+                this.scene.add('level18', Level18, true, {id: 18})
+                this.scene.stop();
+            }
         });
     }
 
