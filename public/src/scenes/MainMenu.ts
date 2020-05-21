@@ -17,6 +17,7 @@ import { Level15 } from "./levels/Level15";
 import { Level16 } from "./levels/Level16";
 import { Level17 } from "./levels/Level17";
 import { Level18 } from "./levels/Level18";
+import { Level19 } from "./levels/Level19";
 
 export class MainMenu extends Phaser.Scene{
     private muted;
@@ -122,9 +123,10 @@ export class MainMenu extends Phaser.Scene{
         var level16 = this.add.sprite(this.game.renderer.width/2 + 40, this.game.renderer.height/2 + 90, 'levels', 15);
         var level17 = this.add.sprite(this.game.renderer.width/2 + 120, this.game.renderer.height/2 + 90, 'levels', 16);
         var level18 = this.add.sprite(this.game.renderer.width/2 + 200, this.game.renderer.height/2 + 90, 'levels', 17);
+        var level19 = this.add.sprite(this.game.renderer.width/2 + 200, this.game.renderer.height/2 + +150, 'levels', 17);
 
         this.levelArray = [level1, level2, level3, level4, level5, level6, level7, level8, level9, level10, level11,
-            level12, level13, level14, level15, level16, level17, level18];
+            level12, level13, level14, level15, level16, level17, level18, level19];
 
         cheat_code.setScale(.3);
         mute.setScale(.5);
@@ -264,6 +266,11 @@ export class MainMenu extends Phaser.Scene{
         });
         level18.on('pointerdown', () => {
             var newScene = this.scene.add('level18', Level18, true, {id: 18});
+            music.stop();
+            this.scene.stop();
+        });
+        level19.on('pointerdown', () => {
+            var newScene = this.scene.add('level19', Level19, true, {id: 19});
             music.stop();
             this.scene.stop();
         });
