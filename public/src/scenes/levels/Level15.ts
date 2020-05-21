@@ -211,6 +211,9 @@ export class Level15 extends Phaser.Scene{
     update (time, delta) {
         this.controls.update(delta);
         this.ball.update();
+        if(this.boolWin == false && (this.ball.body.onFloor() || this.ball.body.onCeiling() || this.ball.body.onWall())){
+            this.sound.play("wall_bounce");
+        }
         this.checkSand();
         for(var i = 0; i < this.moving_blocks.length; i++) {
             this.moving_blocks[i].update();
@@ -310,11 +313,13 @@ export class Level15 extends Phaser.Scene{
     }
     open1() {
         this.boolOpen1 = true;
+        this.sound.play("plate_sound");
         this.doorLayer1.setCollisionByExclusion([-1],false);
         this.doorLayer1.setVisible(false);
     }
     open2() {
         this.boolOpen2 = true;
+        this.sound.play("plate_sound");
         this.doorLayer2.setCollisionByExclusion([-1],false);
         this.doorLayer2.setVisible(false);
     }
@@ -332,11 +337,13 @@ export class Level15 extends Phaser.Scene{
     }
     openL1() {
         this.boolLOpen1 = true;
+        this.sound.play("laser_sound");
         this.laserLayer1.setTileIndexCallback([37, 38], null, this);
         this.laserLayer1.setVisible(false);
     }
     openL2() {
         this.boolLOpen2 = true;
+        this.sound.play("laser_sound");
         this.laserLayer2.setTileIndexCallback([37, 38], null, this);
         this.laserLayer2.setVisible(false);
     }

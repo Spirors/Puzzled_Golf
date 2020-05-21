@@ -55,6 +55,14 @@ export class MainMenu extends Phaser.Scene{
         this.load.spritesheet("golfer", "./assets/male_golfer.png",{frameWidth: 256, frameHeight: 256});
         
         this.load.audio('hit', './assets/audio/ball_hit.mp3');
+        this.load.audio('win_music', './assets/audio/sound_effects/winscreen_audio.mp3');
+        this.load.audio('wall_bounce', './assets/audio/sound_effects/wall_bounce.mp3');
+        this.load.audio('water_splash', './assets/audio/sound_effects/water_splash.mp3');
+        this.load.audio('ball_in_hole_sound', './assets/audio/sound_effects/ball_in_hole.mp3');
+        this.load.audio('burn_sound', './assets/audio/sound_effects/burn_sound.mp3');
+        this.load.audio('plate_sound', './assets/audio/sound_effects/pressure_plate_sound.mp3');
+        this.load.audio('laser_sound', './assets/audio/sound_effects/laser_sound.mp3');
+        
     }
     create(){
         this.cameras.main.setBackgroundColor(0x9ce1e1);//sky background color 
@@ -124,11 +132,12 @@ export class MainMenu extends Phaser.Scene{
         var level16 = this.add.sprite(this.game.renderer.width/2 + 40, this.game.renderer.height/2 + 90, 'levels', 15);
         var level17 = this.add.sprite(this.game.renderer.width/2 + 120, this.game.renderer.height/2 + 90, 'levels', 16);
         var level18 = this.add.sprite(this.game.renderer.width/2 + 200, this.game.renderer.height/2 + 90, 'levels', 17);
-        var level19 = this.add.sprite(this.game.renderer.width/2 + 200, this.game.renderer.height/2 + +150, 'levels', 17);
+        var level19 = this.add.image(this.game.renderer.width/2 + 400,this.game.renderer.height/2 + 210,"golf_ball");
+        level19.setScale(.3);
 
         this.levelArray = [level1, level2, level3, level4, level5, level6, level7, level8, level9, level10, level11,
             level12, level13, level14, level15, level16, level17, level18, level19];
-        this.nextLevelArray = [6,6,8,12,12,9,13,14,12,16,19,20,18,30,19,16,34,50]
+        this.nextLevelArray = [6,6,8,12,12,9,13,14,12,16,19,20,18,30,19,16,34,50,100]
 
         cheat_code.setScale(.3);
         mute.setScale(.5);
@@ -148,13 +157,16 @@ export class MainMenu extends Phaser.Scene{
         this.setHighLight(help);
         this.setHighLight(exit);
         for(var i = 1; i < this.levelArray.length; i++){
-            if(Number(localStorage.getItem("golfLevel" + i + "HighScore")) < this.nextLevelArray[i-1]){
+            if(Number(localStorage.getItem("golfLevel" + i + "HighScore")) < this.nextLevelArray[i-1] + 1){
                 this.levelArray[i].setTint( 1 * 0xFFFFFF);
                 this.levelArray[i].setInteractive();
             }else{
                 this.levelArray[i].setTint( 1 * 0x737373);
             }
         }
+
+        level19.setTint( 1 * 0xFFFFFF);
+        level19.setInteractive();
 
         cheat_code.setInteractive();
         cheat_code.on('pointerdown', function () {

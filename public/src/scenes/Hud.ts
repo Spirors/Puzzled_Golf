@@ -44,6 +44,7 @@ export class Hud extends Phaser.Scene{
         this.levelHighScore = localStorage.getItem(this.localStorageName) == null ? 0 :
                               localStorage.getItem(this.localStorageName);
         ourGame.events.on('levelWin', function () {
+            this.sound.play("ball_in_hole_sound");
             console.log("level win");
             this.menu.removeInteractive();
             let newHighscore = Math.min(this.score, this.levelHighScore);
@@ -52,6 +53,7 @@ export class Hud extends Phaser.Scene{
             if(this.scene.manager.getScene("winScreen") == null){
                 this.createWindow(winScreen,"winScreen",this.game.renderer.width/2, this.game.renderer.height/2, {level : this.level, score : this.score, stars : this.stars});
             }
+            this.sound.play("win_music");
             console.log(this);
         }, this);
         this.scene.get('inGameMenu').events.on('goHome', function (){

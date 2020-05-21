@@ -106,6 +106,9 @@ export class Level5 extends Phaser.Scene{
 
     update() {
         this.ball.update();
+        if(this.boolWin == false && (this.ball.body.onFloor() || this.ball.body.onCeiling() || this.ball.body.onWall())){
+            this.sound.play("wall_bounce");
+        }
         this.checkSand();
         for(var i = 0; i < this.moving_blocks.length; i++) {
             this.moving_blocks[i].update();
