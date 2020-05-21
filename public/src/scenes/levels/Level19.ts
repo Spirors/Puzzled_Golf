@@ -80,7 +80,7 @@ export class Level19 extends Phaser.Scene{
         var tileset = map.addTilesetImage('Golf Tiles', 'tiles');
         this.bgLayer = map.createStaticLayer('Grass', tileset, 0, 0);
         // var mapX = this.game.renderer.width/2 - bgLayer.width/2;
-        var mapX = this.game.renderer.width/2 - this.bgLayer.width/2 + 200;
+        var mapX = this.game.renderer.width/2 - this.bgLayer.width/2;
         var mapY = this.game.renderer.height/2 - this.bgLayer.height/2 + 200;
         this.bgLayer.setPosition(mapX, mapY);
         this.borderLayer = map.createStaticLayer('Border', tileset, 0, 0);
