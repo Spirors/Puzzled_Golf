@@ -75,7 +75,13 @@ export class InGameMenu extends Phaser.Scene{
             delay: 0
         }
 
-        this.music = this.sound.add("level_audio");
+        if(this.level <  7){
+            this.music = this.sound.add("level_audio");
+        }else if(this.level < 13){
+            this.music = this.sound.add("audio2");
+        }else{
+            this.music = this.sound.add("audio3");
+        }
         this.music.play(music_config);
         //
         var background = this.add.image(0,0,"menu_bg").setOrigin(0);
