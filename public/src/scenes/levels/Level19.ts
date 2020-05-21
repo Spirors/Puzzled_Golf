@@ -121,7 +121,7 @@ export class Level19 extends Phaser.Scene{
         this.laserLayer1.setPosition(mapX, mapY);
         this.laserLayer1.setTileIndexCallback([37, 38], this.inLava, this);
         //-------------------------------------------------------------------------------
-        //create Laser plate1
+        //create s plate
         this.splateLayer1 = map.createDynamicLayer('SPlate', tileset, 0, 0);
         this.splateLayer1.setPosition(mapX, mapY);
         this.splateLayer1.setTileIndexCallback(36, this.onSPlate, this);
@@ -417,7 +417,6 @@ export class Level19 extends Phaser.Scene{
             this.physics.add.overlap(this.ball2, this.bportal1, function() {this.tp3(this.ball2)}, null, this);
             this.physics.add.overlap(this.ball2, this.bportal2, function() {this.tp4(this.ball2)}, null, this);
 
-            this.physics.add.overlap(this.ball2, this.splateLayer1, null, null, {this : this, ball : this.ball2});
             for(let moving_block of this.moving_blocks) {
                 this.physics.add.collider(this.ball2, moving_block, null, null, {this : this, ball : this.ball2});
             }
