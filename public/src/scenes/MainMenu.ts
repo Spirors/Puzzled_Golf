@@ -60,6 +60,7 @@ export class MainMenu extends Phaser.Scene{
         this.load.audio('ball_in_hole_sound', './assets/audio/sound_effects/ball_in_hole.mp3');
         this.load.audio('burn_sound', './assets/audio/sound_effects/burn_sound.mp3');
         this.load.audio('plate_sound', './assets/audio/sound_effects/pressure_plate_sound.mp3');
+        this.load.audio('laser_sound', './assets/audio/sound_effects/laser_sound.mp3');
         
     }
     create(){

@@ -110,6 +110,9 @@ export class Level6 extends Phaser.Scene{
 
     update() {
         this.ball.update();
+        if(this.boolWin == false && (this.ball.body.onFloor() || this.ball.body.onCeiling() || this.ball.body.onWall())){
+            this.sound.play("wall_bounce");
+        }
         this.checkSand();
         this.checkOpen();
     }
@@ -174,11 +177,13 @@ export class Level6 extends Phaser.Scene{
     }
     open1() {
         this.boolOpen1 = true;
+        this.sound.play("plate_sound");
         this.doorLayer1.setCollisionByExclusion([-1],false);
         this.doorLayer1.setVisible(false);
     }
     open2() {
         this.boolOpen2 = true;
+        this.sound.play("plate_sound");
         this.doorLayer2.setCollisionByExclusion([-1],false);
         this.doorLayer2.setVisible(false);
     }

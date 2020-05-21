@@ -75,6 +75,9 @@ export class Level2 extends Phaser.Scene{
 
     update() {
         this.ball.update();
+        if(this.boolWin == false && (this.ball.body.onFloor() || this.ball.body.onCeiling() || this.ball.body.onWall())){
+            this.sound.play("wall_bounce");
+        }
     }
 
     createWindow(func, name, x, y, data){

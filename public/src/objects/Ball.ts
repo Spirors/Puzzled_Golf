@@ -155,10 +155,32 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
 
     moveBack() {
         this.boolBack = true;
+        var music_config = {
+            mute: false,
+            volume: 0.2,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: false,
+            delay: 0
+        }
+        var water_sound = this.scene.sound.add("water_splash");
+        water_sound.play(music_config);
     }
 
     moveStart() {
         this.boolStart = true;
+        var music_config = {
+            mute: false,
+            volume: 0.3,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: false,
+            delay: 0
+        }
+        var water_sound = this.scene.sound.add("burn_sound");
+        water_sound.play(music_config);
     }
     
     setDelta(d) {
@@ -183,4 +205,5 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
         this.x = x;
         this.y = y;
     }
+    
 }   
