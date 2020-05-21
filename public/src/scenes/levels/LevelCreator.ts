@@ -17,7 +17,7 @@ export class LevelCreator extends Phaser.Scene {
 
     //------------------------------------------------------------------------------------------
     //Create
-    createCore(bk, x) {
+    createCore(bk, x, s) {
         this.add.tileSprite(0,0, this.game.renderer.width, this.game.renderer.width, bk).setOrigin(0,0).setScale(1.37);
         if(this.scene.manager.getScene("inGameMenu") != null){
             this.scene.remove("inGameMenu");
@@ -26,7 +26,7 @@ export class LevelCreator extends Phaser.Scene {
             this.scene.remove("winScreen");
         }
         this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : x});
-        this.createWindow(Hud, "hud", 0, 0, {level : x});
+        this.createWindow(Hud, "hud", 0, 0, {level : x, stars: s});
         this.scene.setVisible(false, "inGameMenu");
         this.events.emit('setLevel');
     }

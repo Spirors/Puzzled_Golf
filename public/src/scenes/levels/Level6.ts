@@ -40,7 +40,7 @@ export class Level6 extends Phaser.Scene{
             this.scene.remove("winScreen");
         }
         this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 6});
-        this.createWindow(Hud, "hud", 0, 0, {level : 6});
+        this.createWindow(Hud, "hud", 0, 0, {level : 6, stars : [5,7,9]});
         this.scene.setVisible(false, "inGameMenu") ;
         this.events.emit('setLevel');
         //-----------------------------------------------------------------------------

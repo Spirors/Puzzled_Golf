@@ -28,6 +28,7 @@ export class MainMenu extends Phaser.Scene{
     private grass;
 
     private levelArray = new Array();
+    private nextLevelArray = new Array();
 
     constructor(){
         super("mainMenu");
@@ -127,6 +128,7 @@ export class MainMenu extends Phaser.Scene{
 
         this.levelArray = [level1, level2, level3, level4, level5, level6, level7, level8, level9, level10, level11,
             level12, level13, level14, level15, level16, level17, level18, level19];
+        this.nextLevelArray = [6,6,8,12,12,9,13,14,12,16,19,20,18,30,19,16,34,50]
 
         cheat_code.setScale(.3);
         mute.setScale(.5);
@@ -146,7 +148,7 @@ export class MainMenu extends Phaser.Scene{
         this.setHighLight(help);
         this.setHighLight(exit);
         for(var i = 1; i < this.levelArray.length; i++){
-            if(Number(localStorage.getItem("golfLevel" + i + "HighScore")) < 11){
+            if(Number(localStorage.getItem("golfLevel" + i + "HighScore")) < this.nextLevelArray[i-1]){
                 this.levelArray[i].setTint( 1 * 0xFFFFFF);
                 this.levelArray[i].setInteractive();
             }else{

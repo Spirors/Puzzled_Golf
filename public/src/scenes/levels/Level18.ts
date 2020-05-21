@@ -83,7 +83,7 @@ export class Level18 extends Phaser.Scene{
             this.scene.remove("winScreen");
         }
         this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 18});
-        this.createWindow(Hud, "hud", this.game.renderer.width/2,this.game.renderer.height/2, {level : 18});
+        this.createWindow(Hud, "hud", this.game.renderer.width/2,this.game.renderer.height/2, {level : 18, stars: [40,45,50]});
         this.scene.setVisible(false, "inGameMenu") ;
         this.events.emit('setLevel');
         //-----------------------------------------------------------------------------
