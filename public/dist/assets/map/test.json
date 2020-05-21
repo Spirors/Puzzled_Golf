@@ -198,17 +198,6 @@
         }, 
         {
          "draworder":"topdown",
-         "id":6,
-         "name":"SBall",
-         "objects":[],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
          "id":7,
          "name":"Moving1",
          "objects":[
