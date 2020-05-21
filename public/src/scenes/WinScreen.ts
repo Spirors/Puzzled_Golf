@@ -26,6 +26,7 @@ export class winScreen extends Phaser.Scene{
     private level;
     private starFrame;
     private levelHighScore;
+    private stars;
 
     constructor (handle, parent)
     {
@@ -35,15 +36,16 @@ export class winScreen extends Phaser.Scene{
     init(data){
         this.level = data.level;
         this.score = data.score;
+        this.stars = data.stars;
         this.menuHeight = 409;
         this.menuWidth = 626;
         this.levelHighScore = localStorage.getItem("golfLevel"+ this.level +"HighScore");
 
-        if (this.score <= 3) {
+        if (this.score <= this.stars[0]) {
             this.starFrame = 3;
-        }else if(this.score > 3 && this.score <= 6){
+        }else if(this.score > this.stars[0] && this.score <= this.stars[1]){
             this.starFrame = 2;
-        }else if(this.score > 6 && this.score <= 10){
+        }else if(this.score > this.stars[1] && this.score <= this.stars[2]){
             this.starFrame = 1;
         }else{
             this.starFrame = 0;

@@ -8,6 +8,7 @@ export class Hud extends Phaser.Scene{
     private localStorageName;
     private levelHighScore;
     private menu;
+    private stars;
     constructor (handle, parent)
     {
         super(handle);
@@ -15,6 +16,7 @@ export class Hud extends Phaser.Scene{
     }
     init(data){
         this.level = data.level;
+        this.stars = data.stars;
     }
     create ()
     {
@@ -49,7 +51,7 @@ export class Hud extends Phaser.Scene{
             localStorage.setItem(this.localStorageName, newHighscore.toString());
             this.events.emit('createWinScreen', {score: this.score});
             if(this.scene.manager.getScene("winScreen") == null){
-                this.createWindow(winScreen,"winScreen",this.game.renderer.width/2, this.game.renderer.height/2, {level : this.level, score : this.score});
+                this.createWindow(winScreen,"winScreen",this.game.renderer.width/2, this.game.renderer.height/2, {level : this.level, score : this.score, stars : this.stars});
             }
             this.sound.play("win_music");
             console.log(this);
