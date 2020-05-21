@@ -62,7 +62,6 @@
  <objectgroup id="4" name="Ball">
   <object id="8" gid="30" x="320" y="128" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="6" name="SBall"/>
  <objectgroup id="7" name="Moving1">
   <object id="1" gid="33" x="160" y="736" width="32" height="32"/>
  </objectgroup>
