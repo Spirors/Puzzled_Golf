@@ -18,6 +18,7 @@ import { Level16 } from "./levels/Level16";
 import { Level17 } from "./levels/Level17";
 import { Level18 } from "./levels/Level18";
 import { Level19 } from "./levels/Level19";
+import { About } from "./About";
 
 export class MainMenu extends Phaser.Scene{
     private muted;
@@ -121,7 +122,8 @@ export class MainMenu extends Phaser.Scene{
         var main_menu_boarder = this.add.image(0,0, 'menu_boarder').setOrigin(0);
         main_menu_boarder.setPosition(this.game.renderer.width/2 - main_menu_boarder.width/2, this.game.renderer.height/2 - main_menu_boarder.height/2);
         var help = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 - 110, 'button', 1);
-        var exit = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 + 150, 'button', 0);
+        var exit = this.add.sprite(this.game.renderer.width/2 + 130, this.game.renderer.height/2 + 150, 'button', 0);
+        var about = this.add.sprite(this.game.renderer.width/2 - 130, this.game.renderer.height/2 + 150, 'button', 0);
         var mute = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 + 210, 'sound', 0);
         var cheat_code = this.add.image(this.game.renderer.width/2 - 400,this.game.renderer.height/2 + 210,"golf_ball");
 
@@ -183,7 +185,7 @@ export class MainMenu extends Phaser.Scene{
         cheat_code.setInteractive();
         cheat_code.on('pointerdown', function () {
             if(this.cheats){
-                for(var i = 1; i < this.levelArray.length; i++){
+                for(var i = 1; i < this.levelArray.length -1; i++){
                     if(Number(localStorage.getItem("golfLevel" + i + "HighScore")) > 10){
                         this.levelArray[i].removeInteractive()
                         this.levelArray[i].setTint( 1 * 0x737373);
@@ -191,7 +193,7 @@ export class MainMenu extends Phaser.Scene{
                 }
                 this.cheats = false;
             }else{
-                for(var i = 1; i < this.levelArray.length; i++){
+                for(var i = 1; i < this.levelArray.length -1; i++){
                     this.levelArray[i].setTint( 1 * 0xFFFFFF);
                     this.levelArray[i].setInteractive();
                 }
@@ -202,6 +204,11 @@ export class MainMenu extends Phaser.Scene{
         help.setInteractive();
         help.on('pointerdown', function () {
             this.createWindow(HelpMenu);
+        }, this);
+
+        about.setInteractive();
+        about.on('pointerdown', function () {
+            this.createWindow(About);
         }, this);
 
         level1.setInteractive();
