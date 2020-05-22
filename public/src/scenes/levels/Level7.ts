@@ -47,7 +47,7 @@ export class Level7 extends Phaser.Scene{
         this.createWindow(Hud, "hud", 0, 0, {level : 7, stars : [7,10,13]});
         this.scene.setVisible(false, "inGameMenu") ;
         this.events.emit('setLevel');
-        //-----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         //map
         var map = this.make.tilemap({ key: 'map7' });
         var tileset = map.addTilesetImage('Golf Tiles', 'tiles');

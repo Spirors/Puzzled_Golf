@@ -264,6 +264,10 @@ export class winScreen extends Phaser.Scene{
                 this.scene.add('level18', Level18, true, {id: 18})
                 this.scene.stop();
             }
+            if(this.level == 18){
+                this.scene.add('next', nextLevel, true, {id: 0})
+                this.scene.stop();
+            }
         });
     }
 
