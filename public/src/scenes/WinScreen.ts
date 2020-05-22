@@ -17,6 +17,7 @@ import { Level16 } from "./levels/Level16";
 import { Level17 } from "./levels/Level17";
 import { Level18 } from "./levels/Level18";
 import { Level19 } from "./levels/Level19";
+import { NextLevel} from "./NextLevel";
 
 export class winScreen extends Phaser.Scene{
     private parent;
@@ -265,7 +266,7 @@ export class winScreen extends Phaser.Scene{
                 this.scene.stop();
             }
             if(this.level == 18){
-                this.scene.add('next', nextLevel, true, {id: 0})
+                this.scene.add('next', NextLevel, true, {id: 0})
                 this.scene.stop();
             }
         });
