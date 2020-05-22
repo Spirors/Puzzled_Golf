@@ -62,6 +62,7 @@ export class MainMenu extends Phaser.Scene{
         this.load.audio('burn_sound', './assets/audio/sound_effects/burn_sound.mp3');
         this.load.audio('plate_sound', './assets/audio/sound_effects/pressure_plate_sound.mp3');
         this.load.audio('laser_sound', './assets/audio/sound_effects/laser_sound.mp3');
+        this.load.audio('portal_sound', './assets/audio/sound_effects/portal_sound.mp3');
         //level music
         this.load.audio('audio2', './assets/audio/audio2.mp3');
         this.load.audio('audio3', './assets/audio/audio3.mp3');
