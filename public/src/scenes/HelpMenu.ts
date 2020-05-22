@@ -23,6 +23,7 @@ export class HelpMenu extends Phaser.Scene{
         exit.setInteractive();
         exit.on('pointerdown', () => {
             this.scene.resume("inGameMenu");
+            this.scene.resume("mainMenu");
             this.scene.remove(this);
         })
         exit.on('pointerover', () => {
