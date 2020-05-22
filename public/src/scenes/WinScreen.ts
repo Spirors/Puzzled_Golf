@@ -73,7 +73,7 @@ export class winScreen extends Phaser.Scene{
         mainMenu.setInteractive();
         nextLevel.setTint( 1 * 0x737373);
 
-        if(this.score < 11 || this.levelHighScore < 11 ){
+        if(this.score < this.stars[2] || this.levelHighScore < this.stars[2] ){
             nextLevel.setInteractive();
             nextLevel.setTint( 1 * 0xffffff);
         }

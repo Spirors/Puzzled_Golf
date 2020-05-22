@@ -36,7 +36,7 @@ export class Level9 extends Phaser.Scene{
         if(this.scene.manager.getScene("winScreen") != null){
             this.scene.remove("winScreen");
         }
-        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 9});
+        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 9, stars: [6,9,12]});
         this.createWindow(Hud, "hud", this.game.renderer.width/2,this.game.renderer.height/2, {level : 9, stars: [6,9,12]});
         this.scene.setVisible(false, "inGameMenu") ;
         this.events.emit('setLevel');
@@ -81,9 +81,7 @@ export class Level9 extends Phaser.Scene{
         //create hole
         var holeLayer = map.getObjectLayer('Hole')['objects'];
         //this.hole = this.physics.add.staticGroup();
-        this.hole = this.physics.add.group({ 
-            key: 'hole1'
-        });
+        this.hole = this.physics.add.group();
         holeLayer.forEach(object => {
             this.hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole"); 
         });

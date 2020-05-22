@@ -25,7 +25,7 @@ export class LevelCreator extends Phaser.Scene {
         if(this.scene.manager.getScene("winScreen") != null){
             this.scene.remove("winScreen");
         }
-        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : x});
+        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : x, stars: s});
         this.createWindow(Hud, "hud", 0, 0, {level : x, stars: s});
         this.scene.setVisible(false, "inGameMenu");
         this.events.emit('setLevel');
@@ -111,9 +111,7 @@ export class LevelCreator extends Phaser.Scene {
     createHole() {
         var holeLayer = this.map.getObjectLayer('Hole')['objects'];
         //var hole = this.physics.add.staticGroup();
-        var hole = this.physics.add.group({ 
-            key: 'hole1'
-        });
+        var hole = this.physics.add.group();
         holeLayer.forEach(object => {
             hole.create(this.mapX + object.x - object.width/2, this.mapY + object.y - object.height/2, "hole"); 
         });

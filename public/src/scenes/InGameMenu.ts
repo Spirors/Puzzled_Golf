@@ -29,6 +29,7 @@ export class InGameMenu extends Phaser.Scene{
     private levelHighScore;
     private starFrame;
     private music;
+    private stars;
     constructor (handle, parent)
     {
         super(handle);
@@ -39,6 +40,7 @@ export class InGameMenu extends Phaser.Scene{
         this.menuWidth = 336;
         this.muted = false;
         this.level = data.level;
+        this.stars = data.stars;
         this.localStorageName = "golfLevel" + this.level + "HighScore";
         if(localStorage.getItem(this.localStorageName) == '1000'){
             this.levelHighScore = 'None';
@@ -47,11 +49,11 @@ export class InGameMenu extends Phaser.Scene{
         }
         if(this.levelHighScore == 'None'){
             this.starFrame = 0;
-        }else if (Number(this.levelHighScore) <= 3) {
+        }else if (Number(this.levelHighScore) <= this.stars[0]) {
             this.starFrame = 3;
-        }else if(Number(this.levelHighScore) > 3 && Number(this.levelHighScore) <= 6){
+        }else if(Number(this.levelHighScore) > this.stars[0] && Number(this.levelHighScore) <= this.stars[1]){
             this.starFrame = 2;
-        }else if(Number(this.levelHighScore) > 6 && Number(this.levelHighScore) <= 10){
+        }else if(Number(this.levelHighScore) > this.stars[1] && Number(this.levelHighScore) <= this.stars[2]){
             this.starFrame = 1;
         }else{
             this.starFrame = 0;
@@ -80,6 +82,16 @@ export class InGameMenu extends Phaser.Scene{
         }else if(this.level < 13){
             this.music = this.sound.add("audio2");
         }else{
+            music_config = {
+                mute: false,
+                volume: 0.4,
+                rate: 1,
+                detune: 0,
+                seek: 0,
+                loop: true,
+                delay: 0
+            }
+
             this.music = this.sound.add("audio3");
         }
         this.music.play(music_config);

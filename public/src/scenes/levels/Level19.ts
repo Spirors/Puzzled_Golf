@@ -54,7 +54,6 @@ export class Level19 extends Phaser.Scene{
     }
     preload(){
         this.load.tilemapTiledJSON('map19', './assets/map/test.json');
-        this.load.image("bkgrnd2", "./assets/background/level2_background.png");
         this.load.image('moving_block_3v', "./assets/obj/moving_block_3v.png");
         this.load.image('moving_block_3h', "./assets/obj/moving_block_3h.png");
         this.load.image('rportal', "./assets/obj/rportal.png");
@@ -70,7 +69,7 @@ export class Level19 extends Phaser.Scene{
         if(this.scene.manager.getScene("winScreen") != null){
             this.scene.remove("winScreen");
         }
-        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 19});
+        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 19, stars: [1,2,3]});
         this.createWindow(Hud, "hud", this.game.renderer.width/2,this.game.renderer.height/2, {level : 19, stars: [1,2,3]});
         this.scene.setVisible(false, "inGameMenu") ;
         this.events.emit('setLevel');
@@ -151,9 +150,7 @@ export class Level19 extends Phaser.Scene{
         //create hole
         var holeLayer = map.getObjectLayer('Hole')['objects'];
         //this.hole = this.physics.add.staticGroup();
-        this.hole = this.physics.add.group({ 
-            key: 'hole1'
-        });
+        this.hole = this.physics.add.group();
         holeLayer.forEach(object => {
             this.hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole"); 
         });
