@@ -8,8 +8,7 @@ var config = {
     type: Phaser.AUTO,
     physics: {
         default: 'arcade',
-        fps : 120,
-        arcade: { debug: true }
+        fps : 120
     },
     fps: {
         target: 60,
