@@ -189,7 +189,7 @@ export class MainMenu extends Phaser.Scene{
         cheat_code.on('pointerdown', function () {
             if(this.cheats){
                 for(var i = 1; i < this.levelArray.length -1; i++){
-                    if(Number(localStorage.getItem("golfLevel" + i + "HighScore")) > 10){
+                    if(Number(localStorage.getItem("golfLevel" + i + "HighScore")) > this.nextLevelArray[i-1] + 1){
                         this.levelArray[i].removeInteractive()
                         this.levelArray[i].setTint( 1 * 0x737373);
                     }
