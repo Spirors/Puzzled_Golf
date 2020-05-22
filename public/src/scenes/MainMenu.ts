@@ -53,7 +53,7 @@ export class MainMenu extends Phaser.Scene{
 
         this.load.image("hills", "./assets/background/hills.png");
         this.load.spritesheet("golfer", "./assets/male_golfer.png",{frameWidth: 256, frameHeight: 256});
-        
+        //level sound effects
         this.load.audio('hit', './assets/audio/ball_hit.mp3');
         this.load.audio('win_music', './assets/audio/sound_effects/winscreen_audio.mp3');
         this.load.audio('wall_bounce', './assets/audio/sound_effects/wall_bounce.mp3');
@@ -62,6 +62,18 @@ export class MainMenu extends Phaser.Scene{
         this.load.audio('burn_sound', './assets/audio/sound_effects/burn_sound.mp3');
         this.load.audio('plate_sound', './assets/audio/sound_effects/pressure_plate_sound.mp3');
         this.load.audio('laser_sound', './assets/audio/sound_effects/laser_sound.mp3');
+        this.load.audio('portal_sound', './assets/audio/sound_effects/portal_sound.mp3');
+        //level music
+        this.load.audio('audio2', './assets/audio/audio2.mp3');
+        this.load.audio('audio3', './assets/audio/audio3.mp3');
+        //level backgrounds
+        this.load.image("beach", "./assets/background/beach.png");
+        this.load.image("desert", "./assets/background/desert.png");
+        this.load.image("flowers", "./assets/background/flowers.png");
+        this.load.image("grass_bkgrnd", "./assets/background/grass.png");
+        this.load.image("lava_bkgrnd", "./assets/background/lava.png");
+        this.load.image("river", "./assets/background/river.png");
+        this.load.image("sand", "./assets/background/sand.png");
         
     }
     create(){

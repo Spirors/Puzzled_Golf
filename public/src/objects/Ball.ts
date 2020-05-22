@@ -204,6 +204,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
         }
         this.x = x;
         this.y = y;
+        this.scene.sound.play("portal_sound");
     }
     
 }   

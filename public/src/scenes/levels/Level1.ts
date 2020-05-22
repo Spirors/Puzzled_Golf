@@ -17,13 +17,12 @@ export class Level1 extends LevelCreator{
     }
     preload(){
         this.load.tilemapTiledJSON('map1', './assets/map/level1.json');
-        this.load.image("bkgrnd1", "./assets/background/level1_background.png");
         this.load.image('moving_block_5v', "./assets/obj/moving_block_5v.png");
     }
     create(){
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
-        this.createCore('bkgrnd1', 1, [2,4,6]);
+        this.createCore('grass_bkgrnd', 1, [2,4,6]);
         //-----------------------------------------------------------------------------
         //map
         this.bgLayer = this.createMap('map1');

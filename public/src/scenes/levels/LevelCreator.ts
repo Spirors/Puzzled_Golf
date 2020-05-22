@@ -110,7 +110,10 @@ export class LevelCreator extends Phaser.Scene {
 
     createHole() {
         var holeLayer = this.map.getObjectLayer('Hole')['objects'];
-        var hole = this.physics.add.staticGroup();
+        //var hole = this.physics.add.staticGroup();
+        var hole = this.physics.add.group({ 
+            key: 'hole1'
+        });
         holeLayer.forEach(object => {
             hole.create(this.mapX + object.x - object.width/2, this.mapY + object.y - object.height/2, "hole"); 
         });

@@ -27,12 +27,13 @@ export class Level6 extends Phaser.Scene{
     }
     preload(){
         this.load.tilemapTiledJSON('map6', './assets/map/level6.json');
-        this.load.image("bkgrnd2", "./assets/background/level2_background.png");
     }
     create(){
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
-        this.add.tileSprite(0,0, this.game.renderer.width, this.game.renderer.width, "bkgrnd2").setOrigin(0,0).setScale(1.37);
+        var bkgrnd = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'desert');
+        bkgrnd.setScale(this.cameras.main.width/bkgrnd.width, this.cameras.main.height/bkgrnd.height).setScrollFactor(0);
+        //this.add.tileSprite(0,0, this.game.renderer.width, this.game.renderer.width, "desert").setOrigin(0,0).setScale(1.37);
         if(this.scene.manager.getScene("inGameMenu") != null){
             this.scene.remove("inGameMenu");
         }
@@ -92,7 +93,10 @@ export class Level6 extends Phaser.Scene{
         //--------------------------------------------------------------------------------
         //create hole
         var holeLayer = map.getObjectLayer('Hole')['objects'];
-        this.hole = this.physics.add.staticGroup();
+        // this.hole = this.physics.add.staticGroup();
+        this.hole = this.physics.add.group({ 
+            key: 'hole1'
+        });
         holeLayer.forEach(object => {
             this.hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole"); 
         });

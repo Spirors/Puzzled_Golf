@@ -150,7 +150,10 @@ export class Level19 extends Phaser.Scene{
         //--------------------------------------------------------------------------------
         //create hole
         var holeLayer = map.getObjectLayer('Hole')['objects'];
-        this.hole = this.physics.add.staticGroup();
+        //this.hole = this.physics.add.staticGroup();
+        this.hole = this.physics.add.group({ 
+            key: 'hole1'
+        });
         holeLayer.forEach(object => {
             this.hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole"); 
         });
@@ -271,8 +274,14 @@ export class Level19 extends Phaser.Scene{
     update (time, delta) {
         this.controls.update(delta);
         this.ball.update();
+        if(this.boolWin == false && (this.ball.body.onFloor() || this.ball.body.onCeiling() || this.ball.body.onWall())){
+            this.sound.play("wall_bounce");
+        }
         if (this.boolBall2) {
             this.ball2.update();
+            if(this.boolWin == false && (this.ball2.body.onFloor() || this.ball2.body.onCeiling() || this.ball2.body.onWall())){
+                this.sound.play("wall_bounce");
+            }
         }
         this.checkSand();
         for(var i = 0; i < this.moving_blocks.length; i++) {
@@ -357,6 +366,7 @@ export class Level19 extends Phaser.Scene{
     }
     open1() {
         this.boolOpen1 = true;
+        this.sound.play("plate_sound");
         this.doorLayer1.setCollisionByExclusion([-1],false);
         this.doorLayer1.setVisible(false);
     }
@@ -368,6 +378,7 @@ export class Level19 extends Phaser.Scene{
     }
     openL1() {
         this.boolLOpen1 = true;
+        this.sound.play("laser_sound");
         this.laserLayer1.setTileIndexCallback([37, 38], null, this);
         this.laserLayer1.setVisible(false);
     }
@@ -422,6 +433,7 @@ export class Level19 extends Phaser.Scene{
             }
             this.children.bringToTop(this.ball2);
             this.boolBall2 = true;
+            this.sound.play("plate_sound");
         }
     }
 }
