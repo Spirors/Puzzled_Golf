@@ -55,10 +55,10 @@ export class Level11 extends Phaser.Scene{
             this.scene.remove("winScreen");
         }
         this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 11, stars: [13,16,19]});
-        this.createWindow(Hud, "hud", this.game.renderer.width/2,this.game.renderer.height/2, {level : 11, stars: [13,16,19]});
+        this.createWindow(Hud, "hud", this.game.renderer.width/2,this.game.renderer.height/2, {level : 11, stars: [15,18,23]});
         this.scene.setVisible(false, "inGameMenu") ;
         this.events.emit('setLevel');
-        //-----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
         //map
         var map = this.make.tilemap({ key: 'map11' });
         var tileset = map.addTilesetImage('Golf Tiles', 'tiles');
