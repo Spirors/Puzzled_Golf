@@ -1,0 +1,41 @@
+{
+	"textures": [
+		{
+			"image": "about_button.png.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 189,
+				"h": 37
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "about_button.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 720,
+						"h": 540
+					},
+					"spriteSourceSize": {
+						"x": 60,
+						"y": 65,
+						"w": 187,
+						"h": 35
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 187,
+						"h": 35
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:14c3e5d0e0d30c469538e40a2b979e42:4f0d77666d6a43101704ca5ce40d4750:e0775394a24c0758a040946a9c1ebc55$"
+	}
+}

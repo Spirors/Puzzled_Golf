@@ -42,6 +42,8 @@ export class MainMenu extends Phaser.Scene{
         this.load.spritesheet("button", "./assets/menu/menu_button.png", {frameWidth: 189, frameHeight: 37});
         this.load.spritesheet("levels", "./assets/menu/level_buttons.png", {frameWidth: 58, frameHeight: 54});
         this.load.image("help_menu", "./assets/menu/help_pop.png");
+        this.load.image("about_menu", "./assets/menu/about.png");
+        this.load.image("about_button", "./assets/menu/about_button.png");
         this.load.image("exit", "./assets/menu/exit.png");
         this.load.image("menu_boarder", "./assets/menu/main_menu_board.png");
         this.load.spritesheet("sound", "./assets/menu/sound_image.png", {frameWidth: 117, frameHeight: 77});
@@ -114,7 +116,7 @@ export class MainMenu extends Phaser.Scene{
         main_menu_boarder.setPosition(this.game.renderer.width/2 - main_menu_boarder.width/2, this.game.renderer.height/2 - main_menu_boarder.height/2);
         var help = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 - 110, 'button', 1);
         var exit = this.add.sprite(this.game.renderer.width/2 + 130, this.game.renderer.height/2 + 150, 'button', 0);
-        var about = this.add.sprite(this.game.renderer.width/2 - 130, this.game.renderer.height/2 + 150, 'button', 0);
+        var about = this.add.sprite(this.game.renderer.width/2 - 130, this.game.renderer.height/2 + 150, 'about_button');
         var mute = this.add.sprite(this.game.renderer.width/2, this.game.renderer.height/2 + 210, 'sound', 0);
         var cheat_code = this.add.image(this.game.renderer.width/2 - 400,this.game.renderer.height/2 + 210,"golf_ball");
 
@@ -161,6 +163,7 @@ export class MainMenu extends Phaser.Scene{
 
         this.setHighLight(help);
         this.setHighLight(exit);
+        this.setHighLight(about);
         for(var i = 1; i < this.levelArray.length; i++){
             if(Number(localStorage.getItem("golfLevel" + i + "HighScore")) < this.nextLevelArray[i-1] + 1){
                 this.levelArray[i].setTint( 1 * 0xFFFFFF);
@@ -194,12 +197,14 @@ export class MainMenu extends Phaser.Scene{
 
         help.setInteractive();
         help.on('pointerdown', function () {
-            this.createWindow(HelpMenu);
+            this.createWindow(HelpMenu, "help_menu");
+            this.scene.pause();
         }, this);
 
         about.setInteractive();
         about.on('pointerdown', function () {
-            this.createWindow(About);
+            this.createWindow(About, "about");
+            this.scene.pause();
         }, this);
 
         level1.setInteractive();
@@ -306,13 +311,13 @@ export class MainMenu extends Phaser.Scene{
         });
     }
 
-    createWindow(func){
+    createWindow(func, id){
         let winX = this.game.renderer.width/4+40;
         let winY = this.game.renderer.height/4+40
         var win = this.add.zone(winX, winY, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
-        var help_menu = new func("helpMenu", win);
+        var help_menu = new func(id, win);
         this.scene
-        .add("helpMenu", help_menu, true);
+        .add(id, help_menu, true);
     }
 
     setHighLight(obj){
