@@ -8,7 +8,11 @@ var config = {
     type: Phaser.AUTO,
     physics: {
         default: 'arcade',
-        matter: { debug: true }
+        fps : 120
+    },
+    fps: {
+        target: 60,
+        forceSetTimeOut: true
     },
     backgroundColor: 0x000000,
     scene: [SplashScreen, MainMenu],

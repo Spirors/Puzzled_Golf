@@ -1,13 +1,12 @@
 export class Ball extends Phaser.Physics.Arcade.Sprite {
     // Fields for the ball
-    private max_velocity;
-    private min_velocity;
     private ball_delta;
     private ball_power;
     private draggable;
 
     // Fields for indicator line
     private indicator_line : Phaser.Geom.Line;
+    private line_length;
     private max_length;
     private min_length;
     private graphics;
@@ -15,25 +14,31 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     private prevX;
     private prevY;
 
+    private startX; 
+    private startY;
+
+    private boolBack = false;
+    private boolStart = false;
+
     constructor(config) {
         super(config.scene, config.x, config.y, 'ball');
         config.scene.physics.world.enable(this);
         config.scene.add.existing(this);
         this.body.setCircle(16);
-        this.setOrigin(0.5, 0.5);
         this.setInteractive();
-        this.setCollideWorldBounds(true);
+        // this.setCollideWorldBounds(true);
         this.setBounce(1, 1);
         this.scene.input.setDraggable(this);
 
-        this.max_velocity = 1200;
-        this.min_velocity = 128;
-        this.ball_power = 8;
         this.ball_delta = .97;
+        this.ball_power = 1/12;
         this.draggable = true;
 
         this.prevX = this.x;
         this.prevY = this.y;
+
+        this.startX = this.x;
+        this.startY = this.y;
 
         this.indicator_line = new Phaser.Geom.Line(
             this.x,
@@ -41,8 +46,9 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
             this.x,
             this.y
         );
-        this.max_length = 150;
-        this.min_length = 16;
+        this.line_length = 0;
+        this.max_length = 120;
+        this.min_length = 20;
         this.graphics = this.scene.add.graphics();
 
         this.scene.children.bringToTop(this.graphics);
@@ -52,35 +58,24 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
                 var angleToPointer = pointer.getAngle();
                 var distXToPointer = pointer.getDistanceX();
                 var distYToPointer = pointer.getDistanceY();
-                var line_length = Math.sqrt(distXToPointer * distXToPointer + distYToPointer * distYToPointer);
-                if (line_length < this.min_length) {
-                    line_length = 0;
+                this.line_length = Math.sqrt(distXToPointer * distXToPointer + distYToPointer * distYToPointer);
+                if (this.line_length < this.min_length) {
+                    this.line_length = 0;
                 }
-                if (line_length > this.max_length) {
-                    line_length = this.max_length;
+                if (this.line_length > this.max_length) {
+                    this.line_length = this.max_length;
                 }
-                this.changeLine(line_length, angleToPointer);
+                this.changeLine(this.line_length, angleToPointer);
             }
         }, this);
 
         this.on('dragend', function (pointer) {
             if (this.draggable == true) {
                 var angleToPointer = pointer.getAngle();
-                var distXToPointer = pointer.getDistanceX();
-                var distYToPointer = pointer.getDistanceY();
-                var velocity = Math.sqrt(distXToPointer * distXToPointer + distYToPointer * distYToPointer);
-                velocity = velocity * this.ball_power;
-                if (velocity < this.min_velocity) {
-                    velocity = 0;
-                }
-                if (velocity > this.max_velocity){
-                    velocity = this.max_velocity;
-                }
+                let velocity = this.line_length * this.line_length * this.ball_power;
                 if (velocity != 0) {
                     this.draggable = false;
                     this.scene.events.emit("addScore");
-                    this.prevX = this.x;
-                    this.prevY = this.y;
                     this.changeLine(0, 0);
                     this.shootBall(velocity, angleToPointer);
                 }
@@ -89,15 +84,33 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
-        this.updateBall();
         this.updateLine();
+        if(this.boolStart) {
+            this.setVelocity(0, 0);
+            this.x = this.startX;
+            this.y = this.startY;
+            this.boolStart = false;
+        } else if(this.boolBack) {
+            this.setVelocity(0, 0);
+            this.x = this.prevX;
+            this.y = this.prevY;
+            this.boolBack = false;
+        } else {
+            this.updateBall();
+        }
+        this.checkDraggable();
+    }
+
+    checkDraggable() {
+        if (this.body.velocity.x == 0 && this.body.velocity.y == 0) {
+            this.draggable = true;
+        }
     }
 
     updateBall() {
         // console.log(this.body.velocity.x, this.body.velocity.y);
         if (Math.abs(this.body.velocity.x) < 1 && Math.abs(this.body.velocity.y) < 1) {
             this.setVelocity(0, 0);
-            this.draggable = true;
         } else {
             this.setVelocity(this.ball_delta * this.body.velocity.x, this.ball_delta * this.body.velocity.y);
         }
@@ -114,6 +127,9 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
 
     shootBall(velocity, angle) {
         this.scene.sound.play("hit");
+        this.prevX = this.x;
+        this.prevY = this.y;
+        console.log(this.prevX, this.prevY);
         this.setVelocity(velocity * -Math.cos(angle), velocity * -Math.sin(angle));
     }
 
@@ -138,9 +154,57 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     }
 
     moveBack() {
-        this.setVelocity(0, 0);
-
-        this.x = this.prevX;
-        this.y = this.prevY;
+        this.boolBack = true;
+        var music_config = {
+            mute: false,
+            volume: 0.2,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: false,
+            delay: 0
+        }
+        var water_sound = this.scene.sound.add("water_splash");
+        water_sound.play(music_config);
     }
-}
+
+    moveStart() {
+        this.boolStart = true;
+        var music_config = {
+            mute: false,
+            volume: 0.3,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: false,
+            delay: 0
+        }
+        var water_sound = this.scene.sound.add("burn_sound");
+        water_sound.play(music_config);
+    }
+    
+    setDelta(d) {
+        this.ball_delta = d;
+    }
+
+    hide(){
+        this.setVisible(false);
+    }
+
+    stopped() {
+        if(this.body.velocity.x == 0 && this.body.velocity.y == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    teleport(x, y, stop) {
+        if(stop) {
+            this.setVelocity(0, 0);
+        }
+        this.x = x;
+        this.y = y;
+        this.scene.sound.play("portal_sound");
+    }
+    
+}   

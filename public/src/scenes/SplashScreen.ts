@@ -12,18 +12,35 @@ export class SplashScreen extends Phaser.Scene{
     preload(){
         this.load.image("logo", "./assets/puzzled_golf_logo.png");
  
-        this.load.image("clouds", "./assets/clouds.png");
-        this.load.image("hills", "./assets/hills.png");
-        this.load.image("ground", "./assets/ground.png");
+        this.load.image("clouds", "./assets/background/clouds.png");
+        this.load.image("hills", "./assets/background/hills.png");
+        this.load.image("ground", "./assets/background/ground.png");
 
         this.load.audio("summer", "./assets/audio/bensound-summer.mp3");
-        this.load.spritesheet("windmill", "./assets/windmill.png",{frameWidth: 256,
+        this.load.spritesheet("windmill", "./assets/background/windmill.png",{frameWidth: 256,
             frameHeight: 256
         });
     }
     create(){
         localStorage.setItem("golfLevel1HighScore", "1000");
         localStorage.setItem("golfLevel2HighScore", "1000");
+        localStorage.setItem("golfLevel3HighScore", "1000");
+        localStorage.setItem("golfLevel4HighScore", "1000");
+        localStorage.setItem("golfLevel5HighScore", "1000");
+        localStorage.setItem("golfLevel6HighScore", "1000");
+        localStorage.setItem("golfLevel7HighScore", "1000");
+        localStorage.setItem("golfLevel8HighScore", "1000");
+        localStorage.setItem("golfLevel9HighScore", "1000");
+        localStorage.setItem("golfLevel10HighScore", "1000");
+        localStorage.setItem("golfLevel11HighScore", "1000");
+        localStorage.setItem("golfLevel12HighScore", "1000");
+        localStorage.setItem("golfLevel13HighScore", "1000");
+        localStorage.setItem("golfLevel14HighScore", "1000");
+        localStorage.setItem("golfLevel15HighScore", "1000");
+        localStorage.setItem("golfLevel16HighScore", "1000");
+        localStorage.setItem("golfLevel17HighScore", "1000");
+        localStorage.setItem("golfLevel18HighScore", "1000");
+        localStorage.setItem("golfLevel19HighScore", "1000");
         
         var game_width = this.game.renderer.width;
         var game_height = this.game.renderer.height;
