@@ -100,7 +100,7 @@
   <object id="10" gid="40" x="993.511" y="707.965" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="13" name="BPortal1">
-  <object id="7" gid="39" x="543.259" y="1058.69" width="32" height="32"/>
+  <object id="7" gid="39" x="479.259" y="1088.69" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="14" name="BPortal2">
   <object id="8" gid="39" x="484.016" y="897.545" width="32" height="32"/>
