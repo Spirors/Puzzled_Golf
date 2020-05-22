@@ -80,7 +80,7 @@ export class Level15 extends Phaser.Scene{
         var waterLayer = map.createDynamicLayer('Water', tileset, 0, 0);
         waterLayer.setPosition(mapX, mapY);
         waterLayer.setTileIndexCallback([3,4,5,6,7,8,9,10,11], this.inwater, this);
-        //-------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------
         //create lava
         var lavaLayer = map.createDynamicLayer('Lava', tileset, 0, 0);
         lavaLayer.setPosition(mapX, mapY);
