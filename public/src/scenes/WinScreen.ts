@@ -48,7 +48,7 @@ export class winScreen extends Phaser.Scene{
             this.starFrame = 2;
         }else if(this.score > this.stars[1] && this.score <= this.stars[2]){
             this.starFrame = 1;
-        }else{
+        }else{ 
             this.starFrame = 0;
         }
     }

@@ -152,7 +152,7 @@ export class Level19 extends Phaser.Scene{
         //this.hole = this.physics.add.staticGroup();
         this.hole = this.physics.add.group();
         holeLayer.forEach(object => {
-            this.hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole"); 
+            this.hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole");
         });
         //--------------------------------------------------------------------------------
         //create moving block

@@ -20,6 +20,9 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     private boolBack = false;
     private boolStart = false;
 
+    private club;
+    private club_bool = false;
+
     constructor(config) {
         super(config.scene, config.x, config.y, 'ball');
         config.scene.physics.world.enable(this);
@@ -126,6 +129,17 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     }
 
     shootBall(velocity, angle) {
+        console.log(angle);
+        // this.club = this.scene.add.sprite(this.x + 30, this.y - 80, "golf_club_right", 0).setScale(3);
+        // this.club_bool = true;
+        // this.scene.anims.create({
+        //     key: "stroke",
+        //     frames: this.scene.anims.generateFrameNumbers("golf_club_right", {start: 0, end: 3}),
+        //     repeat: 0,
+        //     frameRate: 8
+        // });
+        // this.club.angle = ((angle - Math.PI) * 180) / Math.PI;
+        // this.club.play("stroke");
         this.scene.sound.play("hit");
         this.prevX = this.x;
         this.prevY = this.y;
@@ -193,6 +207,10 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
 
     stopped() {
         if(this.body.velocity.x == 0 && this.body.velocity.y == 0) {
+            if(this.club_bool == true){
+                this.club.destroy();
+                this.club_bool = false;
+            }
             return true;
         }
         return false;
@@ -206,5 +224,4 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
         this.y = y;
         this.scene.sound.play("portal_sound");
     }
-    
 }   
