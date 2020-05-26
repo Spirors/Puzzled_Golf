@@ -79,6 +79,7 @@ export class MainMenu extends Phaser.Scene{
         this.load.image("sand", "./assets/background/sand.png");
         //animation
         this.load.spritesheet("golf_club_right", "./assets/animations/golf_club_right.png",{frameWidth: 44, frameHeight: 50});
+        this.load.spritesheet("golf_club_left", "./assets/animations/golf_club_left.png",{frameWidth: 44, frameHeight: 50});
 
     }
     create(){
