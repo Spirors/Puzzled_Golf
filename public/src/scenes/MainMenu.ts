@@ -176,7 +176,7 @@ export class MainMenu extends Phaser.Scene{
         this.setHighLight(exit);
         this.setHighLight(about);
         this.totalscore = 0;
-        for(var i = 1; i < this.levelArray.length - 1; i++){
+        for(var i = 1; i < this.levelArray.length; i++){
             console.log(Number(localStorage.getItem("golfLevel" + i + "HighScore")))
             if(Number(localStorage.getItem("golfLevel" + i + "HighScore")) != 1000){
                 this.totalscore += Number(localStorage.getItem("golfLevel" + i + "HighScore"));
