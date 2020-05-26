@@ -25,9 +25,8 @@ export class winScreen extends Phaser.Scene{
     private menuHeight;
     private score;
     private level;
-    private starFrame;
     private levelHighScore;
-    private stars;
+    private par;
 
     constructor (handle, parent)
     {
@@ -37,20 +36,10 @@ export class winScreen extends Phaser.Scene{
     init(data){
         this.level = data.level;
         this.score = data.score;
-        this.stars = data.stars;
+        this.par = data.par;
         this.menuHeight = 409;
         this.menuWidth = 626;
         this.levelHighScore = localStorage.getItem("golfLevel"+ this.level +"HighScore");
-
-        if (this.score <= this.stars[0]) {
-            this.starFrame = 3;
-        }else if(this.score > this.stars[0] && this.score <= this.stars[1]){
-            this.starFrame = 2;
-        }else if(this.score > this.stars[1] && this.score <= this.stars[2]){
-            this.starFrame = 1;
-        }else{ 
-            this.starFrame = 0;
-        }
     }
     preload(){
         this.load.image("win_bg", "./assets/menu/win_screen.png");
@@ -59,8 +48,8 @@ export class winScreen extends Phaser.Scene{
     {
         var background = this.add.image(0,0,"win_bg").setOrigin(0);
         this.cameras.main.setViewport(this.game.renderer.width/2 - this.menuWidth/2, this.game.renderer.height/2 - this.menuHeight/2, this.menuWidth, this.menuHeight);
-        let star = this.add.sprite(this.menuWidth/2 , this.menuHeight/2 - 50, "stars", this.starFrame);
-        star.setScale(1.5);
+        let parNum = this.add.text(0, 0, 'Par: ' + this.par, { font: '75px Arial', fill: '#000000' });
+        parNum.setPosition(this.menuWidth/2 - parNum.width/2, this.menuHeight/2 - 80 )
         let scoreText = this.add.text(0,0, 'Score: ' + this.score, { font: '20px Arial', fill: '#000000' });
         scoreText.setPosition(this.menuWidth/2 - scoreText.width/2, this.menuHeight/2 + 20)
         let highScoreText = this.add.text(0,0, 'Highscore: ' + this.levelHighScore, { font: '20px Arial', fill: '#000000' });
@@ -74,7 +63,7 @@ export class winScreen extends Phaser.Scene{
         mainMenu.setInteractive();
         nextLevel.setTint( 1 * 0x737373);
 
-        if(this.score < this.stars[2]+1 || this.levelHighScore < this.stars[2]+1 ){
+        if(this.score < 9999 || this.levelHighScore < 9999 ){
             nextLevel.setInteractive();
             nextLevel.setTint( 1 * 0xffffff);
         }

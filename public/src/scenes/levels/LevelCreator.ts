@@ -25,8 +25,8 @@ export class LevelCreator extends Phaser.Scene {
         if(this.scene.manager.getScene("winScreen") != null){
             this.scene.remove("winScreen");
         }
-        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : x, stars: s});
-        this.createWindow(Hud, "hud", 0, 0, {level : x, stars: s});
+        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : x, par: s});
+        this.createWindow(Hud, "hud", 0, 0, {level : x, par: s});
         this.scene.setVisible(false, "inGameMenu");
         this.events.emit('setLevel');
     }

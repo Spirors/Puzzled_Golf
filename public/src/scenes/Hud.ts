@@ -8,7 +8,8 @@ export class Hud extends Phaser.Scene{
     private localStorageName;
     private levelHighScore;
     private menu;
-    private stars;
+    private par;
+
     constructor (handle, parent)
     {
         super(handle);
@@ -16,11 +17,11 @@ export class Hud extends Phaser.Scene{
     }
     init(data){
         this.level = data.level;
-        this.stars = data.stars;
+        this.par = data.par;
     }
     create ()
     {
-        let scoreText = this.add.text(10, 10, 'Score: ' + (-this.stars[0]), { font: '48px Arial', fill: '#c4a727' });
+        let scoreText = this.add.text(10, 10, 'Score: ' + (-this.par), { font: '48px Arial', fill: '#c4a727' });
         this.levelText = this.add.text(10, 50, '', { font: '48px Arial', fill: '#c4a727' });
         this.cameras.main.setViewport(0, 0, this.game.renderer.width, this.game.renderer.height);
         let ourGame = this.scene.get("level" + this.level);
@@ -28,7 +29,7 @@ export class Hud extends Phaser.Scene{
         this.localStorageName = "golfLevel" + this.level + "HighScore";
         ourGame.events.on('addScore', function () {
             this.score += 1;
-            var s = this.score - this.stars[0];
+            var s = this.score - this.par;
             scoreText.setText('Score: ' + s);
         }, this);
         //menu button
@@ -42,18 +43,18 @@ export class Hud extends Phaser.Scene{
             this.scene.setVisible(true, "inGameMenu") ;
         }, this)
 
-        this.levelHighScore = localStorage.getItem(this.localStorageName) == null ? 999 :
+        this.levelHighScore = localStorage.getItem(this.localStorageName) == null ? 1000 :
                               localStorage.getItem(this.localStorageName);
         ourGame.events.on('levelWin', function () {
             this.sound.play("ball_in_hole_sound");
             console.log("level win");
             this.menu.removeInteractive();
-            var s = this.score - this.stars[0];
+            var s = this.score - this.par;
             let newHighscore = Math.min(s, this.levelHighScore);
             localStorage.setItem(this.localStorageName, newHighscore.toString());
             this.events.emit('createWinScreen', {score: s});
             if(this.scene.manager.getScene("winScreen") == null){
-                this.createWindow(winScreen,"winScreen",this.game.renderer.width/2, this.game.renderer.height/2, {level : this.level, score : s, stars : this.stars});
+                this.createWindow(winScreen,"winScreen",this.game.renderer.width/2, this.game.renderer.height/2, {level : this.level, score : s, par : this.par});
             }
             this.sound.play("win_music");
             console.log(this);

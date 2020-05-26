@@ -18,6 +18,7 @@ export class Level5 extends Phaser.Scene{
     init(){
         this.boolWin = false;
         this.boolSand = false;
+        
     }
     preload(){
         this.load.tilemapTiledJSON('map5', './assets/map/level5.json');
@@ -35,8 +36,8 @@ export class Level5 extends Phaser.Scene{
         if(this.scene.manager.getScene("winScreen") != null){
             this.scene.remove("winScreen");
         }
-        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 5, stars : [8,10,12]});
-        this.createWindow(Hud, "hud", 0, 0, {level : 5, stars : [8,10,12]});
+        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 5, par: 8});
+        this.createWindow(Hud, "hud", 0, 0, {level : 5, par: 8});
         this.scene.setVisible(false, "inGameMenu") ;
         this.events.emit('setLevel');
         //-----------------------------------------------------------------------------

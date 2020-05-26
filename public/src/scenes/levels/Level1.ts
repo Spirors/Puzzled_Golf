@@ -23,7 +23,7 @@ export class Level1 extends LevelCreator{
     create(){
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
-        this.createCore('grass_bkgrnd', 1, [2,4,6]);
+        this.createCore('grass_bkgrnd', 1, 2);
         //-----------------------------------------------------------------------------
         //map
         this.bgLayer = this.createMap('map1');

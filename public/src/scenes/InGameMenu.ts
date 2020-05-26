@@ -27,9 +27,8 @@ export class InGameMenu extends Phaser.Scene{
     private level;
     private localStorageName;
     private levelHighScore;
-    private starFrame;
     private music;
-    private stars;
+    private par;
     constructor (handle, parent)
     {
         super(handle);
@@ -40,28 +39,16 @@ export class InGameMenu extends Phaser.Scene{
         this.menuWidth = 336;
         this.muted = false;
         this.level = data.level;
-        this.stars = data.stars;
+        this.par = data.par;
         this.localStorageName = "golfLevel" + this.level + "HighScore";
         if(localStorage.getItem(this.localStorageName) == '1000'){
             this.levelHighScore = 'None';
         }else{
             this.levelHighScore = localStorage.getItem(this.localStorageName);
         }
-        if(this.levelHighScore == 'None'){
-            this.starFrame = 0;
-        }else if (Number(this.levelHighScore) <= this.stars[0]) {
-            this.starFrame = 3;
-        }else if(Number(this.levelHighScore) > this.stars[0] && Number(this.levelHighScore) <= this.stars[1]){
-            this.starFrame = 2;
-        }else if(Number(this.levelHighScore) > this.stars[1] && Number(this.levelHighScore) <= this.stars[2]){
-            this.starFrame = 1;
-        }else{
-            this.starFrame = 0;
-        }
     }
     preload(){
         this.load.image("menu_bg", "./assets/menu/menu_background.png");
-        this.load.spritesheet("stars", "./assets/menu/star_sprites.png", {frameWidth: 258, frameHeight: 68})
         this.load.audio("level_audio", "./assets/audio/level1_audio.mp3");
     }
     create (data)
@@ -98,8 +85,9 @@ export class InGameMenu extends Phaser.Scene{
         //
         var background = this.add.image(0,0,"menu_bg").setOrigin(0);
         this.cameras.main.setViewport(this.game.renderer.width/2 - 168, this.game.renderer.height/2 - 255, this.menuWidth, this.menuHeight);
-        let star = this.add.sprite(this.menuWidth/2 , this.menuHeight/2 -140, "stars", this.starFrame);
-        let highScore = this.add.text(0, 0, 'Highscore - ' + this.levelHighScore, { font: '20px Arial', fill: '#000000' });
+        let parNum = this.add.text(0, 0, 'Par: ' + this.par, { font: '75px Arial', fill: '#000000' });
+        parNum.setPosition(this.menuWidth/2 - parNum.width/2, this.menuHeight/2 - 180 )
+        let highScore = this.add.text(0, 0, 'Highscore: ' + this.levelHighScore, { font: '20px Arial', fill: '#000000' });
         highScore.setPosition(this.menuWidth/2 - highScore.width/2, this.menuHeight/2 - 80 )
         var restart = this.add.image(this.menuWidth/2 , this.menuHeight/2 - 20, "button", 5);
         var mainMenu = this.add.image(this.menuWidth/2 , this.menuHeight/2 + 40, "button", 2);
