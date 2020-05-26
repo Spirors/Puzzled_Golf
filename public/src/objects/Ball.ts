@@ -131,21 +131,29 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     shootBall(velocity, angle) {
         console.log("angle:" + angle);
         if(angle > 1.6 || angle < -1.5){
-            this.club = this.scene.add.sprite(this.x + 30, this.y - 85 , "golf_club_right", 0).setScale(3);
+            this.club = this.scene.add.sprite(this.x + 15, this.y - 75 , "golf_club_right", 0).setScale(4);
             this.scene.anims.create({
                 key: "stroke",
                 frames: this.scene.anims.generateFrameNumbers("golf_club_right", {start: 0, end: 3}),
                 repeat: 0,
-                frameRate: 8
+                frameRate: 10
             });
-            this.club.angle = ((angle - Math.PI) * 180) / Math.PI;
+            //this.club.angle = ((angle - Math.PI) * 180) / Math.PI;
+        }else if(this.x - this.prevX < 0){
+            this.club = this.scene.add.sprite(this.x + 50, this.y + 20 , "golf_club_up", 0).setScale(4);
+            this.scene.anims.create({
+                key: "stroke",
+                frames: this.scene.anims.generateFrameNumbers("golf_club_up", {start: 0, end: 3}),
+                repeat: 0,
+                frameRate: 10
+            });
         }else{
-            this.club = this.scene.add.sprite(this.x + 30, this.y - 80, "golf_club_left", 0).setScale(3);
+            this.club = this.scene.add.sprite(this.x + 30, this.y - 80, "golf_club_left", 0).setScale(4);
             this.scene.anims.create({
                 key: "stroke",
                 frames: this.scene.anims.generateFrameNumbers("golf_club_left", {start: 0, end: 3}),
                 repeat: 0,
-                frameRate: 8
+                frameRate: 10
             });
             console.log("left");
         }
