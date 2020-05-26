@@ -5,7 +5,7 @@ import { MovingBlock } from '../objects/MovingBlock';
 import { NONE } from 'phaser';
 import { winScreen } from './WinScreen';
 
-export class nextLevel extends Phaser.Scene{
+export class NextLevel extends Phaser.Scene{
     private menu;
     private level;
 

@@ -55,7 +55,7 @@ export class MainMenu extends Phaser.Scene{
         this.load.image('ball', './assets/obj/ball.png');
 
         this.load.image("hills", "./assets/background/hills.png");
-        this.load.spritesheet("golfer", "./assets/male_golfer.png",{frameWidth: 256, frameHeight: 256});
+        this.load.spritesheet("golfer", "./assets/animations/male_golfer.png",{frameWidth: 256, frameHeight: 256});
         //level sound effects
         this.load.audio('hit', './assets/audio/ball_hit.mp3');
         this.load.audio('win_music', './assets/audio/sound_effects/winscreen_audio.mp3');
@@ -77,7 +77,9 @@ export class MainMenu extends Phaser.Scene{
         this.load.image("lava_bkgrnd", "./assets/background/lava.png");
         this.load.image("river", "./assets/background/river.png");
         this.load.image("sand", "./assets/background/sand.png");
-        
+        //animation
+        this.load.spritesheet("golf_club_right", "./assets/animations/golf_club_right.png",{frameWidth: 44, frameHeight: 50});
+
     }
     create(){
         this.cameras.main.setBackgroundColor(0x9ce1e1);//sky background color 

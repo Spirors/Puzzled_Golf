@@ -6,6 +6,7 @@ export class Level1 extends LevelCreator{
     private ball;
     private hole;
 
+    
     private moving_blocks = new Array();
     private boolWin;
 

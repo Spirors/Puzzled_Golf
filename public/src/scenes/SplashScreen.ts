@@ -17,7 +17,7 @@ export class SplashScreen extends Phaser.Scene{
         this.load.image("ground", "./assets/background/ground.png");
 
         this.load.audio("summer", "./assets/audio/bensound-summer.mp3");
-        this.load.spritesheet("windmill", "./assets/background/windmill.png",{frameWidth: 256,
+        this.load.spritesheet("windmill", "./assets/animations/windmill.png",{frameWidth: 256,
             frameHeight: 256
         });
     }
