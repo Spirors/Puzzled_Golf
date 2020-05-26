@@ -30,6 +30,7 @@ export class MainMenu extends Phaser.Scene{
 
     private levelArray = new Array();
     private nextLevelArray = new Array();
+    private totalscore = 0;
 
     constructor(){
         super("mainMenu");
@@ -173,14 +174,17 @@ export class MainMenu extends Phaser.Scene{
         this.setHighLight(help);
         this.setHighLight(exit);
         this.setHighLight(about);
+        this.totalscore = 0;
         for(var i = 1; i < this.levelArray.length; i++){
             if(Number(localStorage.getItem("golfLevel" + i + "HighScore")) < this.nextLevelArray[i-1] + 1){
+                this.totalscore += Number(localStorage.getItem("golfLevel" + i + "HighScore"));
                 this.levelArray[i].setTint( 1 * 0xFFFFFF);
                 this.levelArray[i].setInteractive();
             }else{
                 this.levelArray[i].setTint( 1 * 0x737373);
             }
         }
+        console.log(this.totalscore);
 
         level19.setTint( 1 * 0xFFFFFF);
         level19.setInteractive();
@@ -318,6 +322,7 @@ export class MainMenu extends Phaser.Scene{
             music.stop();
             this.scene.start("splashScreen")
         });
+
     }
 
     createWindow(func, id){

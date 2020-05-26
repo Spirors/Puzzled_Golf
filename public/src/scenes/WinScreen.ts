@@ -61,9 +61,9 @@ export class winScreen extends Phaser.Scene{
         this.cameras.main.setViewport(this.game.renderer.width/2 - this.menuWidth/2, this.game.renderer.height/2 - this.menuHeight/2, this.menuWidth, this.menuHeight);
         let star = this.add.sprite(this.menuWidth/2 , this.menuHeight/2 - 50, "stars", this.starFrame);
         star.setScale(1.5);
-        let scoreText = this.add.text(0,0, 'Score - ' + this.score, { font: '20px Arial', fill: '#000000' });
+        let scoreText = this.add.text(0,0, 'Score: ' + this.score, { font: '20px Arial', fill: '#000000' });
         scoreText.setPosition(this.menuWidth/2 - scoreText.width/2, this.menuHeight/2 + 20)
-        let highScoreText = this.add.text(0,0, 'Highscore - ' + this.levelHighScore, { font: '20px Arial', fill: '#000000' });
+        let highScoreText = this.add.text(0,0, 'Highscore: ' + this.levelHighScore, { font: '20px Arial', fill: '#000000' });
         highScoreText.setPosition(this.menuWidth/2 - highScoreText.width/2, this.menuHeight/2 + 50);
         var restart = this.add.image(this.menuWidth/2 - 120, this.menuHeight/2 + 100, "button", 5);
         var mainMenu = this.add.image(this.menuWidth/2 + 120, this.menuHeight/2 + 100, "button", 2);
