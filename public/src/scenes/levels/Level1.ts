@@ -21,9 +21,10 @@ export class Level1 extends LevelCreator{
         this.load.image('moving_block_5v', "./assets/obj/moving_block_5v.png");
     }
     create(){
+        this.physics.world.setFPS(120);
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
-        this.createCore('grass_bkgrnd', 1, [2,4,6]);
+        this.createCore('grass_bkgrnd', 1, 2);
         //-----------------------------------------------------------------------------
         //map
         this.bgLayer = this.createMap('map1');

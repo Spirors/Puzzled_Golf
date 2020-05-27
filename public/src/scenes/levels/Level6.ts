@@ -29,6 +29,7 @@ export class Level6 extends Phaser.Scene{
         this.load.tilemapTiledJSON('map6', './assets/map/level6.json');
     }
     create(){
+        this.physics.world.setFPS(120);
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
         var bkgrnd = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'desert');
@@ -40,8 +41,8 @@ export class Level6 extends Phaser.Scene{
         if(this.scene.manager.getScene("winScreen") != null){
             this.scene.remove("winScreen");
         }
-        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 6, stars : [5,7,9]});
-        this.createWindow(Hud, "hud", 0, 0, {level : 6, stars : [5,7,9]});
+        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 6, par: 5});
+        this.createWindow(Hud, "hud", 0, 0, {level : 6, par: 5});
         this.scene.setVisible(false, "inGameMenu") ;
         this.events.emit('setLevel');
         //-----------------------------------------------------------------------------

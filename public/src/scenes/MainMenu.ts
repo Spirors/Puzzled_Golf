@@ -29,7 +29,7 @@ export class MainMenu extends Phaser.Scene{
     private grass;
 
     private levelArray = new Array();
-    private nextLevelArray = new Array();
+    private totalscore = 0;
 
     constructor(){
         super("mainMenu");
@@ -84,7 +84,7 @@ export class MainMenu extends Phaser.Scene{
         this.load.spritesheet("golf_club_down", "./assets/animations/golf_club_down.png",{frameWidth: 44, frameHeight: 50});
         this.load.spritesheet("splash_anim", "./assets/animations/splash_anim.png",{frameWidth: 64, frameHeight: 64});
         this.load.spritesheet("fire_anim", "./assets/animations/fire_anim.png",{frameWidth: 46, frameHeight: 49});
-
+        this.load.spritesheet("ball_anim", "./assets/animations/ball_shrink_anim.png",{frameWidth: 32, frameHeight: 32});
     }
     create(){
         this.cameras.main.setBackgroundColor(0x9ce1e1);//sky background color 
@@ -160,7 +160,6 @@ export class MainMenu extends Phaser.Scene{
 
         this.levelArray = [level1, level2, level3, level4, level5, level6, level7, level8, level9, level10, level11,
             level12, level13, level14, level15, level16, level17, level18, level19];
-        this.nextLevelArray = [6,6,8,12,12,9,13,14,12,16,19,20,18,30,19,16,34,50,100]
 
         cheat_code.setScale(.3);
         mute.setScale(.5);
@@ -180,14 +179,19 @@ export class MainMenu extends Phaser.Scene{
         this.setHighLight(help);
         this.setHighLight(exit);
         this.setHighLight(about);
+        this.totalscore = 0;
         for(var i = 1; i < this.levelArray.length; i++){
-            if(Number(localStorage.getItem("golfLevel" + i + "HighScore")) < this.nextLevelArray[i-1] + 1){
+            console.log(Number(localStorage.getItem("golfLevel" + i + "HighScore")))
+            if(Number(localStorage.getItem("golfLevel" + i + "HighScore")) != 1000){
+                this.totalscore += Number(localStorage.getItem("golfLevel" + i + "HighScore"));
                 this.levelArray[i].setTint( 1 * 0xFFFFFF);
                 this.levelArray[i].setInteractive();
             }else{
                 this.levelArray[i].setTint( 1 * 0x737373);
             }
         }
+        console.log(this.totalscore);
+        this.add.text(10, 10, 'Total Score: ' + this.totalscore, { font: '48px Arial', fill: '#c4a727' });
 
         level19.setTint( 1 * 0xFFFFFF);
         level19.setInteractive();
@@ -195,15 +199,15 @@ export class MainMenu extends Phaser.Scene{
         cheat_code.setInteractive();
         cheat_code.on('pointerdown', function () {
             if(this.cheats){
-                for(var i = 1; i < this.levelArray.length -1; i++){
-                    if(Number(localStorage.getItem("golfLevel" + i + "HighScore")) > this.nextLevelArray[i-1] + 1){
+                for(var i = 1; i < this.levelArray.length - 1; i++){
+                    if(Number(localStorage.getItem("golfLevel" + i + "HighScore")) == 1000){
                         this.levelArray[i].removeInteractive()
                         this.levelArray[i].setTint( 1 * 0x737373);
                     }
                 }
                 this.cheats = false;
             }else{
-                for(var i = 1; i < this.levelArray.length -1; i++){
+                for(var i = 1; i < this.levelArray.length - 1; i++){
                     this.levelArray[i].setTint( 1 * 0xFFFFFF);
                     this.levelArray[i].setInteractive();
                 }
@@ -325,6 +329,7 @@ export class MainMenu extends Phaser.Scene{
             music.stop();
             this.scene.start("splashScreen")
         });
+
     }
 
     createWindow(func, id){

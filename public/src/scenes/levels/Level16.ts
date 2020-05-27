@@ -64,6 +64,7 @@ export class Level16 extends Phaser.Scene{
         this.load.image('rportal', "./assets/obj/rportal.png");
     }
     create(){
+        this.physics.world.setFPS(120);
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
         var bkgrnd = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'river');
@@ -75,8 +76,8 @@ export class Level16 extends Phaser.Scene{
         if(this.scene.manager.getScene("winScreen") != null){
             this.scene.remove("winScreen");
         }
-        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 16, stars:[10,13,16]});
-        this.createWindow(Hud, "hud", this.game.renderer.width/2,this.game.renderer.height/2, {level : 16, stars:[10,13,16]});
+        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 16, par : 10});
+        this.createWindow(Hud, "hud", this.game.renderer.width/2,this.game.renderer.height/2, {level : 16, par : 10});
         this.scene.setVisible(false, "inGameMenu") ;
         this.events.emit('setLevel');
         //----------------------------------------------------------------------------

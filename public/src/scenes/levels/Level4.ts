@@ -20,6 +20,7 @@ export class Level4 extends Phaser.Scene{
         this.load.tilemapTiledJSON('map4', './assets/map/level4.json');
     }
     create(){
+        this.physics.world.setFPS(120);
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
         var bkgrnd = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'beach');
@@ -31,8 +32,8 @@ export class Level4 extends Phaser.Scene{
         if(this.scene.manager.getScene("winScreen") != null){
             this.scene.remove("winScreen");
         }
-        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 4, stars : [8,10,12]});
-        this.createWindow(Hud, "hud", 0, 0, {level : 4, stars : [8,10,12]});
+        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 4, par: 8});
+        this.createWindow(Hud, "hud", 0, 0, {level : 4, par: 8});
         this.scene.setVisible(false, "inGameMenu") ;
         this.events.emit('setLevel');
         //-----------------------------------------------------------------------------

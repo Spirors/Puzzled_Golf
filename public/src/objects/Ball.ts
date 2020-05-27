@@ -21,7 +21,6 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     private boolStart = false;
 
     private club;
-    private club_bool = false;
     private ang;
 
     constructor(config) {
@@ -30,7 +29,6 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
         config.scene.add.existing(this);
         this.body.setCircle(16);
         this.setInteractive();
-        // this.setCollideWorldBounds(true);
         this.setBounce(1, 1);
         this.scene.input.setDraggable(this);
 
@@ -108,12 +106,6 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     checkDraggable() {
         if (this.body.velocity.x == 0 && this.body.velocity.y == 0) {
             this.draggable = true;
-            if(this.club_bool == true){
-                console.log("animationcomplete")
-                this.club.destroy();
-                this.scene.anims.remove("stroke");
-                this.club_bool = false;
-            }
         }
     }
 
@@ -172,9 +164,15 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
                 frameRate: 10
             });
         }
+
+        this.club.once('animationcomplete', () => {
+            console.log('animationcomplete')
+            this.club.destroy()
+            this.scene.anims.remove("stroke");
+        });
+
         this.club.removeInteractive();
         this.club.play("stroke");
-        this.club_bool = true;
         this.scene.sound.play("hit");
         this.prevX = this.x;
         this.prevY = this.y;
@@ -212,50 +210,16 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
                 frameRate: 7
             });
     
-        splash.on('animationcomplete', function(){
-            console.log("animationcomplete")
-            splash.destroy();
+        splash.once('animationcomplete', () => {
+            console.log('animationcomplete')
+            splash.destroy()
         });
+
         splash.removeInteractive();
         splash.play("splash");
-        // if(this.ang > 0 && this.ang < 1.3){
-        //     var splash = this.scene.add.sprite(this.x - 30,  this.y - 20, "splash_anim", 0).setScale(1.5);
-        // }else if(this.ang >= 1.3 && this.ang <= 1.8){
-        //     var splash = this.scene.add.sprite(this.x - 10,  this.y - 30, "splash_anim", 0).setScale(1.5);
-        // }else if(this.ang > 1.8){
-        //     var splash = this.scene.add.sprite(this.x + 40,  this.y - 20, "splash_anim", 0).setScale(1.5);
-        // }else if(this.ang <= 0 && this.ang > -1.3){
-        //     var splash = this.scene.add.sprite(this.x - 30,  this.y + 20, "splash_anim", 0).setScale(1.5);
-        // }else if(this.ang <= 1.3 && this.ang > -1.7){
-        //     var splash = this.scene.add.sprite(this.x - 30,  this.y + 20, "splash_anim", 0).setScale(1.5);
-        // }else{
-        //     var splash = this.scene.add.sprite(this.x + 30,  this.y + 20, "splash_anim", 0).setScale(1.5);
-        // }
-
+        
         this.boolBack = true;
 
-        // if(this.ang > 0 && this.ang < 1.7){
-        //     var splash = this.scene.add.sprite(this.x - 30,  this.y + 20, "splash_anim", 0);
-        // }else if(this.ang >= 1.7){
-        //     var splash = this.scene.add.sprite(this.x + 30,  this.y + 40, "splash_anim", 0);
-        // }else if(this.ang < 0 && this.ang > - 1.7){
-        //     var splash = this.scene.add.sprite(this.x - 40,  this.y - 10, "splash_anim", 0);
-        // }else{
-        //     var splash = this.scene.add.sprite(this.x + 30,  this.y - 20, "splash_anim", 0);
-        // }
-
-        // this.scene.anims.create({
-        //     key: "splash",
-        //     frames: this.scene.anims.generateFrameNumbers("splash_anim", {start: 0, end: 4}),
-        //         repeat: 0,
-        //         frameRate: 7
-        // });
-
-        // splash.on('animationcomplete', function(){
-        //     console.log("animationcomplete")
-        //     splash.destroy();
-        // });
-        // splash.play("splash");
         var music_config = {
             mute: false,
             volume: 0.2,
@@ -269,7 +233,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
         water_sound.play(music_config);
     }
 
-    moveStart(bool) {
+    moveStart() {
         this.boolStart = true;
         var music_config = {
             mute: false,
@@ -280,23 +244,23 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
             loop: false,
             delay: 0
         }
-        if(bool == true){
-            var fire = this.scene.add.sprite(this.x,  this.y, "fire_anim", 0).setScale(1.5);
-            fire.setOrigin(0.6,0.7);
-            this.scene.anims.create({
-                key: "fire",
-                frames: this.scene.anims.generateFrameNumbers("fire_anim", {start: 0, end: 4}),
-                    repeat: 0,
-                    frameRate: 7
-                });
-        
-            fire.on('animationcomplete', function(){
-                console.log("animationcomplete")
-                fire.destroy();
+        var fire = this.scene.add.sprite(this.x,  this.y + 15, "fire_anim", 0).setScale(1.5);
+        //fire.setOrigin(0.4,0.7);
+        fire.setOrigin(0.6,0.7);
+        this.scene.anims.create({
+            key: "fire",
+            frames: this.scene.anims.generateFrameNumbers("fire_anim", {start: 0, end: 4}),
+                repeat: 0,
+                frameRate: 7
             });
-            fire.removeInteractive();
-            fire.play("fire");
-        }
+        
+        fire.on('animationcomplete', function(){
+            console.log("animationcomplete")
+            fire.destroy();
+        });
+        fire.removeInteractive();
+        fire.play("fire");
+        
         var water_sound = this.scene.sound.add("burn_sound");
         water_sound.play(music_config);
     }
@@ -311,11 +275,6 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
 
     stopped() {
         if(this.body.velocity.x == 0 && this.body.velocity.y == 0) {
-            // if(this.club_bool == true){
-            //     this.club.destroy();
-            //     this.scene.anims.remove("stroke");
-            //     this.club_bool = false;
-            // }
             return true;
         }
         return false;
@@ -329,5 +288,4 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
         this.y = y;
         this.scene.sound.play("portal_sound");
     }
-    
 }   

@@ -60,6 +60,7 @@ export class Level19 extends Phaser.Scene{
         this.load.image('bportal', "./assets/obj/bportal.png");
     }
     create(){
+        this.physics.world.setFPS(120);
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
         // this.add.tileSprite(0,0, this.game.renderer.width, this.game.renderer.width, "bkgrnd2").setOrigin(0,0).setScale(1.37);
@@ -69,8 +70,8 @@ export class Level19 extends Phaser.Scene{
         if(this.scene.manager.getScene("winScreen") != null){
             this.scene.remove("winScreen");
         }
-        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 19, stars: [1,2,3]});
-        this.createWindow(Hud, "hud", this.game.renderer.width/2,this.game.renderer.height/2, {level : 19, stars: [1,2,3]});
+        this.createWindow(InGameMenu,"inGameMenu",this.game.renderer.width/2, this.game.renderer.height/2, {level : 19, par : 1});
+        this.createWindow(Hud, "hud", this.game.renderer.width/2,this.game.renderer.height/2, {level : 19, par : 1});
         this.scene.setVisible(false, "inGameMenu") ;
         this.events.emit('setLevel');
         //-----------------------------------------------------------------------------
@@ -152,7 +153,7 @@ export class Level19 extends Phaser.Scene{
         //this.hole = this.physics.add.staticGroup();
         this.hole = this.physics.add.group();
         holeLayer.forEach(object => {
-            this.hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole"); 
+            this.hole.create(mapX + object.x - object.width/2, mapY + object.y - object.height/2, "hole");
         });
         //--------------------------------------------------------------------------------
         //create moving block
@@ -317,7 +318,6 @@ export class Level19 extends Phaser.Scene{
         if (this.boolLPressed1 == true) {
             this.boolLPressed1 = false;
         }
-
         ball.moveBack();
     }
 
