@@ -317,6 +317,22 @@ export class Level19 extends Phaser.Scene{
         if (this.boolLPressed1 == true) {
             this.boolLPressed1 = false;
         }
+
+        // var splash = this.add.sprite(ball.x,  ball.y, "splash_anim", 0).setScale(2);
+        // splash.setOrigin(0.5,0.7);
+        // this.anims.create({
+        //     key: "splash",
+        //     frames: this.anims.generateFrameNumbers("splash_anim", {start: 0, end: 4}),
+        //         repeat: 0,
+        //         frameRate: 7
+        //     });
+    
+        // splash.on('animationcomplete', function(){
+        //     console.log("animationcomplete")
+        //     splash.destroy();
+        // });
+        // splash.play("splash");
+
         ball.moveBack();
     }
 

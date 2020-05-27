@@ -116,6 +116,21 @@ export class Level2 extends Phaser.Scene{
 
     inwater() {
         // Fix delay
+        // var splash = this.add.sprite(this.ball.x,  this.ball.y, "splash_anim", 0).setScale(1.5);
+        // splash.setOrigin(0.5,0.7);
+        // this.anims.create({
+        //     key: "splash",
+        //     frames: this.anims.generateFrameNumbers("splash_anim", {start: 0, end: 4}),
+        //         repeat: 0,
+        //         frameRate: 7
+        //     });
+    
+        // splash.on('animationcomplete', function(){
+        //     console.log("animationcomplete")
+        //     splash.destroy();
+        // });
+        // splash.play("splash");
+
         this.time.delayedCall(3000, this.ball.moveBack(), [], this);
     }
 }
