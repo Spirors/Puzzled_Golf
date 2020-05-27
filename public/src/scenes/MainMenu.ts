@@ -83,6 +83,7 @@ export class MainMenu extends Phaser.Scene{
         this.load.spritesheet("golf_club_up", "./assets/animations/golf_club_up.png",{frameWidth: 44, frameHeight: 50});
         this.load.spritesheet("golf_club_down", "./assets/animations/golf_club_down.png",{frameWidth: 44, frameHeight: 50});
         this.load.spritesheet("splash_anim", "./assets/animations/splash_anim.png",{frameWidth: 64, frameHeight: 64});
+        this.load.spritesheet("fire_anim", "./assets/animations/fire_anim.png",{frameWidth: 46, frameHeight: 49});
 
     }
     create(){

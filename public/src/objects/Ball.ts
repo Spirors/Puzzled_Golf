@@ -269,7 +269,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
         water_sound.play(music_config);
     }
 
-    moveStart() {
+    moveStart(bool) {
         this.boolStart = true;
         var music_config = {
             mute: false,
@@ -279,6 +279,23 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
             seek: 0,
             loop: false,
             delay: 0
+        }
+        if(bool == true){
+            var fire = this.scene.add.sprite(this.x,  this.y, "fire_anim", 0).setScale(1.5);
+            fire.setOrigin(0.6,0.7);
+            this.scene.anims.create({
+                key: "fire",
+                frames: this.scene.anims.generateFrameNumbers("fire_anim", {start: 0, end: 4}),
+                    repeat: 0,
+                    frameRate: 7
+                });
+        
+            fire.on('animationcomplete', function(){
+                console.log("animationcomplete")
+                fire.destroy();
+            });
+            fire.removeInteractive();
+            fire.play("fire");
         }
         var water_sound = this.scene.sound.add("burn_sound");
         water_sound.play(music_config);
