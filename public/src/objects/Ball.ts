@@ -22,6 +22,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
 
     private club;
     private club_bool = false;
+    private ang;
 
     constructor(config) {
         super(config.scene, config.x, config.y, 'ball');
@@ -106,6 +107,11 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
 
     checkDraggable() {
         if (this.body.velocity.x == 0 && this.body.velocity.y == 0) {
+            if(this.club_bool == true){
+                this.club.destroy();
+                this.scene.anims.remove("stroke");
+                this.club_bool = false;
+            }
             this.draggable = true;
         }
     }
@@ -130,24 +136,39 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
 
     shootBall(velocity, angle) {
         console.log("angle:" + angle);
-        if(angle > 1.6 || angle < -1.5){
-            this.club = this.scene.add.sprite(this.x + 30, this.y - 85 , "golf_club_right", 0).setScale(3);
-            this.scene.anims.create({
-                key: "stroke",
-                frames: this.scene.anims.generateFrameNumbers("golf_club_right", {start: 0, end: 3}),
-                repeat: 0,
-                frameRate: 8
-            });
-            this.club.angle = ((angle - Math.PI) * 180) / Math.PI;
-        }else{
-            this.club = this.scene.add.sprite(this.x + 30, this.y - 80, "golf_club_left", 0).setScale(3);
+        this.ang = angle;
+        if(angle > -1.2 && angle < 1.3){
+            this.club = this.scene.add.sprite(this.x + 30, this.y - 80, "golf_club_left", 0).setScale(4);
             this.scene.anims.create({
                 key: "stroke",
                 frames: this.scene.anims.generateFrameNumbers("golf_club_left", {start: 0, end: 3}),
                 repeat: 0,
-                frameRate: 8
+                frameRate: 10
             });
-            console.log("left");
+        }else if(angle >= 1.7){
+            this.club = this.scene.add.sprite(this.x + 15, this.y - 75 , "golf_club_right", 0).setScale(4);
+            this.scene.anims.create({
+                key: "stroke",
+                frames: this.scene.anims.generateFrameNumbers("golf_club_right", {start: 0, end: 3}),
+                repeat: 0,
+                frameRate: 10
+            });
+        }else if(angle < -1.2 && angle > - 1.7){
+            this.club = this.scene.add.sprite(this.x + 50, this.y + 20 , "golf_club_down", 0).setScale(4);
+            this.scene.anims.create({
+                key: "stroke",
+                frames: this.scene.anims.generateFrameNumbers("golf_club_down", {start: 0, end: 3}),
+                repeat: 0,
+                frameRate: 10
+            });
+        }else{
+            this.club = this.scene.add.sprite(this.x + 80, this.y - 60 , "golf_club_up", 0).setScale(4);
+            this.scene.anims.create({
+                key: "stroke",
+                frames: this.scene.anims.generateFrameNumbers("golf_club_up", {start: 0, end: 3}),
+                repeat: 0,
+                frameRate: 10
+            });
         }
         this.club_bool = true;
         this.club.play("stroke");
@@ -179,7 +200,58 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     }
 
     moveBack() {
+        var splash = this.scene.add.sprite(this.x,  this.y, "splash_anim", 0).setScale(1.5);
+        splash.setOrigin(0.6,0.7);
+        this.scene.anims.create({
+            key: "splash",
+            frames: this.scene.anims.generateFrameNumbers("splash_anim", {start: 0, end: 4}),
+                repeat: 0,
+                frameRate: 7
+            });
+    
+        splash.on('animationcomplete', function(){
+            console.log("animationcomplete")
+            splash.destroy();
+        });
+        splash.play("splash");
+        // if(this.ang > 0 && this.ang < 1.3){
+        //     var splash = this.scene.add.sprite(this.x - 30,  this.y - 20, "splash_anim", 0).setScale(1.5);
+        // }else if(this.ang >= 1.3 && this.ang <= 1.8){
+        //     var splash = this.scene.add.sprite(this.x - 10,  this.y - 30, "splash_anim", 0).setScale(1.5);
+        // }else if(this.ang > 1.8){
+        //     var splash = this.scene.add.sprite(this.x + 40,  this.y - 20, "splash_anim", 0).setScale(1.5);
+        // }else if(this.ang <= 0 && this.ang > -1.3){
+        //     var splash = this.scene.add.sprite(this.x - 30,  this.y + 20, "splash_anim", 0).setScale(1.5);
+        // }else if(this.ang <= 1.3 && this.ang > -1.7){
+        //     var splash = this.scene.add.sprite(this.x - 30,  this.y + 20, "splash_anim", 0).setScale(1.5);
+        // }else{
+        //     var splash = this.scene.add.sprite(this.x + 30,  this.y + 20, "splash_anim", 0).setScale(1.5);
+        // }
+
         this.boolBack = true;
+
+        // if(this.ang > 0 && this.ang < 1.7){
+        //     var splash = this.scene.add.sprite(this.x - 30,  this.y + 20, "splash_anim", 0);
+        // }else if(this.ang >= 1.7){
+        //     var splash = this.scene.add.sprite(this.x + 30,  this.y + 40, "splash_anim", 0);
+        // }else if(this.ang < 0 && this.ang > - 1.7){
+        //     var splash = this.scene.add.sprite(this.x - 40,  this.y - 10, "splash_anim", 0);
+        // }else{
+        //     var splash = this.scene.add.sprite(this.x + 30,  this.y - 20, "splash_anim", 0);
+        // }
+
+        // this.scene.anims.create({
+        //     key: "splash",
+        //     frames: this.scene.anims.generateFrameNumbers("splash_anim", {start: 0, end: 4}),
+        //         repeat: 0,
+        //         frameRate: 7
+        // });
+
+        // splash.on('animationcomplete', function(){
+        //     console.log("animationcomplete")
+        //     splash.destroy();
+        // });
+        // splash.play("splash");
         var music_config = {
             mute: false,
             volume: 0.2,
@@ -218,11 +290,6 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
 
     stopped() {
         if(this.body.velocity.x == 0 && this.body.velocity.y == 0) {
-            if(this.club_bool == true){
-                this.club.destroy();
-                this.scene.anims.remove("stroke");
-                this.club_bool = false;
-            }
             return true;
         }
         return false;
