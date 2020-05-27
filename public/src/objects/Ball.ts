@@ -252,7 +252,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
             frames: this.scene.anims.generateFrameNumbers("fire_anim", {start: 0, end: 4}),
                 repeat: 0,
                 frameRate: 7
-            });
+        });
         
         fire.on('animationcomplete', function(){
             console.log("animationcomplete")
