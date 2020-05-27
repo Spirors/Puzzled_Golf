@@ -154,9 +154,23 @@ export class Level3 extends Phaser.Scene{
         }
     }
     win() {
-        console.log("win");
-        this.scene.pause();
-        this.events.emit('levelWin');
+        this.ball.hide();
+        var ball_strink = this.add.sprite(this.ball.x, this.ball.y, "ball_anim", 0);
+        this.children.bringToTop(ball_strink);
+        this.anims.create({
+            key: "ball_strink",
+            frames: this.anims.generateFrameNumbers("ball_anim", {start: 0, end: 4}),
+                repeat: 0,
+                frameRate: 7
+            });
+
+        ball_strink.once('animationcomplete', () => {
+            ball_strink.destroy();
+            this.scene.pause();
+            this.events.emit('levelWin');
+        });
+        ball_strink.removeInteractive();
+        ball_strink.play("ball_strink");
     }
     inwater() {
         this.ball.moveBack();
