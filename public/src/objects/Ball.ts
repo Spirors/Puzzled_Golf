@@ -108,6 +108,12 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     checkDraggable() {
         if (this.body.velocity.x == 0 && this.body.velocity.y == 0) {
             this.draggable = true;
+            if(this.club_bool == true){
+                console.log("animationcomplete")
+                this.club.destroy();
+                this.scene.anims.remove("stroke");
+                this.club_bool = false;
+            }
         }
     }
 
@@ -165,8 +171,9 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
                 frameRate: 10
             });
         }
-        this.club_bool = true;
+        this.club.removeInteractive();
         this.club.play("stroke");
+        this.club_bool = true;
         this.scene.sound.play("hit");
         this.prevX = this.x;
         this.prevY = this.y;
@@ -208,6 +215,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
             console.log("animationcomplete")
             splash.destroy();
         });
+        splash.removeInteractive();
         splash.play("splash");
         // if(this.ang > 0 && this.ang < 1.3){
         //     var splash = this.scene.add.sprite(this.x - 30,  this.y - 20, "splash_anim", 0).setScale(1.5);
@@ -285,11 +293,11 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
 
     stopped() {
         if(this.body.velocity.x == 0 && this.body.velocity.y == 0) {
-            if(this.club_bool == true){
-                this.club.destroy();
-                this.scene.anims.remove("stroke");
-                this.club_bool = false;
-            }
+            // if(this.club_bool == true){
+            //     this.club.destroy();
+            //     this.scene.anims.remove("stroke");
+            //     this.club_bool = false;
+            // }
             return true;
         }
         return false;
