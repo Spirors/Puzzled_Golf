@@ -2,7 +2,7 @@ import { winScreen } from './WinScreen';
 
 export class Hud extends Phaser.Scene{
     private parent;
-    private score = 0;
+    private stroke = 0;
     private level;
     private levelText;
     private localStorageName;
@@ -21,16 +21,16 @@ export class Hud extends Phaser.Scene{
     }
     create ()
     {
-        let scoreText = this.add.text(10, 10, 'Score: ' + (-this.par), { font: '48px Arial', fill: '#c4a727' });
+        let scoreText = this.add.text(10, 10, 'Stroke: ' + this.stroke, { font: '48px Arial', fill: '#c4a727' });
         this.levelText = this.add.text(10, 50, '', { font: '48px Arial', fill: '#c4a727' });
+        let parText = this.add.text(10, 90, 'Par: ' + this.par, { font: '48px Arial', fill: '#c4a727' });
         this.cameras.main.setViewport(0, 0, this.game.renderer.width, this.game.renderer.height);
         let ourGame = this.scene.get("level" + this.level);
         this.levelText.setText('Level: ' + this.level);
         this.localStorageName = "golfLevel" + this.level + "HighScore";
         ourGame.events.on('addScore', function () {
-            this.score += 1;
-            var s = this.score - this.par;
-            scoreText.setText('Score: ' + s);
+            this.stroke += 1;
+            scoreText.setText('Stroke: ' + this.stroke);
         }, this);
         //menu button
         this.menu = this.add.sprite(this.game.renderer.width - 100, 30, 'button', 3);
@@ -40,7 +40,7 @@ export class Hud extends Phaser.Scene{
             this.menu.setTint( 1 * 0xffffff);
             this.scene.pause("level" + this.level);
             this.scene.resume("inGameMenu");
-            this.scene.setVisible(true, "inGameMenu") ;
+            this.scene.setVisible(true, "inGameMenu");
         }, this)
 
         this.levelHighScore = localStorage.getItem(this.localStorageName) == null ? 1000 :
@@ -49,12 +49,12 @@ export class Hud extends Phaser.Scene{
             this.sound.play("ball_in_hole_sound");
             console.log("level win");
             this.menu.removeInteractive();
-            var s = this.score - this.par;
-            let newHighscore = Math.min(s, this.levelHighScore);
+            var score = this.stroke - this.par;
+            let newHighscore = Math.min(score, this.levelHighScore);
             localStorage.setItem(this.localStorageName, newHighscore.toString());
-            this.events.emit('createWinScreen', {score: s});
+            this.events.emit('createWinScreen', {score: score});
             if(this.scene.manager.getScene("winScreen") == null){
-                this.createWindow(winScreen,"winScreen",this.game.renderer.width/2, this.game.renderer.height/2, {level : this.level, score : s, par : this.par});
+                this.createWindow(winScreen,"winScreen",this.game.renderer.width/2, this.game.renderer.height/2, {level : this.level, score : score, par : this.par});
             }
             this.sound.play("win_music");
             console.log(this);

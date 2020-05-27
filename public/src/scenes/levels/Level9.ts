@@ -25,6 +25,7 @@ export class Level9 extends Phaser.Scene{
         this.load.image('moving_block_3v', "./assets/obj/moving_block_3v.png");
     }
     create(){
+        this.physics.world.setFPS(120);
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
         var bkgrnd = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'lava_bkgrnd');

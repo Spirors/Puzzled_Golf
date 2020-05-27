@@ -20,6 +20,7 @@ export class Level4 extends Phaser.Scene{
         this.load.tilemapTiledJSON('map4', './assets/map/level4.json');
     }
     create(){
+        this.physics.world.setFPS(120);
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
         var bkgrnd = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'beach');

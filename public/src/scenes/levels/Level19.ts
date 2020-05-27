@@ -60,6 +60,7 @@ export class Level19 extends Phaser.Scene{
         this.load.image('bportal', "./assets/obj/bportal.png");
     }
     create(){
+        this.physics.world.setFPS(120);
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
         // this.add.tileSprite(0,0, this.game.renderer.width, this.game.renderer.width, "bkgrnd2").setOrigin(0,0).setScale(1.37);

@@ -23,6 +23,7 @@ export class Level3 extends Phaser.Scene{
         this.load.image('moving_block_3h', "./assets/obj/moving_block_3h.png");
     }
     create(){
+        this.physics.world.setFPS(120);
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
         var bkgrnd = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'river');

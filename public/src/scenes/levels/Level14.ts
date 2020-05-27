@@ -48,6 +48,7 @@ export class Level14 extends Phaser.Scene{
         this.load.image('rportal', "./assets/obj/rportal.png");
     }
     create(){
+        this.physics.world.setFPS(120);
         //----------------------------------------------------------------------------
         //core level creation, hud and in game menu
         var bkgrnd = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'desert');

@@ -29,7 +29,6 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
         config.scene.add.existing(this);
         this.body.setCircle(16);
         this.setInteractive();
-        // this.setCollideWorldBounds(true);
         this.setBounce(1, 1);
         this.scene.input.setDraggable(this);
 
@@ -148,13 +147,14 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
                 frameRate: 10
             });
         }else if(angle < -1.2 && angle > - 1.7){
-            this.club = this.scene.add.sprite(this.x + 50, this.y + 20 , "golf_club_down", 0).setScale(4);
+            this.club = this.scene.add.sprite(this.x + 30, this.y + 20 , "golf_club_down", 0).setScale(4);
             this.scene.anims.create({
                 key: "stroke",
                 frames: this.scene.anims.generateFrameNumbers("golf_club_down", {start: 0, end: 3}),
                 repeat: 0,
                 frameRate: 10
             });
+            this.club.setOrigin(1,1);
         }else{
             this.club = this.scene.add.sprite(this.x + 80, this.y - 60 , "golf_club_up", 0).setScale(4);
             this.scene.anims.create({
@@ -168,11 +168,11 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
         this.club.once('animationcomplete', () => {
             console.log('animationcomplete')
             this.club.destroy()
+            this.scene.anims.remove("stroke");
         });
 
         this.club.removeInteractive();
         this.club.play("stroke");
-        // this.club_bool = true;
         this.scene.sound.play("hit");
         this.prevX = this.x;
         this.prevY = this.y;
@@ -217,44 +217,9 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
 
         splash.removeInteractive();
         splash.play("splash");
-        // if(this.ang > 0 && this.ang < 1.3){
-        //     var splash = this.scene.add.sprite(this.x - 30,  this.y - 20, "splash_anim", 0).setScale(1.5);
-        // }else if(this.ang >= 1.3 && this.ang <= 1.8){
-        //     var splash = this.scene.add.sprite(this.x - 10,  this.y - 30, "splash_anim", 0).setScale(1.5);
-        // }else if(this.ang > 1.8){
-        //     var splash = this.scene.add.sprite(this.x + 40,  this.y - 20, "splash_anim", 0).setScale(1.5);
-        // }else if(this.ang <= 0 && this.ang > -1.3){
-        //     var splash = this.scene.add.sprite(this.x - 30,  this.y + 20, "splash_anim", 0).setScale(1.5);
-        // }else if(this.ang <= 1.3 && this.ang > -1.7){
-        //     var splash = this.scene.add.sprite(this.x - 30,  this.y + 20, "splash_anim", 0).setScale(1.5);
-        // }else{
-        //     var splash = this.scene.add.sprite(this.x + 30,  this.y + 20, "splash_anim", 0).setScale(1.5);
-        // }
-
+        
         this.boolBack = true;
 
-        // if(this.ang > 0 && this.ang < 1.7){
-        //     var splash = this.scene.add.sprite(this.x - 30,  this.y + 20, "splash_anim", 0);
-        // }else if(this.ang >= 1.7){
-        //     var splash = this.scene.add.sprite(this.x + 30,  this.y + 40, "splash_anim", 0);
-        // }else if(this.ang < 0 && this.ang > - 1.7){
-        //     var splash = this.scene.add.sprite(this.x - 40,  this.y - 10, "splash_anim", 0);
-        // }else{
-        //     var splash = this.scene.add.sprite(this.x + 30,  this.y - 20, "splash_anim", 0);
-        // }
-
-        // this.scene.anims.create({
-        //     key: "splash",
-        //     frames: this.scene.anims.generateFrameNumbers("splash_anim", {start: 0, end: 4}),
-        //         repeat: 0,
-        //         frameRate: 7
-        // });
-
-        // splash.on('animationcomplete', function(){
-        //     console.log("animationcomplete")
-        //     splash.destroy();
-        // });
-        // splash.play("splash");
         var music_config = {
             mute: false,
             volume: 0.2,
