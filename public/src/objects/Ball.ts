@@ -155,13 +155,14 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
                 frameRate: 10
             });
         }else if(angle < -1.2 && angle > - 1.7){
-            this.club = this.scene.add.sprite(this.x + 50, this.y + 20 , "golf_club_down", 0).setScale(4);
+            this.club = this.scene.add.sprite(this.x + 30, this.y + 20 , "golf_club_down", 0).setScale(4);
             this.scene.anims.create({
                 key: "stroke",
                 frames: this.scene.anims.generateFrameNumbers("golf_club_down", {start: 0, end: 3}),
                 repeat: 0,
                 frameRate: 10
             });
+            this.club.setOrigin(1,1);
         }else{
             this.club = this.scene.add.sprite(this.x + 80, this.y - 60 , "golf_club_up", 0).setScale(4);
             this.scene.anims.create({
