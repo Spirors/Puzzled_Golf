@@ -270,6 +270,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     }
 
     hide(){
+        this.removeInteractive();
         this.setVisible(false);
     }
 
