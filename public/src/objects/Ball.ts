@@ -134,7 +134,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
             this.club = this.scene.add.sprite(this.x + 30, this.y - 80, "golf_club_left", 0).setScale(4);
             this.scene.anims.create({
                 key: "stroke",
-                frames: this.scene.anims.generateFrameNumbers("golf_club_left", {start: 0, end: 3}),
+                frames: this.scene.anims.generateFrameNumbers("golf_club_left", {start: 2, end: 3}),
                 repeat: 0,
                 frameRate: 10
             });
@@ -142,7 +142,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
             this.club = this.scene.add.sprite(this.x + 15, this.y - 75 , "golf_club_right", 0).setScale(4);
             this.scene.anims.create({
                 key: "stroke",
-                frames: this.scene.anims.generateFrameNumbers("golf_club_right", {start: 0, end: 3}),
+                frames: this.scene.anims.generateFrameNumbers("golf_club_right", {start: 2, end: 3}),
                 repeat: 0,
                 frameRate: 10
             });
@@ -150,16 +150,16 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
             this.club = this.scene.add.sprite(this.x + 30, this.y + 20 , "golf_club_down", 0).setScale(4);
             this.scene.anims.create({
                 key: "stroke",
-                frames: this.scene.anims.generateFrameNumbers("golf_club_down", {start: 0, end: 3}),
+                frames: this.scene.anims.generateFrameNumbers("golf_club_down", {start: 2, end: 3}),
                 repeat: 0,
                 frameRate: 10
             });
             this.club.setOrigin(1,1);
         }else{
-            this.club = this.scene.add.sprite(this.x + 80, this.y - 60 , "golf_club_up", 0).setScale(4);
+            this.club = this.scene.add.sprite(this.x + 80, this.y - 40 , "golf_club_up", 0).setScale(4);
             this.scene.anims.create({
                 key: "stroke",
-                frames: this.scene.anims.generateFrameNumbers("golf_club_up", {start: 0, end: 3}),
+                frames: this.scene.anims.generateFrameNumbers("golf_club_up", {start: 2, end: 3}),
                 repeat: 0,
                 frameRate: 10
             });
@@ -270,6 +270,7 @@ export class Ball extends Phaser.Physics.Arcade.Sprite {
     }
 
     hide(){
+        this.removeInteractive();
         this.setVisible(false);
     }
 
