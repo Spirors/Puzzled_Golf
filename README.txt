@@ -1,5 +1,4 @@
-# Puzzled Golf
-    puzzled-golf.firebaseapp.com
-    puzzled-golf.firebaseapp.com/benchmark1.html
-    puzzled-golf.firebaseapp.com/benchmark2.html
-    
+STONY BROOK UNIVERSITY GAME PROGRAMMING COMPETITION FINALIST
+
+Trailer: https://www.youtube.com/watch?v=8yi5ynAaDRk
+Site: https://puzzled-golf.firebaseapp.com/
